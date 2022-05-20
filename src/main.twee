@@ -1,0 +1,60 @@
+:: StoryData
+{
+    "ifid": "92B457A9-9F1C-4E3F-A834-A83F1CF13972",
+    "format": "Snowman",
+    "format-version": "2.0.3",
+    "start": "Start"
+}
+
+:: StoryTitle
+Safari Colas
+
+:: Global Story Properties [script]
+story.FLORA = 'Flora'
+story.CASSIA = 'Cass'
+story.state.playerCharacter = null
+
+window.util = window.util || {};
+util.continuation = function (text, nextPassage) {
+    $(() => {
+        $('#continuation').click(event => {
+            let content = story.render(nextPassage);
+            $('.passage').append(`<p>${content}</p>`)
+            event.target.remove()
+        })
+    })
+    return `
+    <a href="javascript:void(0)" id="continuation">${text}</a>
+    `;
+}
+
+:: Start
+Welcome to Safari Colas.
+
+* [[Play as Cassia]]
+* [[Play as Flora]]
+* [[About]]
+
+:: Play as Cassia
+<%
+s.playerCharacter = story.CASSIA
+$(() => story.show("Act II"))
+%>
+
+:: Play as Flora
+<%
+s.playerCharacter = story.FLORA
+$(() => story.show("Act II"))
+%>
+
+:: About
+A prototype of our multiplayer Twine game.
+
+[[Return.->Start]]
+
+:: Act II
+A locomotive chugs through farmland, and towards autumny, mountainous terrain. We're not in town anymore.
+
+[[You're in the dining car.-><%=s.playerCharacter%>/Dining/Beat 1]]
+
+

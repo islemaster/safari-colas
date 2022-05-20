@@ -1,0 +1,92 @@
+<!--
+This file contains Flora's story.  Passages are prefixed with "Flora/" to avoid name collisions with Cassia's story. The twee files are essentially concatenated together by the build, so any global setup from main.twee is inherited.
+-->
+
+:: Flora/Dining/Beat 1
+Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
+
+[[You observe in disgust.->Flora/Dining/Beat 2]]
+
+:: Flora/Dining/Beat 2
+Who exactly have you partnered up with?
+
+You ask some questions about Cass' past, but she's evasive.
+
+A spider crawls across the table. Without turning her gaze, Cass grabs the creature and shoves it in her mouth. She chews and swallows conspicuously.
+
+[[You push your plate away.->Flora/Dining/Beat 3]]
+
+:: Flora/Dining/Beat 3
+You may not have an appetite anymore, but you need this person.  You have a job to do together. You try a different approach and start telling a story about home.
+
+Cass interrupts.
+
+> "I need you, but I don't want to know you."
+
+[[Maybe you are more alone than you realized.->Flora/Dining/Beat 4]]
+
+:: Flora/Dining/Beat 4
+Well, if she's going to be like that, you might as well get some air.
+
+[[You walk out of the car without looking back.->Flora/Smoke Break/Beat 1]]
+
+:: Flora/Smoke Break/Beat 1
+*Between cars, at sunset.*
+
+You lean on a rail and attempt to light a cigarette, but the match keeps going out.
+
+[[Someone offers their lighter.->Flora/Smoke Break/Beat 2]]
+
+:: Flora/Smoke Break/Beat 2
+You light your cigarette and look up at a strange man. He smiles.
+
+You make casual conversation. [[He's friendly enough.->Flora/Smoke Break/Beat 3]]
+
+:: Flora/Smoke Break/Beat 3
+He asks where you're headed.
+
+[[You tell him everything.->Flora/Smoke Break/Beat 4]]
+
+[[You're honest about the destination, but coy about the reason.->Flora/Smoke Break/Beat 4]]
+
+[[You lie about your destination.->Flora/Smoke Break/Beat 4]]
+
+:: Flora/Smoke Break/Beat 4
+He listens carefully to your story and looks concerned. Then he shares rumors of strange goings-on in the mountains ahead - rumors of a curse.
+
+[[You take a shaky drag on your cigarette.->Flora/Smoke Break/Beat 5]]
+
+:: Flora/Smoke Break/Beat 5
+He breaks the spell.
+
+> "But I'm sure it's just superstition. Local color, right?"
+
+He shrugs it off and compliments your hair. He asks if he can buy you a drink sometime.
+
+[[You agree, but not tonight.->Flora/Smoke Break/Beat 6]]
+
+[[You demur.->Flora/Smoke Break/Beat 6]]
+
+:: Flora/Smoke Break/Beat 6
+He's cheery and unfazed.
+
+> "Another time then."
+
+You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/Smoke Break/Coda]]
+
+:: Flora/Smoke Break/Coda
+The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
+
+[[We've reached the mountains.->Flora/Sleeper/Beat 1]]
+
+:: Flora/Sleeper/Beat 1
+It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is already asleep on the lower bunk.
+
+Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.
+
+[[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
+
+:: Flora/Sleeper/Beat 2
+You spot one of Cassia's books lying open at the foot of her bed.  You grab it and start studying. If you're going to kill a monster, you need to be ready - and if there's one thing you can do, it's study.
+
+END OF PROTOTYPE. [[Restart?->Start]]

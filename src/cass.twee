@@ -1,0 +1,119 @@
+<!--
+This file contains Cassia's story.  Passages are prefixed with "Cass/" to avoid name collisions with Flora's story. The twee files are essentially concatenated together by the build, so any global setup from main.twee is inherited.
+-->
+
+:: Cass/Dining/Beat 1
+This is the first decent meal you've had [[in a long time.->Cass/Dining/Beat 2]]
+
+:: Cass/Dining/Beat 2
+Your hunger masks the loneliness of sitting across the table from [[a mortal->Cass/Dining/Examine Flora]] and not knowing what to say next.
+
+So you [[take another bite of pheasant.->Cass/Dining/Beat 3]]
+
+:: Cass/Dining/Examine Flora
+Your tablemate is **Flora**, a young woman you met on your last job. She's hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
+
+<%= util.continuation("Flora is staring.", "Cass/Dining/Beat 3") %>
+
+:: Cass/Dining/Beat 3
+**Flora is staring.** Again.
+
+Maybe she [[isn't cut out for this after all.->Cass/Dining/Beat 4]]
+
+:: Cass/Dining/Beat 4
+Everyone wants to help, to make the appearance of it anyway. But then, when things are laid bare, when the help is really needed... everyone backs away.
+
+[[Flora will too.->Cass/Dining/Beat 5]]
+
+:: Cass/Dining/Beat 5
+Flora breaks the silence with questions about the hunt.
+
+How can you help her understand how [[dangerous->Cass/Dining/Beat 6]] this is going to be?
+
+:: Cass/Dining/Beat 6
+Her role here is clear: She will help, and then she will go home.
+
+It will be [[simpler that way.->Cass/Dining/Beat 7]]
+
+:: Cass/Dining/Beat 7
+You apparently offend her, because she stands up.
+
+> "I need some air."
+
+As she leaves the car, she passes [[a family at another table.->Cass/Dining/Beat 8]]
+
+:: Cass/Dining/Beat 8
+Their interactions are gentle, like a placid lake.
+
+You can't make out what they're saying, but
+  - [[you feel calmer, watching them.->Cass/Dining/Beat 9]]
+  - [[you wonder if you'll ever know that feeling again.->Cass/Dining/Beat 9]]
+
+:: Cass/Dining/Beat 9
+A nearby patron notices you staring and asks probing questions.
+
+You try to answer honestly, but this scares the patron away.
+
+<!--
+TODO: Expand this scene. Use alternative choices to reveal information to the player even if they are unchosen options.
+-->
+
+This isn't going well. You [[leave->Cass/Baggage/Beat 1]] before anyone else starts asking questions.
+
+:: Cass/Baggage/Beat 1
+You make your way to the baggage car, which holds the two large trunks you brought along. The baggageman remembers you and lets you through without question.
+
+[[It is a memorable face.->Cass/Baggage/Beat 2]]
+
+<!--
+(Brad) I found this overview of "people who work on trains" when trying to figure out who would staff the luggage compartment.
+
+https://cs.trains.com/ctr/f/3/t/165625.aspx
+
+"As to the operation of the train and engine themselves, the train crew consisted of a conductor and two brakemen, with the conductor in charge of the operation of the train and engine, and the engine crew consisted of an engineer and fireman. One brakeman, who rode near the rear of the train, lined switches when necessary, and was also called "flagman," since he, when necessary, would go back and be prepared to stop any following train. The other brakeman, who rode at the front of the train, lined switches when necessary, and often took care of the checked baggage (some trains had a separate baggageman). The conductor (at times assisted by one or more brakemen) collected the passengers’ tickets (lifted transportation). The engineer ran the engine, starting and stopping at the conductor’s direction, and the fireman made certain that the engine could run by keeping fuel in the firebox and water in the boiler of a steam engine or watching over the operation of a diesel engine."
+
+"What is now called the "onboard service crew" consisted of porters, diner crew, and lounge car attendants. The porters assisted passengers in boarding and detraining, saw to the comfort of the passengers, and were responsible for the cleanliness of their cars, often being responsible for two cars. The dining car crews were composed of a steward (subject to the conductor’s authority), who was in charge, a chef, cooks (some had little more responsibility than that of washing dishes), and waiters. The lounge car attendant saw to it that food, beverages, and various items were available for sale to the passengers, and saw to the cleanliness of the car."
+-->
+
+:: Cass/Baggage/Beat 2
+The train will be the last safe place for a while. A good opportunity to check your tools and ensure [[everything is prepared for the hunt.->Cass/Baggage/Beat 3]]
+
+:: Cass/Baggage/Beat 3
+Hand crossbow with silver bolts: Restrung.
+
+Wooden stake: Polished to a sheen.
+
+Holy water: Freshly blessed.
+
+---
+
+The nosy crowd in the dining car has you on edge. Maybe you should carry something back to the sleeper car with you, just in case?
+
+[[The stake is your oldest friend.->Cass/Baggage/Take the Stake]]
+
+[[The holy water will be easiest to conceal in your cloak.->Cass/Baggage/Take the Holy Water]]
+
+:: Cass/Baggage/Take the Stake
+You grab the stake and make your way back to your sleeper car.
+
+<%= story.render("Cass/Sleeper/Beat 1") %>
+
+:: Cass/Baggage/Take the Holy Water
+You grab the holy water and make your way back to your sleeper car.
+
+<%= story.render("Cass/Sleeper/Beat 1") %>
+
+:: Cass/Sleeper/Beat 1
+Flora isn't back yet.
+
+You climb into the lower bunk. The grasping thoughts you pushed aside throughout the day rush for their last shot of attention.
+
+<!--
+TODO: Choices here of thoughts to attend to.
+-->
+[[You attend to one of the thoughts.->Cass/Sleeper/Beat 2]]
+
+:: Cass/Sleeper/Beat 2
+As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. You've reached the mountains.
+
+END OF PROTOTYPE. [[Restart?->Start]]
