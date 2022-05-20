@@ -21,7 +21,7 @@ jobs:
           go get github.com/tmedwards/tweego
           export PATH=$PATH:$(go env GOPATH)/bin
           mkdir -p dist
-          tweego main.twee -o dist/index.html
+          tweego src -o dist/index.html
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3
