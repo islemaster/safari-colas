@@ -3,19 +3,19 @@ This file contains Cassia's story.  Passages are prefixed with "Cass/" to avoid 
 -->
 
 :: Cass/Dining/Beat 1
-This is the first decent meal you've had [[in a long time.->Cass/Dining/Beat 2]]
+<% s.diningConversation = new Conversation('Cass/Dining/') %>
+This is the first decent meal you've had in a long time.
 
-:: Cass/Dining/Beat 2
 Your hunger masks the loneliness of sitting across the table from [[a mortal->Cass/Dining/Examine Flora]] and not knowing what to say next.
 
-So you [[take another bite of pheasant.->Cass/Dining/Beat 3]]
+So you [[take another bite of pheasant.->Cass/Dining/Beat 2]]
 
 :: Cass/Dining/Examine Flora
 Your tablemate is **Flora**, a young woman you met on your last job. She's hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
 
-<%= util.continuation("Flora is staring.", "Cass/Dining/Beat 3") %>
+<%= util.continuation("Flora is staring.", "Cass/Dining/Beat 2") %>
 
-:: Cass/Dining/Beat 3
+:: Cass/Dining/Beat 2
 **Flora is staring.** Again.
 
 Maybe she [[isn't cut out for this after all.->Cass/Dining/Beat 4]]
@@ -26,9 +26,149 @@ Everyone wants to help, to make the appearance of it anyway. But then, when thin
 [[Flora will too.->Cass/Dining/Beat 5]]
 
 :: Cass/Dining/Beat 5
-Flora breaks the silence with questions about the hunt.
+Flora breaks the silence with a question.
+
+<%
+s.diningConversation.addTopic('Hunting');
+s.diningConversation.addTopic('Necklace');
+%>
+
+<div.stop>
+Stop! What did your partner say?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Hunting
+"What exactly are we hunting?"
+
+"A vampire. Once it was a man. Now it's a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with."
+
+<%
+s.diningConversation.addTopic('Schattental');
+s.diningConversation.addTopic('Book');
+%>
+
+<div.stop>
+Stop! What did your partner say?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Necklace
+"What is that necklace you're wearing?"
+
+  - [["It's holy water."->Cass/Dining/Vial]]
+  - [[(Lie) "It's holy water."->Cass/Dining/Holy]]
+  - [["None of your business."->Cass/Dining/Bloody]]
+
+<!-- Cass is honest, and we add "holy water" to our inventory. -->
+:: Cass/Dining/Vial
+<% s.cassInventory.add('holy water') %>
+"It's a <span.readaloud>vial</span> of holy water," you explain. "In case of emergency."
+
+<% s.diningConversation.addTopic('Pale') %>
+<% s.diningConversation.addTopic('Medication') %>
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+<!-- Cass lies, and we add "reliquette" to our inventory. -->
+:: Cass/Dining/Holy
+<% s.cassInventory.add('reliquette') %>
+"It's a vial of <span.readaloud>holy</span> water," you lie. "In case of emergency." You tuck the reliquette back under your jerkin. Flora doesn't need to know that you wear a scrap of your soul around your neck.
+
+<% s.diningConversation.addTopic('Pale') %>
+<% s.diningConversation.addTopic('Medication') %>
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Medication
+"Holy water?" she asks. "Is that like a medication?"
+
+"Not exactly," you respond.
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Pale
+She looks at the <%= s.cassInventory.has('holy water') ? 'holy water' : 'reliquette' %> again. "Why is your skin so pale?"
+
+  - [["None of your business."->Cass/Dining/Bloody]]
+  - [[Ignore her.->Cass/Dining/Bite]]
+
+<!-- These next two options are move-away and move-against behaviors: They don't invite more questions. -->
+:: Cass/Dining/Bloody
+"None of your <span.readaloud>bloody</span> business," you spit.
 
 How can you help her understand how [[dangerous->Cass/Dining/Beat 6]] this is going to be?
+
+:: Cass/Dining/Bite
+You take another <span.readaloud>bite</span> of pheasant and give Flora a look that says you're not in the mood for further questions.
+
+How can you help her understand how [[dangerous->Cass/Dining/Beat 6]] this is going to be?
+
+:: Cass/Dining/Schattental
+<% s.diningConversation.addTopic('Monsters') %>
+"How will we find the vampire when we get to Schattental?"
+
+That's a good question.
+
+  - [["Look for the castle."->Cass/Dining/Castle]]
+  - [["Follow the money."->Cass/Dining/Money]]
+  - [["He'll find us."->Cass/Dining/Find Us]]
+
+:: Cass/Dining/Castle
+"Look for the <span.readaloud>castle</span>. Vampires always have a castle." This isn't particularly true, but Flora won't know that. You haven't visited a proper castle in nearly a century.
+
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Money
+"Follow the <span.readaloud>money</span>," you explain. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
+
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Find Us
+"He'll <span.readaloud>find us</span>. Not a lot of strangers in the valley of shadows." You give her a pointed look. "We'll just have to be ready for a fight."
+
+Flora doesn't look thrilled about this plan.
+
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Book
+<% s.diningConversation.addTopic('Monsters') %>
+"Do you have a vampire book I could read?" What a question. You do have some lore, but it's unreliable.
+
+  - [["None of your business."->Cass/Dining/Bloody]]
+  - [["I suppose you should do your homework."->Cass/Dining/Homework]]
+  - [[Ignore her.->Cass/Dining/Bite]]
+
+:: Cass/Dining/Homework
+"I suppose you should do your <span.readaloud>homework</span>. It's in my rucksack, take a look later."
+
+<div.stop>
+Stop! What did your partner say next?
+<%= s.diningConversation.keyMenu() %>
+</div>
+
+:: Cass/Dining/Monsters
+"So," Flora continues, "who really hunts monsters for a living? How do you get that job?"
+
+You're not exactly ready to open up to this novice nurse from Nowheresburgh.
+
+  - [["None of your business."->Cass/Dining/Bloody]]
+  - [[Ignore her.->Cass/Dining/Bite]]
 
 :: Cass/Dining/Beat 6
 Her role here is clear: She will help, and then she will go home.

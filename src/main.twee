@@ -9,31 +9,30 @@
 :: StoryTitle
 Safari Colas
 
-:: Global Story Properties [script]
-story.FLORA = 'Flora'
-story.CASSIA = 'Cass'
-story.state.playerCharacter = null
-
-window.util = window.util || {};
-util.continuation = function (text, nextPassage) {
-    $(() => {
-        $('#continuation').click(event => {
-            let content = story.render(nextPassage);
-            $('.passage').append(`<p>${content}</p>`)
-            event.target.remove()
-        })
-    })
-    return `
-    <a href="javascript:void(0)" id="continuation">${text}</a>
-    `;
-}
-
 :: Start
-Welcome to Safari Colas.
+Welcome to <%= story.title %>.
 
+* [[How to Play]] (Definitely read your first time!)
 * [[Play as Cassia]]
 * [[Play as Flora]]
 * [[About]]
+
+:: How to Play
+<%= story.title %> is a two-player CYOA-style adventure. Find someone to play with.
+One of you will play as **Cassia** and the other as **Flora**.  The game is designed
+to be played together in real-time with voice chat.
+
+<span.readaloud>Text that looks like this</span> should be read aloud to your partner.
+It's usually a keyword that tells them how to proceed.
+
+When you see a box like this:
+
+<span.stop>Stop! Your partner will tell you which path to take.</span>
+
+Pick your next choice based on what your partner says to you - it might
+be a keyword or a whole phrase.
+
+[[Return.->Start]]
 
 :: Play as Cassia
 <%

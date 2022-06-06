@@ -3,14 +3,158 @@ This file contains Flora's story.  Passages are prefixed with "Flora/" to avoid 
 -->
 
 :: Flora/Dining/Beat 1
+<% s.diningConversation = new Conversation('Flora/Dining/') %>
 Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
 
 [[You observe in disgust.->Flora/Dining/Beat 2]]
 
 :: Flora/Dining/Beat 2
-Who exactly have you partnered up with?
+Who exactly have you [[partnered up with?->Flora/Dining/Examine Cass]]
 
-You ask some questions about Cass' past, but she's evasive.
+Your mother's voice: "When in doubt, gather information." So you ask:
+
+<%
+s.diningConversation.addTopic('Hunting', "What exactly are we hunting?");
+s.diningConversation.addTopic('Necklace', "What is that necklace you're wearing?");
+%>
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Examine Cass
+You met **Cassia of Tarsigg** just a few days ago. A strange name for an even stranger person. She helped chase a vampire out of town, but not before one of your dear friends was killed.
+
+Now you've hired her to track the monster back to its lair and destory it. You owe Oliver that much.
+
+But now that you've had a moment to take a breath... Cassia seems [[odd.->Flora/Dining/Beat 2]]
+
+:: Flora/Dining/Hunting
+"What exactly are we <span.readaloud>hunting</span>?"
+
+She mumbles around her food. "A vampire. Once it was a man. Now it's a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with."
+
+Well, that's creepy.
+
+<%
+s.diningConversation.addTopic('Schattental', "How will we find the vampire when we get to Schattental?")
+s.diningConversation.addTopic('Book', "Do you have a vampire book I could read?")
+%>
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Necklace
+You ask, "What is that <span.readaloud>necklace</span> you're wearing?"
+
+<!-- Flora notices Cass' pale skin. -->
+<% s.diningConversation.addTopic('Pale', "Why is your skin so pale?") %>
+
+<div.stop>
+Stop! How did your partner respond?
+
+  - [[Holy->Flora/Dining/Holy]]
+  - [[Bloody->Flora/Dining/Bloody]]
+  - [[Vial->Flora/Dining/Vial]]
+
+</div>
+
+:: Flora/Dining/Vial
+<% s.cassInventory.add('holy water') %>
+"It's a vial of holy water," she says. "In case of emergency."
+
+<% s.diningConversation.addTopic('Medication', "Holy water? Is that like a medication?") %>
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Holy
+<% s.cassInventory.add('reliquette') %>
+"It's a vial of holy water," she says. "In case of emergency."
+
+<% s.diningConversation.addTopic('Medication', "Holy water? Is that like a medication?") %>
+
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Medication
+"Holy water?" you ask. "Is that like a <span.readaloud>medication</span>?"
+
+"Not exactly," she grunts.
+
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Pale
+Looking at the small vial you notice something else. "Why is your skin so <span.readaloud>pale</span>?"
+
+
+
+:: Flora/Dining/Schattental
+You ask, "How will we find the vampire when we get to <span.readaloud>Schattental</span>?"
+
+<% s.diningConversation.addTopic('Monsters', "Who really hunts monsters for a living?") %>
+
+<div.stop>
+Stop! How did your partner respond?
+
+  - [[Castle->Flora/Dining/Castle]]
+  - [[Money->Flora/Dining/Money]]
+  - [[Find Us->Flora/Dining/Find Us]]
+
+</div>
+
+:: Flora/Dining/Castle
+"Look for the castle. Vampires always have a castle." You are skeptical of this, but you bite your tongue. Cassia is being cagey for some reason.
+
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Money
+"Follow the money," she explains. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
+
+Organized crime? You thought you were hunting a monster.
+
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Find Us
+"He'll find us. Not a lot of strangers in the valley of shadows." She gives you a pointed look. "We'll just have to be ready for a fight."
+
+_What?_ There's no plan? This seems bad.
+
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Book
+You ask, "Do you have a vampire <span.readaloud>book</span> I could read?"
+
+<% s.diningConversation.addTopic('Monsters', "Who really hunts monsters for a living?") %>
+
+<div.stop>
+Stop! How did your partner respond?
+
+  - [[Homework->Flora/Dining/Homework]]
+  - [[Bloody->Flora/Dining/Bloody]]
+  - [[Bite->Flora/Dining/Bite]]
+
+</div>
+
+:: Flora/Dining/Homework
+"I suppose you should do your homework. It's in my rucksack, take a look later." You make a mental note.
+
+<%= s.diningConversation.topicMenu() %>
+
+:: Flora/Dining/Monsters
+"So," you say, "who really hunts <span.readaloud>monsters</span> for a living? How do you get that job?"
+
+<div.stop>
+Stop! How did your partner respond?
+
+  - [[Bloody->Flora/Dining/Bloody]]
+  - [[Bite->Flora/Dining/Bite]]
+
+</div>
+
+:: Flora/Dining/Bloody
+"None of your bloody business," she spits.
+
+<%= story.render('Flora/Dining/Spider') %>
+
+:: Flora/Dining/Bite
+Cassia just glares at you and takes another bite of pheasant.
+
+<%= story.render('Flora/Dining/Spider') %>
+
+:: Flora/Dining/Spider
 
 A spider crawls across the table. Without turning her gaze, Cass grabs the creature and shoves it in her mouth. She chews and swallows conspicuously.
 

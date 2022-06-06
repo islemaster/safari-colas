@@ -1,9 +1,13 @@
 body {
     font-family: "Georgia", "Verdana", serif;
-    font-size: 18pt;
+    font-size: 16pt;
     color: #333;
     max-width: 600px;
     margin: 2em auto;
+}
+
+tw-story {
+    line-height: 160%;
 }
 
 a {
@@ -17,4 +21,39 @@ a:hover {
 
 blockquote {
     font-style: italic;
+}
+
+.readaloud {
+    position: relative;
+    font-variant: small-caps;
+    text-decoration: double underline #912d38;
+}
+.readaloud::before {
+    content: "READ ALOUD";
+    white-space: nowrap;
+    position: absolute;
+    text-align: center;
+    width: 8em;
+    margin-left: -4em;
+    left: 50%;
+    top: 1.3em;
+    font-family: sans-serif;
+    font-size: x-small;
+    font-weight: bold;
+    color: #912d38;
+}
+
+.stop {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    margin-left: -1em;
+    border: #912d38 solid thin;
+    border-radius: 2em;
+    background-color: #912d381c;
+    font-variant: small-caps;
+    font-size: smaller;
+}
+.stop::before {
+    content: "🛑 ";
 }
