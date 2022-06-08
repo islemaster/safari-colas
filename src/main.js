@@ -11,56 +11,67 @@ $(window).on('sm.passage.shown', () => story.checkpoint());
 
 // State
 story.state.playerCharacter = null
-story.state.cassInventory = new Set();
-story.state.floraInventory = new Set();
+story.state.cassInventory = [];
+story.state.floraInventory = [];
 
-/**
- * Put one in the story state, add topics, and it will
- * print a menu and track which topics are visited.
- */
-window.Conversation = class Conversation {
-    constructor(prefix) {
-        this._prefix = prefix;
-        this._topicBank = {};
-        this._unvisitedTopics = new Set();
+window.Inventory = class Inventory {
+    static add(inv, item) {
+        inv.push(item); // TODO dedupe as a set
     }
 
-    addTopic(key, topic) {
-        this._topicBank[key] = topic;
-        this._unvisitedTopics.add(key);
+    static has(inv, item) {
+        return inv.includes(item);
+    }
+}
+
+// Conversations must be stored as POJOs in the story state
+// or save/restore won't work properly.
+window.Convo = class Convo {
+    static create(prefix) {
+        return {
+            prefix,
+            topicBank: {},
+            unvisitedTopics: []
+        };
+    }
+
+    static addTopic(convo, key, topic) {
+        convo.topicBank[key] = topic;
+        convo.unvisitedTopics = Array.from(new Set(convo.unvisitedTopics).add(key));
     }
 
     // List of topics, for the player driving the conversation
-    topicMenu() {
-        const options = Array.from(this._unvisitedTopics.values())
-            .map(key => [key, this._topicBank[key]]);
-        return this._buildMenu(options);
+    static topicMenu(convo) {
+        const options = convo.unvisitedTopics
+            .map(key => [key, convo.topicBank[key]]);
+        return Convo.buildMenu(convo, options);
     }
 
     // List of keys, for the player on the receiving end
-    keyMenu() {
-        const options = Array.from(this._unvisitedTopics.values())
+    static keyMenu(convo) {
+        const options = convo.unvisitedTopics
             .map(key => [key, key]);
-        return this._buildMenu(options);
+        return Convo.buildMenu(convo, options);
     }
 
-    _buildMenu(options) {
+    static buildMenu(convo, options) {
         const listItems = options.map(entry => (
             `<li>
                 <a href="javascript:void(0)"
-                    data-passage="${this._prefix}${entry[0]}"
+                    data-passage="${convo.prefix}${entry[0]}"
                     data-topic-key="${entry[0]}"
                 >${entry[1]}</a>
                 </li>`
         ));
         $(() =>
             $('[data-topic-key]').one('click', (evt) => {
-                this._unvisitedTopics.delete($(evt.target).data('topic-key'));
+                convo.unvisitedTopics = Array.from(new Set(convo.unvisitedTopics).delete($(evt.target).data('topic-key')));
             })
         );
         return `<ul>${listItems.join('')}</ul>`;
     }
 }
+
 
 util.continuation = function (text, nextPassage) {
     $(() => {
