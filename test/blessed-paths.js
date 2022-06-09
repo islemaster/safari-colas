@@ -79,12 +79,10 @@ class Game {
         throw new Error(`Expected a link with text "${linkText}" but none was found in passage:\n\n${passageText}`);
     }
 
-    async assertText(t, expectedText) {
+    async assertText(expectedText) {
         const passageText = await this.page.$eval('tw-passage', el => el.innerText);
         if (!passageText.includes(expectedText)) {
-            t.fail(`Expected text "${expectedText}" but it was not found in passage:\n\n${passageText}`);
-        } else {
-            t.pass(`Found text ${expectedText}`);
+            throw new Error(`Expected text "${expectedText}" but it was not found in passage:\n\n${passageText}`);
         }
     }
 
@@ -131,7 +129,7 @@ test('Blessed Paths', async t => {
             `The stake is your oldest friend.`, 
             `You attend to one of the thoughts.`,
         ]);
-        await game.assertText(t, `END OF PROTOTYPE`);
+        await game.assertText(`END OF PROTOTYPE`);
         t.end();
     });
 
