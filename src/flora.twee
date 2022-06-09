@@ -3,7 +3,6 @@ This file contains Flora's story.  Passages are prefixed with "Flora/" to avoid 
 -->
 
 :: Flora/Dining/Beat 1
-<% s.diningConversation = Convo.create('Flora/Dining/') %>
 Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
 
 [[You observe in disgust.->Flora/Dining/Beat 2]]
@@ -14,10 +13,10 @@ Who exactly have you [[partnered up with?->Flora/Dining/Examine Cass]]
 Your mother's voice: "When in doubt, gather information." So you ask:
 
 <%
-Convo.addTopic(s.diningConversation, 'Hunting', "What exactly are we hunting?");
-Convo.addTopic(s.diningConversation, 'Necklace', "What is that necklace you're wearing?");
+Convo('Flora/Dining').addTopic('Hunting', "What exactly are we hunting?");
+Convo('Flora/Dining').addTopic('Necklace', "What is that necklace you're wearing?");
 %>
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Examine Cass
 You met **Cassia of Tarsigg** just a few days ago. A strange name for an even stranger person. She helped chase a vampire out of town, but not before one of your dear friends was killed.
@@ -34,16 +33,16 @@ She mumbles around her food. "A vampire. Once it was a man. Now it's a soulless 
 Well, that's creepy.
 
 <%
-Convo.addTopic(s.diningConversation, 'Schattental', "How will we find the vampire when we get to Schattental?")
-Convo.addTopic(s.diningConversation, 'Book', "Do you have a vampire book I could read?")
+Convo('Flora/Dining').addTopic('Schattental', "How will we find the vampire when we get to Schattental?")
+Convo('Flora/Dining').addTopic('Book', "Do you have a vampire book I could read?")
 %>
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Necklace
 You ask, "What is that <span.readaloud>necklace</span> you're wearing?"
 
 <!-- Flora notices Cass' pale skin. -->
-<% Convo.addTopic(s.diningConversation, 'Pale', "Why is your skin so pale?") %>
+<% Convo('Flora/Dining').addTopic('Pale', "Why is your skin so pale?") %>
 
 <div.stop>
 Stop! How did your partner respond?
@@ -55,26 +54,26 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Vial
-<% Inventory.add(s.cassInventory, 'holy water') %>
+<% CassInventory.add('holy water') %>
 "It's a vial of holy water," she says. "In case of emergency."
 
-<% Convo.addTopic(s.diningConversation, 'Medication', "Holy water? Is that like a medication?") %>
-<%= Convo.topicMenu(s.diningConversation) %>
+<% Convo('Flora/Dining').addTopic('Medication', "Holy water? Is that like a medication?") %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Holy
-<% Inventory.add(s.cassInventory, 'reliquette') %>
+<% CassInventory.add('reliquette') %>
 "It's a vial of holy water," she says. "In case of emergency."
 
-<% Convo.addTopic(s.diningConversation, 'Medication', "Holy water? Is that like a medication?") %>
+<% Convo('Flora/Dining').addTopic('Medication', "Holy water? Is that like a medication?") %>
 
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Medication
 "Holy water?" you ask. "Is that like a <span.readaloud>medication</span>?"
 
 "Not exactly," she grunts.
 
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Pale
 Looking at the small vial you notice something else. "Why is your skin so <span.readaloud>pale</span>?"
@@ -90,7 +89,7 @@ Stop! How did your partner respond?
 :: Flora/Dining/Schattental
 You ask, "How will we find the vampire when we get to <span.readaloud>Schattental</span>?"
 
-<% Convo.addTopic(s.diningConversation, 'Monsters', "Who really hunts monsters for a living?") %>
+<% Convo('Flora/Dining').addTopic('Monsters', "Who really hunts monsters for a living?") %>
 
 <div.stop>
 Stop! How did your partner respond?
@@ -104,26 +103,26 @@ Stop! How did your partner respond?
 :: Flora/Dining/Castle
 "Look for the castle. Vampires always have a castle." You are skeptical of this, but you bite your tongue. Cassia is being cagey for some reason.
 
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Money
 "Follow the money," she explains. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
 
 Organized crime? You thought you were hunting a monster.
 
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Find Us
 "He'll find us. Not a lot of strangers in the valley of shadows." She gives you a pointed look. "We'll just have to be ready for a fight."
 
 _What?_ There's no plan? This seems bad.
 
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Book
 You ask, "Do you have a vampire <span.readaloud>book</span> I could read?"
 
-<% Convo.addTopic(s.diningConversation, 'Monsters', "Who really hunts monsters for a living?") %>
+<% Convo('Flora/Dining').addTopic('Monsters', "Who really hunts monsters for a living?") %>
 
 <div.stop>
 Stop! How did your partner respond?
@@ -137,7 +136,7 @@ Stop! How did your partner respond?
 :: Flora/Dining/Homework
 "I suppose you should do your homework. It's in my rucksack, take a look later." You make a mental note.
 
-<%= Convo.topicMenu(s.diningConversation) %>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Monsters
 "So," you say, "who really hunts <span.readaloud>monsters</span> for a living? How do you get that job?"
@@ -179,6 +178,8 @@ Cass interrupts.
 Well, if she's going to be like that, you might as well get some air.
 
 [[You walk out of the car without looking back.->Flora/Smoke Break/Beat 1]]
+
+<% Convo('Flora/Dining').cleanup() %>
 
 :: Flora/Smoke Break/Beat 1
 *Between cars, at sunset.*
@@ -240,3 +241,5 @@ Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave 
 You spot one of Cassia's books lying open at the foot of her bed.  You grab it and start studying. If you're going to kill a monster, you need to be ready - and if there's one thing you can do, it's study.
 
 END OF PROTOTYPE. [[Restart?->Start]]
+
+<div.ending></div>

@@ -3,7 +3,6 @@ This file contains Cassia's story.  Passages are prefixed with "Cass/" to avoid 
 -->
 
 :: Cass/Dining/Beat 1
-<% s.diningConversation = Convo.create('Cass/Dining/') %>
 This is the first decent meal you've had in a long time.
 
 Your hunger masks the loneliness of sitting across the table from [[a mortal->Cass/Dining/Examine Flora]] and not knowing what to say next.
@@ -29,13 +28,13 @@ Everyone wants to help, to make the appearance of it anyway. But then, when thin
 Flora breaks the silence with a question.
 
 <%
-Convo.addTopic(s.diningConversation, 'Hunting');
-Convo.addTopic(s.diningConversation, 'Necklace');
+Convo('Cass/Dining').addTopic('Hunting');
+Convo('Cass/Dining').addTopic('Necklace');
 %>
 
 <div.stop>
 Stop! What did your partner say?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Hunting
@@ -44,13 +43,13 @@ Stop! What did your partner say?
 "A vampire. Once it was a man. Now it's a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with."
 
 <%
-Convo.addTopic(s.diningConversation, 'Schattental');
-Convo.addTopic(s.diningConversation, 'Book');
+Convo('Cass/Dining').addTopic('Schattental');
+Convo('Cass/Dining').addTopic('Book');
 %>
 
 <div.stop>
 Stop! What did your partner say?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Necklace
@@ -62,26 +61,26 @@ Stop! What did your partner say?
 
 <!-- Cass is honest, and we add "holy water" to our inventory. -->
 :: Cass/Dining/Vial
-<% Inventory.add(s.cassInventory, 'holy water') %>
+<% CassInventory.add('holy water') %>
 "It's a <span.readaloud>vial</span> of holy water," you explain. "In case of emergency."
 
-<% Convo.addTopic(s.diningConversation, 'Pale') %>
-<% Convo.addTopic(s.diningConversation, 'Medication') %>
+<% Convo('Cass/Dining').addTopic('Pale') %>
+<% Convo('Cass/Dining').addTopic('Medication') %>
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 <!-- Cass lies, and we add "reliquette" to our inventory. -->
 :: Cass/Dining/Holy
-<% Inventory.add(s.cassInventory, 'reliquette') %>
+<% CassInventory.add('reliquette') %>
 "It's a vial of <span.readaloud>holy</span> water," you lie. "In case of emergency." You tuck the reliquette back under your jerkin. Flora doesn't need to know that you wear a scrap of your soul around your neck.
 
-<% Convo.addTopic(s.diningConversation, 'Pale') %>
-<% Convo.addTopic(s.diningConversation, 'Medication') %>
+<% Convo('Cass/Dining').addTopic('Pale') %>
+<% Convo('Cass/Dining').addTopic('Medication') %>
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Medication
@@ -90,11 +89,11 @@ Stop! What did your partner say next?
 "Not exactly," you respond.
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Pale
-She looks at the <%= Inventory.has(s.cassInventory, 'holy water') ? 'holy water' : 'reliquette' %> again. "Why is your skin so pale?"
+She looks at the <%= CassInventory.has('holy water') ? 'holy water' : 'reliquette' %> again. "Why is your skin so pale?"
 
   - [["None of your business."->Cass/Dining/Bloody]]
   - [[Ignore her.->Cass/Dining/Bite]]
@@ -111,7 +110,7 @@ You take another <span.readaloud>bite</span> of pheasant and give Flora a look t
 How can you help her understand how [[dangerous->Cass/Dining/Beat 6]] this is going to be?
 
 :: Cass/Dining/Schattental
-<% Convo.addTopic(s.diningConversation, 'Monsters') %>
+<% Convo('Cass/Dining').addTopic('Monsters') %>
 "How will we find the vampire when we get to Schattental?"
 
 That's a good question.
@@ -125,7 +124,7 @@ That's a good question.
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Money
@@ -133,7 +132,7 @@ Stop! What did your partner say next?
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Find Us
@@ -143,11 +142,11 @@ Flora doesn't look thrilled about this plan.
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Book
-<% Convo.addTopic(s.diningConversation, 'Monsters') %>
+<% Convo('Cass/Dining').addTopic('Monsters') %>
 "Do you have a vampire book I could read?" What a question. You do have some lore, but it's unreliable.
 
   - [["None of your business."->Cass/Dining/Bloody]]
@@ -159,7 +158,7 @@ Stop! What did your partner say next?
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo.keyMenu(s.diningConversation) %>
+<%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
 :: Cass/Dining/Monsters
@@ -181,6 +180,8 @@ You apparently offend her, because she stands up.
 > "I need some air."
 
 As she leaves the car, she passes [[a family at another table.->Cass/Dining/Beat 8]]
+
+<% Convo('Cass/Dining').cleanup() %>
 
 :: Cass/Dining/Beat 8
 Their interactions are gentle, like a placid lake.
@@ -257,3 +258,5 @@ TODO: Choices here of thoughts to attend to.
 As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. You've reached the mountains.
 
 END OF PROTOTYPE. [[Restart?->Start]]
+
+<div.ending></div>

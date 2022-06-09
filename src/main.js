@@ -10,67 +10,77 @@ window.util = window.util || {};
 $(window).on('sm.passage.shown', () => story.checkpoint());
 
 // State
-story.state.playerCharacter = null
-story.state.cassInventory = [];
-story.state.floraInventory = [];
+story.state.playerCharacter = null;
 
 window.Inventory = class Inventory {
-    static add(inv, item) {
-        inv.push(item); // TODO dedupe as a set
+    constructor(key) {
+        this.key = key;
+        story.state.inventories ||= {};
+        story.state.inventories[key] ||= {};
     }
 
-    static has(inv, item) {
-        return inv.includes(item);
+    add(item) {
+        story.state.inventories ||= {};
+        story.state.inventories[this.key] ||= {};
+        story.state.inventories[this.key][item] = true;
+    }
+
+    has(item) {
+        return !!(story.state.inventories?.[this.key]?.[item]);
     }
 }
+window.FloraInventory = new Inventory('Flora');
+window.CassInventory = new Inventory('Cass');
 
 // Conversations must be stored as POJOs in the story state
 // or save/restore won't work properly.
-window.Convo = class Convo {
-    static create(prefix) {
-        return {
-            prefix,
-            topicBank: {},
-            unvisitedTopics: []
-        };
+class Conversation {
+    constructor(prefix) {
+        this.prefix = prefix;
     }
 
-    static addTopic(convo, key, topic) {
-        convo.topicBank[key] = topic;
-        convo.unvisitedTopics = Array.from(new Set(convo.unvisitedTopics).add(key));
+    addTopic(key, topic) {
+        story.state.conversations ||= {};
+        story.state.conversations[this.prefix] ||= {};
+        story.state.conversations[this.prefix][key] = topic || key;
     }
 
     // List of topics, for the player driving the conversation
-    static topicMenu(convo) {
-        const options = convo.unvisitedTopics
-            .map(key => [key, convo.topicBank[key]]);
-        return Convo.buildMenu(convo, options);
+    topicMenu() {
+        const options = Object.entries(story.state.conversations[this.prefix]);
+        return this.buildMenu(options);
     }
 
     // List of keys, for the player on the receiving end
-    static keyMenu(convo) {
-        const options = convo.unvisitedTopics
-            .map(key => [key, key]);
-        return Convo.buildMenu(convo, options);
+    keyMenu() {
+        const options = Object.keys(story.state.conversations[this.prefix]).map(k => [k, k]);
+        return this.buildMenu(options);
     }
 
-    static buildMenu(convo, options) {
-        const listItems = options.map(entry => (
+    buildMenu(options) {
+        const listItems = options.map(([key, topic]) => (
             `<li>
                 <a href="javascript:void(0)"
-                    data-passage="${convo.prefix}${entry[0]}"
-                    data-topic-key="${entry[0]}"
-                >${entry[1]}</a>
+                    data-passage="${this.prefix}/${key}"
+                    data-topic-key="${key}"
+                >${topic}</a>
                 </li>`
         ));
         $(() =>
             $('[data-topic-key]').one('click', (evt) => {
-                convo.unvisitedTopics = Array.from(new Set(convo.unvisitedTopics).delete($(evt.target).data('topic-key')));
+                const clickedTopic = $(evt.target).data('topic-key');
+                delete story.state.conversations[this.prefix][clickedTopic];
             })
         );
         return `<ul>${listItems.join('')}</ul>`;
     }
+
+    /** Cleans up game state, which converges knots and makes testing easier. */
+    cleanup() {
+        delete story.state.conversations[this.prefix];
+    }
 }
+window.Convo = prefix => new Conversation(prefix);
 
 
 util.continuation = function (text, nextPassage) {

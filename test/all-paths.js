@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 const { kill } = require('process');
+const _ = require('lodash');
 
 function seconds(n) {
     return new Promise(r => setTimeout(r, 1000 * n));
@@ -26,6 +27,7 @@ function indent(string, spaces) {
     await page.goto(`file:${path.join(__dirname, '..', 'main.html')}`);
 
     let currentKnot = null;
+    const passageCounts = {};
 
     async function clickLink(targetText) {
         const passage = await page.$('tw-passage');
@@ -34,7 +36,6 @@ function indent(string, spaces) {
           const linkText = await link.evaluate(l => l.innerText);
           if (targetText === linkText) {
               await link.click();
-              // await seconds(1);
               return;
           }
         }
@@ -43,19 +44,8 @@ function indent(string, spaces) {
         throw new Error(`Expected to find a link with text "${targetText}" but none was found in passage:\n\n${passageText}`);
     }
 
-    async function logPassage() {
-      const passage = await page.$('tw-passage');
-      const passageName = await passage.evaluate(() => window.passage.name);
-      const text = await passage.evaluate(p => p.innerText);
-      console.log('');
-      console.log(`### ${passageName}`);
-      console.log(text);
-      console.log('');
-    }
-
     async function assertPassageText(expectedText) {
-      const passage = await page.$('tw-passage');
-      const actualText = await passage.evaluate(p => p.innerText);
+      const actualText = await page.$eval('tw-passage', p => p.innerText);
       if (actualText != expectedText) {
         throw new Error(`Passage mismatch:\n<<<<<<<< EXPECTED\n${indent(expectedText, 2)}\n========\n${indent(actualText, 2)}\n>>>>>>>> ACTUAL`);
       }
@@ -102,10 +92,12 @@ function indent(string, spaces) {
         async visit() {
           await this.navigateToKnot();
           await this.captureFromDom();
+          passageCounts[this.passageName] = passageCounts[this.passageName] || 0;
+          passageCounts[this.passageName]++;
         }
 
         async navigateToKnot() {
-          console.log(`Navigating to ${this.name()}`);
+          // console.log(`Navigating to ${this.name()}`);
           if (currentKnot === this) {
             return;
           }
@@ -113,20 +105,19 @@ function indent(string, spaces) {
           try {
             if (this.saveHash) {
               // We've already been here, just restore the save.
-              console.log(`  Restoring ${this.name()} from saveHash ${this.saveHash}`);
+              // console.log(`  Restoring ${this.name()} from saveHash ${this.saveHash}`);
               await page.evaluate((h) => window.story.restore(h), this.saveHash);
               await assertNoError();
               await assertPassageText(this.text);
             } else {
               // Make sure we're on the parent knot
               if (currentKnot !== this.parent) {
-                console.log(`  Restoring to parent knot [${this.parent.name()}] from saveHash ${this.parent.saveHash}`);
+                // console.log(`  Restoring to parent knot [${this.parent.name()}] from saveHash ${this.parent.saveHash}`);
                 let restoreResult = await page.evaluate((h) => window.story.restore(h), this.parent.saveHash);
                 await assertNoError();
                 await assertPassageText(this.parent.text);
               }
-                
-              console.log(`  Clicking link [[${this.linkText}]]`);
+ 
               await clickLink(this.linkText);
               await assertNoError();
             }
@@ -144,11 +135,18 @@ function indent(string, spaces) {
           this.html = await passage.evaluate(p => p.innerHTML);
           this.state = await passage.evaluate(() => window.story.state);
           this.saveHash = await passage.evaluate(p => window.story.saveHash());
+          this.isAnEnding = await passage.evaluate(p => !!$(p).find('.ending').length);
       
-          // Find all links
-          const links = await passage.$$('a');
-          const linkTexts = await Promise.all(links.map(l => l.evaluate(l => l.innerText)));
-          this.children = linkTexts.map(l => new Knot(this, l));
+          if (!this.isAnEnding) {
+            // Find all links
+            const links = await passage.$$('a');
+            const linkTexts = await Promise.all(links.map(l => l.evaluate(l => l.innerText)));
+            this.children = linkTexts.map(l => new Knot(this, l));
+
+            if (this.children.length === 0) {
+              throw new Error(`Found a dead end: ${this.name()}\n${this.path()}`);
+            }
+          }
         }
 
         matchesAnyAncestor() {
@@ -162,7 +160,7 @@ function indent(string, spaces) {
 
         printTree(startDepth = 0) {
           if (this.passageName) {
-            console.log(' '.repeat(startDepth) + this.name());
+            console.log(' '.repeat(startDepth) + this.name() + ' ' + JSON.stringify(this.state));
             for (let child of this.children) {
               child.printTree(startDepth + 2);
            }
@@ -171,10 +169,14 @@ function indent(string, spaces) {
     }
 
     function matchesPastKnot(newKnot) {
+      const KNOT_EQUALITY_PROPS = ['passageName', 'html', 'state'];
       const stack = [root];
       while (stack.length) {
         const knot = stack.shift();
-        if (knot.passageName == newKnot.passageName && knot.html == newKnot.html && JSON.stringify(knot.state) == JSON.stringify(newKnot.state)) {
+        if (
+          knot !== newKnot
+          && _.isEqual(_.pick(knot, KNOT_EQUALITY_PROPS), _.pick(newKnot, KNOT_EQUALITY_PROPS))
+        ) {
           return true;
         }
         Array.prototype.push.apply(stack, knot.children);
@@ -192,14 +194,20 @@ function indent(string, spaces) {
         visits++;
         const knot = unvisited.shift();
         await knot.visit();
-        if (!knot.matchesAnyAncestor()) {
+        if (!matchesPastKnot(knot)) {
           Array.prototype.unshift.apply(unvisited, knot.children);
-        } else {
-          console.info('Already visited this knot');
+        }
+        
+        if (visits % 10 === 0) {
+          process.stderr.clearLine(0);
+          process.stderr.cursorTo(0);
+          process.stderr.write(`Visited ${visits} knots. `);
         }
     }
+    process.stderr.write(`\nDone\n`);
 
     root.printTree();
+    console.log(passageCounts);
     console.log(`Visited ${visits} knots.`);
 
   } catch (err) {
