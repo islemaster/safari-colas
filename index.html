@@ -80,67 +80,77 @@ window.util = window.util || {};
 $(window).on('sm.passage.shown', () => story.checkpoint());
 
 // State
-story.state.playerCharacter = null
-story.state.cassInventory = [];
-story.state.floraInventory = [];
+story.state.playerCharacter = null;
 
 window.Inventory = class Inventory {
-    static add(inv, item) {
-        inv.push(item); // TODO dedupe as a set
+    constructor(key) {
+        this.key = key;
+        story.state.inventories ||= {};
+        story.state.inventories[key] ||= {};
     }
 
-    static has(inv, item) {
-        return inv.includes(item);
+    add(item) {
+        story.state.inventories ||= {};
+        story.state.inventories[this.key] ||= {};
+        story.state.inventories[this.key][item] = true;
+    }
+
+    has(item) {
+        return !!(story.state.inventories?.[this.key]?.[item]);
     }
 }
+window.FloraInventory = new Inventory('Flora');
+window.CassInventory = new Inventory('Cass');
 
 // Conversations must be stored as POJOs in the story state
 // or save/restore won't work properly.
-window.Convo = class Convo {
-    static create(prefix) {
-        return {
-            prefix,
-            topicBank: {},
-            unvisitedTopics: []
-        };
+class Conversation {
+    constructor(prefix) {
+        this.prefix = prefix;
     }
 
-    static addTopic(convo, key, topic) {
-        convo.topicBank[key] = topic;
-        convo.unvisitedTopics = Array.from(new Set(convo.unvisitedTopics).add(key));
+    addTopic(key, topic) {
+        story.state.conversations ||= {};
+        story.state.conversations[this.prefix] ||= {};
+        story.state.conversations[this.prefix][key] = topic || key;
     }
 
     // List of topics, for the player driving the conversation
-    static topicMenu(convo) {
-        const options = convo.unvisitedTopics
-            .map(key => [key, convo.topicBank[key]]);
-        return Convo.buildMenu(convo, options);
+    topicMenu() {
+        const options = Object.entries(story.state.conversations[this.prefix]);
+        return this.buildMenu(options);
     }
 
     // List of keys, for the player on the receiving end
-    static keyMenu(convo) {
-        const options = convo.unvisitedTopics
-            .map(key => [key, key]);
-        return Convo.buildMenu(convo, options);
+    keyMenu() {
+        const options = Object.keys(story.state.conversations[this.prefix]).map(k => [k, k]);
+        return this.buildMenu(options);
     }
 
-    static buildMenu(convo, options) {
-        const listItems = options.map(entry => (
+    buildMenu(options) {
+        const listItems = options.map(([key, topic]) => (
             `<li>
                 <a href="javascript:void(0)"
-                    data-passage="${convo.prefix}${entry[0]}"
-                    data-topic-key="${entry[0]}"
-                >${entry[1]}</a>
+                    data-passage="${this.prefix}/${key}"
+                    data-topic-key="${key}"
+                >${topic}</a>
                 </li>`
         ));
         $(() =>
             $('[data-topic-key]').one('click', (evt) => {
-                convo.unvisitedTopics = Array.from(new Set(convo.unvisitedTopics).delete($(evt.target).data('topic-key')));
+                const clickedTopic = $(evt.target).data('topic-key');
+                delete story.state.conversations[this.prefix][clickedTopic];
             })
         );
         return `<ul>${listItems.join('')}</ul>`;
     }
+
+    /** Cleans up game state, which converges knots and makes testing easier. */
+    cleanup() {
+        delete story.state.conversations[this.prefix];
+    }
 }
+window.Convo = prefix => new Conversation(prefix);
 
 
 util.continuation = function (text, nextPassage) {
@@ -154,8 +164,7 @@ util.continuation = function (text, nextPassage) {
     return `
     <a href="javascript:void(0)" id="continuation">${text}</a>
     `;
-}</script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">&lt;% s.diningConversation = Convo.create(&#39;Cass/Dining/&#39;) %&gt;
-This is the first decent meal you&#39;ve had in a long time.
+}</script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">This is the first decent meal you&#39;ve had in a long time.
 
 Your hunger masks the loneliness of sitting across the table from [[a mortal-&gt;Cass/Dining/Examine Flora]] and not knowing what to say next.
 
@@ -168,56 +177,56 @@ Maybe she [[isn&#39;t cut out for this after all.-&gt;Cass/Dining/Beat 4]]</tw-p
 [[Flora will too.-&gt;Cass/Dining/Beat 5]]</tw-passagedata><tw-passagedata pid="5" name="Cass/Dining/Beat 5" tags="" position="600,100" size="100,100">Flora breaks the silence with a question.
 
 &lt;%
-Convo.addTopic(s.diningConversation, &#39;Hunting&#39;);
-Convo.addTopic(s.diningConversation, &#39;Necklace&#39;);
+Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Hunting&#39;);
+Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Necklace&#39;);
 %&gt;
 
 &lt;div.stop&gt;
 Stop! What did your partner say?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Cass/Dining/Hunting" tags="" position="725,100" size="100,100">&quot;What exactly are we hunting?&quot;
 
 &quot;A vampire. Once it was a man. Now it&#39;s a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with.&quot;
 
 &lt;%
-Convo.addTopic(s.diningConversation, &#39;Schattental&#39;);
-Convo.addTopic(s.diningConversation, &#39;Book&#39;);
+Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Schattental&#39;);
+Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Book&#39;);
 %&gt;
 
 &lt;div.stop&gt;
 Stop! What did your partner say?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Cass/Dining/Necklace" tags="" position="850,100" size="100,100">&quot;What is that necklace you&#39;re wearing?&quot;
 
   - [[&quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Vial]]
   - [[(Lie) &quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Holy]]
   - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]
 
-&lt;!-- Cass is honest, and we add &quot;holy water&quot; to our inventory. --&gt;</tw-passagedata><tw-passagedata pid="8" name="Cass/Dining/Vial" tags="" position="975,100" size="100,100">&lt;% Inventory.add(s.cassInventory, &#39;holy water&#39;) %&gt;
+&lt;!-- Cass is honest, and we add &quot;holy water&quot; to our inventory. --&gt;</tw-passagedata><tw-passagedata pid="8" name="Cass/Dining/Vial" tags="" position="975,100" size="100,100">&lt;% CassInventory.add(&#39;holy water&#39;) %&gt;
 &quot;It&#39;s a &lt;span.readaloud&gt;vial&lt;/span&gt; of holy water,&quot; you explain. &quot;In case of emergency.&quot;
 
-&lt;% Convo.addTopic(s.diningConversation, &#39;Pale&#39;) %&gt;
-&lt;% Convo.addTopic(s.diningConversation, &#39;Medication&#39;) %&gt;
+&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Pale&#39;) %&gt;
+&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Medication&#39;) %&gt;
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;
 
-&lt;!-- Cass lies, and we add &quot;reliquette&quot; to our inventory. --&gt;</tw-passagedata><tw-passagedata pid="9" name="Cass/Dining/Holy" tags="" position="1100,100" size="100,100">&lt;% Inventory.add(s.cassInventory, &#39;reliquette&#39;) %&gt;
+&lt;!-- Cass lies, and we add &quot;reliquette&quot; to our inventory. --&gt;</tw-passagedata><tw-passagedata pid="9" name="Cass/Dining/Holy" tags="" position="1100,100" size="100,100">&lt;% CassInventory.add(&#39;reliquette&#39;) %&gt;
 &quot;It&#39;s a vial of &lt;span.readaloud&gt;holy&lt;/span&gt; water,&quot; you lie. &quot;In case of emergency.&quot; You tuck the reliquette back under your jerkin. Flora doesn&#39;t need to know that you wear a scrap of your soul around your neck.
 
-&lt;% Convo.addTopic(s.diningConversation, &#39;Pale&#39;) %&gt;
-&lt;% Convo.addTopic(s.diningConversation, &#39;Medication&#39;) %&gt;
+&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Pale&#39;) %&gt;
+&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Medication&#39;) %&gt;
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Cass/Dining/Medication" tags="" position="1225,100" size="100,100">&quot;Holy water?&quot; she asks. &quot;Is that like a medication?&quot;
 
 &quot;Not exactly,&quot; you respond.
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Cass/Dining/Pale" tags="" position="100,225" size="100,100">She looks at the &lt;%= Inventory.has(s.cassInventory, &#39;holy water&#39;) ? &#39;holy water&#39; : &#39;reliquette&#39; %&gt; again. &quot;Why is your skin so pale?&quot;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Cass/Dining/Pale" tags="" position="100,225" size="100,100">She looks at the &lt;%= CassInventory.has(&#39;holy water&#39;) ? &#39;holy water&#39; : &#39;reliquette&#39; %&gt; again. &quot;Why is your skin so pale?&quot;
 
   - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]
   - [[Ignore her.-&gt;Cass/Dining/Bite]]
@@ -226,7 +235,7 @@ Stop! What did your partner say next?
 
 How can you help her understand how [[dangerous-&gt;Cass/Dining/Beat 6]] this is going to be?</tw-passagedata><tw-passagedata pid="13" name="Cass/Dining/Bite" tags="" position="350,225" size="100,100">You take another &lt;span.readaloud&gt;bite&lt;/span&gt; of pheasant and give Flora a look that says you&#39;re not in the mood for further questions.
 
-How can you help her understand how [[dangerous-&gt;Cass/Dining/Beat 6]] this is going to be?</tw-passagedata><tw-passagedata pid="14" name="Cass/Dining/Schattental" tags="" position="475,225" size="100,100">&lt;% Convo.addTopic(s.diningConversation, &#39;Monsters&#39;) %&gt;
+How can you help her understand how [[dangerous-&gt;Cass/Dining/Beat 6]] this is going to be?</tw-passagedata><tw-passagedata pid="14" name="Cass/Dining/Schattental" tags="" position="475,225" size="100,100">&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Monsters&#39;) %&gt;
 &quot;How will we find the vampire when we get to Schattental?&quot;
 
 That&#39;s a good question.
@@ -237,20 +246,20 @@ That&#39;s a good question.
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Cass/Dining/Money" tags="" position="725,225" size="100,100">&quot;Follow the &lt;span.readaloud&gt;money&lt;/span&gt;,&quot; you explain. &quot;Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They&#39;re often found pulling the strings of local organized crime.&quot;
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Cass/Dining/Find Us" tags="" position="850,225" size="100,100">&quot;He&#39;ll &lt;span.readaloud&gt;find us&lt;/span&gt;. Not a lot of strangers in the valley of shadows.&quot; You give her a pointed look. &quot;We&#39;ll just have to be ready for a fight.&quot;
 
 Flora doesn&#39;t look thrilled about this plan.
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Cass/Dining/Book" tags="" position="975,225" size="100,100">&lt;% Convo.addTopic(s.diningConversation, &#39;Monsters&#39;) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Cass/Dining/Book" tags="" position="975,225" size="100,100">&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Monsters&#39;) %&gt;
 &quot;Do you have a vampire book I could read?&quot; What a question. You do have some lore, but it&#39;s unreliable.
 
   - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]
@@ -259,7 +268,7 @@ Stop! What did your partner say next?
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
-&lt;%= Convo.keyMenu(s.diningConversation) %&gt;
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Cass/Dining/Monsters" tags="" position="1225,225" size="100,100">&quot;So,&quot; Flora continues, &quot;who really hunts monsters for a living? How do you get that job?&quot;
 
 You&#39;re not exactly ready to open up to this novice nurse from Nowheresburgh.
@@ -271,7 +280,9 @@ It will be [[simpler that way.-&gt;Cass/Dining/Beat 7]]</tw-passagedata><tw-pass
 
 &gt; &quot;I need some air.&quot;
 
-As she leaves the car, she passes [[a family at another table.-&gt;Cass/Dining/Beat 8]]</tw-passagedata><tw-passagedata pid="23" name="Cass/Dining/Beat 8" tags="" position="350,350" size="100,100">Their interactions are gentle, like a placid lake.
+As she leaves the car, she passes [[a family at another table.-&gt;Cass/Dining/Beat 8]]
+
+&lt;% Convo(&#39;Cass/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="23" name="Cass/Dining/Beat 8" tags="" position="350,350" size="100,100">Their interactions are gentle, like a placid lake.
 
 You can&#39;t make out what they&#39;re saying, but
   - [[you feel calmer, watching them.-&gt;Cass/Dining/Beat 9]]
@@ -320,18 +331,19 @@ TODO: Choices here of thoughts to attend to.
 --&gt;
 [[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="31" name="Cass/Sleeper/Beat 2" tags="" position="100,475" size="100,100">As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. You&#39;ve reached the mountains.
 
-END OF PROTOTYPE. [[Restart?-&gt;Start]]</tw-passagedata><tw-passagedata pid="32" name="Flora/Dining/Beat 1" tags="" position="225,475" size="100,100">&lt;% s.diningConversation = Convo.create(&#39;Flora/Dining/&#39;) %&gt;
-Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
+END OF PROTOTYPE. [[Restart?-&gt;Start]]
+
+&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="Flora/Dining/Beat 1" tags="" position="225,475" size="100,100">Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
 
 [[You observe in disgust.-&gt;Flora/Dining/Beat 2]]</tw-passagedata><tw-passagedata pid="33" name="Flora/Dining/Beat 2" tags="" position="350,475" size="100,100">Who exactly have you [[partnered up with?-&gt;Flora/Dining/Examine Cass]]
 
 Your mother&#39;s voice: &quot;When in doubt, gather information.&quot; So you ask:
 
 &lt;%
-Convo.addTopic(s.diningConversation, &#39;Hunting&#39;, &quot;What exactly are we hunting?&quot;);
-Convo.addTopic(s.diningConversation, &#39;Necklace&#39;, &quot;What is that necklace you&#39;re wearing?&quot;);
+Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Hunting&#39;, &quot;What exactly are we hunting?&quot;);
+Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Necklace&#39;, &quot;What is that necklace you&#39;re wearing?&quot;);
 %&gt;
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="34" name="Flora/Dining/Examine Cass" tags="" position="475,475" size="100,100">You met **Cassia of Tarsigg** just a few days ago. A strange name for an even stranger person. She helped chase a vampire out of town, but not before one of your dear friends was killed.
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="34" name="Flora/Dining/Examine Cass" tags="" position="475,475" size="100,100">You met **Cassia of Tarsigg** just a few days ago. A strange name for an even stranger person. She helped chase a vampire out of town, but not before one of your dear friends was killed.
 
 Now you&#39;ve hired her to track the monster back to its lair and destory it. You owe Oliver that much.
 
@@ -342,13 +354,13 @@ She mumbles around her food. &quot;A vampire. Once it was a man. Now it&#39;s a 
 Well, that&#39;s creepy.
 
 &lt;%
-Convo.addTopic(s.diningConversation, &#39;Schattental&#39;, &quot;How will we find the vampire when we get to Schattental?&quot;)
-Convo.addTopic(s.diningConversation, &#39;Book&#39;, &quot;Do you have a vampire book I could read?&quot;)
+Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Schattental&#39;, &quot;How will we find the vampire when we get to Schattental?&quot;)
+Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Book&#39;, &quot;Do you have a vampire book I could read?&quot;)
 %&gt;
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="36" name="Flora/Dining/Necklace" tags="" position="725,475" size="100,100">You ask, &quot;What is that &lt;span.readaloud&gt;necklace&lt;/span&gt; you&#39;re wearing?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="36" name="Flora/Dining/Necklace" tags="" position="725,475" size="100,100">You ask, &quot;What is that &lt;span.readaloud&gt;necklace&lt;/span&gt; you&#39;re wearing?&quot;
 
 &lt;!-- Flora notices Cass&#39; pale skin. --&gt;
-&lt;% Convo.addTopic(s.diningConversation, &#39;Pale&#39;, &quot;Why is your skin so pale?&quot;) %&gt;
+&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Pale&#39;, &quot;Why is your skin so pale?&quot;) %&gt;
 
 &lt;div.stop&gt;
 Stop! How did your partner respond?
@@ -357,20 +369,20 @@ Stop! How did your partner respond?
   - [[Bloody-&gt;Flora/Dining/Bloody]]
   - [[Vial-&gt;Flora/Dining/Vial]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="37" name="Flora/Dining/Vial" tags="" position="850,475" size="100,100">&lt;% Inventory.add(s.cassInventory, &#39;holy water&#39;) %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="37" name="Flora/Dining/Vial" tags="" position="850,475" size="100,100">&lt;% CassInventory.add(&#39;holy water&#39;) %&gt;
 &quot;It&#39;s a vial of holy water,&quot; she says. &quot;In case of emergency.&quot;
 
-&lt;% Convo.addTopic(s.diningConversation, &#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="38" name="Flora/Dining/Holy" tags="" position="975,475" size="100,100">&lt;% Inventory.add(s.cassInventory, &#39;reliquette&#39;) %&gt;
+&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="38" name="Flora/Dining/Holy" tags="" position="975,475" size="100,100">&lt;% CassInventory.add(&#39;reliquette&#39;) %&gt;
 &quot;It&#39;s a vial of holy water,&quot; she says. &quot;In case of emergency.&quot;
 
-&lt;% Convo.addTopic(s.diningConversation, &#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
+&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
 
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="39" name="Flora/Dining/Medication" tags="" position="1100,475" size="100,100">&quot;Holy water?&quot; you ask. &quot;Is that like a &lt;span.readaloud&gt;medication&lt;/span&gt;?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="39" name="Flora/Dining/Medication" tags="" position="1100,475" size="100,100">&quot;Holy water?&quot; you ask. &quot;Is that like a &lt;span.readaloud&gt;medication&lt;/span&gt;?&quot;
 
 &quot;Not exactly,&quot; she grunts.
 
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="40" name="Flora/Dining/Pale" tags="" position="1225,475" size="100,100">Looking at the small vial you notice something else. &quot;Why is your skin so &lt;span.readaloud&gt;pale&lt;/span&gt;?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="40" name="Flora/Dining/Pale" tags="" position="1225,475" size="100,100">Looking at the small vial you notice something else. &quot;Why is your skin so &lt;span.readaloud&gt;pale&lt;/span&gt;?&quot;
 
 &lt;div.stop&gt;
 Stop! How did your partner respond?
@@ -380,7 +392,7 @@ Stop! How did your partner respond?
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="41" name="Flora/Dining/Schattental" tags="" position="100,600" size="100,100">You ask, &quot;How will we find the vampire when we get to &lt;span.readaloud&gt;Schattental&lt;/span&gt;?&quot;
 
-&lt;% Convo.addTopic(s.diningConversation, &#39;Monsters&#39;, &quot;Who really hunts monsters for a living?&quot;) %&gt;
+&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Monsters&#39;, &quot;Who really hunts monsters for a living?&quot;) %&gt;
 
 &lt;div.stop&gt;
 Stop! How did your partner respond?
@@ -391,17 +403,17 @@ Stop! How did your partner respond?
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="42" name="Flora/Dining/Castle" tags="" position="225,600" size="100,100">&quot;Look for the castle. Vampires always have a castle.&quot; You are skeptical of this, but you bite your tongue. Cassia is being cagey for some reason.
 
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="43" name="Flora/Dining/Money" tags="" position="350,600" size="100,100">&quot;Follow the money,&quot; she explains. &quot;Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They&#39;re often found pulling the strings of local organized crime.&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="43" name="Flora/Dining/Money" tags="" position="350,600" size="100,100">&quot;Follow the money,&quot; she explains. &quot;Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They&#39;re often found pulling the strings of local organized crime.&quot;
 
 Organized crime? You thought you were hunting a monster.
 
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="44" name="Flora/Dining/Find Us" tags="" position="475,600" size="100,100">&quot;He&#39;ll find us. Not a lot of strangers in the valley of shadows.&quot; She gives you a pointed look. &quot;We&#39;ll just have to be ready for a fight.&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="44" name="Flora/Dining/Find Us" tags="" position="475,600" size="100,100">&quot;He&#39;ll find us. Not a lot of strangers in the valley of shadows.&quot; She gives you a pointed look. &quot;We&#39;ll just have to be ready for a fight.&quot;
 
 _What?_ There&#39;s no plan? This seems bad.
 
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="45" name="Flora/Dining/Book" tags="" position="600,600" size="100,100">You ask, &quot;Do you have a vampire &lt;span.readaloud&gt;book&lt;/span&gt; I could read?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="45" name="Flora/Dining/Book" tags="" position="600,600" size="100,100">You ask, &quot;Do you have a vampire &lt;span.readaloud&gt;book&lt;/span&gt; I could read?&quot;
 
-&lt;% Convo.addTopic(s.diningConversation, &#39;Monsters&#39;, &quot;Who really hunts monsters for a living?&quot;) %&gt;
+&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Monsters&#39;, &quot;Who really hunts monsters for a living?&quot;) %&gt;
 
 &lt;div.stop&gt;
 Stop! How did your partner respond?
@@ -412,7 +424,7 @@ Stop! How did your partner respond?
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="46" name="Flora/Dining/Homework" tags="" position="725,600" size="100,100">&quot;I suppose you should do your homework. It&#39;s in my rucksack, take a look later.&quot; You make a mental note.
 
-&lt;%= Convo.topicMenu(s.diningConversation) %&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Monsters" tags="" position="850,600" size="100,100">&quot;So,&quot; you say, &quot;who really hunts &lt;span.readaloud&gt;monsters&lt;/span&gt; for a living? How do you get that job?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Monsters" tags="" position="850,600" size="100,100">&quot;So,&quot; you say, &quot;who really hunts &lt;span.readaloud&gt;monsters&lt;/span&gt; for a living? How do you get that job?&quot;
 
 &lt;div.stop&gt;
 Stop! How did your partner respond?
@@ -434,7 +446,9 @@ Cass interrupts.
 
 [[Maybe you are more alone than you realized.-&gt;Flora/Dining/Beat 4]]</tw-passagedata><tw-passagedata pid="52" name="Flora/Dining/Beat 4" tags="" position="225,725" size="100,100">Well, if she&#39;s going to be like that, you might as well get some air.
 
-[[You walk out of the car without looking back.-&gt;Flora/Smoke Break/Beat 1]]</tw-passagedata><tw-passagedata pid="53" name="Flora/Smoke Break/Beat 1" tags="" position="350,725" size="100,100">*Between cars, at sunset.*
+[[You walk out of the car without looking back.-&gt;Flora/Smoke Break/Beat 1]]
+
+&lt;% Convo(&#39;Flora/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="53" name="Flora/Smoke Break/Beat 1" tags="" position="350,725" size="100,100">*Between cars, at sunset.*
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
 
@@ -468,7 +482,9 @@ Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You w
 
 [[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="61" name="Flora/Sleeper/Beat 2" tags="" position="100,850" size="100,100">You spot one of Cassia&#39;s books lying open at the foot of her bed.  You grab it and start studying. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s study.
 
-END OF PROTOTYPE. [[Restart?-&gt;Start]]</tw-passagedata><tw-passagedata pid="62" name="Start" tags="" position="225,850" size="100,100">Welcome to &lt;%= story.title %&gt;.
+END OF PROTOTYPE. [[Restart?-&gt;Start]]
+
+&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="62" name="Start" tags="" position="225,850" size="100,100">Welcome to &lt;%= story.title %&gt;.
 
 * [[How to Play]] (Definitely read your first time!)
 * [[Play as Cassia]]
