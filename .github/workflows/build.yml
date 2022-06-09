@@ -11,10 +11,21 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      # cache the dependencies from any node_modules directory
+      - name: cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: node_modules-${{ hashFiles('**/package-lock.json')}}
+
       - name: Use Go 1.13
         uses: actions/setup-go@v1
         with:
           go-version: 1.13.x
+
+      # install the dependencies
+      - name: install dependencies
+        run: npm ci --ignore-scripts
 
       - name: build game
         run: |
@@ -22,6 +33,10 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           mkdir -p dist
           tweego src -o dist/index.html
+
+      - name: run tests
+        run: |
+          node test/blessed-paths.js
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3
