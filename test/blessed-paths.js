@@ -28,19 +28,19 @@ Debugging needs when an error is found:
  */
 
 const test = require('tape');
-const Game = require('./Game');
+const Story = require('./Story');
 
 test('Blessed Paths', async t => {
-    const game = new Game();
-    await game.setup();
+    const story = new Story();
+    await story.setup();
 
     t.teardown(async () => {
-        await game.teardown();
+        await story.teardown();
     });
 
     t.test('Cass path 1', async t => {
-        await game.restart();
-        await game.walk([
+        await story.restart();
+        await story.walk([
             'Play as Cassia',
             `You’re in the dining car.`,
             `a mortal`,
@@ -64,14 +64,13 @@ test('Blessed Paths', async t => {
             `The stake is your oldest friend.`, 
             `You attend to one of the thoughts.`,
         ]);
-        await game.assertText(`END OF PROTOTYPE`);
-        console.log(game.currentKnot.transcript());
+        t.match(story.currentKnot.text, /END OF PROTOTYPE/);
         t.end();
     });
 
     t.test('Flora path 1', async t => {
-        await game.restart();
-        await game.walk([
+        await story.restart();
+        await story.walk([
             'Play as Flora',
             'You’re in the dining car.',
             'You observe in disgust.',
@@ -98,7 +97,7 @@ test('Blessed Paths', async t => {
             `We’ve reached the mountains.`,
             `You’re not quite ready for sleep.`,
         ]);
-        await game.assertText(`END OF PROTOTYPE`);
+        t.match(story.currentKnot.text, /END OF PROTOTYPE/);
         t.end();
     });
 });
