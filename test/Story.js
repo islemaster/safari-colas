@@ -37,7 +37,9 @@ module.exports = class Story {
   }
 
   async randomWalk() {
-    await this.currentKnot.followLink(_.sample(Object.keys(this.currentKnot.children)));
+    let link = _.sample(Object.keys(this.currentKnot.children));
+    await this.currentKnot.followLink(link);
+    return link;
   }
 
   /**

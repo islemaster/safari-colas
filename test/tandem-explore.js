@@ -25,74 +25,76 @@ test('Tandem Explorations', async t => {
       })()
     ]);
 
-    let floraWaiting = false;
-    let floraKeyword = false;
-    let floraNextStep = false;
-    let cassWaiting = false;
-    let cassKeyword = false;
-    let cassNextStep = false;
-    while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
-      let stuck = true;
+    const eventLog = [];
+    const record = (character, text) => {
+      if (character == 'Flora') text = ' '.repeat(80) + text;
+      eventLog.push(text);
+    }
 
-      if (!cass.currentKnot.isAnEnding && !cassWaiting && !cassKeyword) {
-        stuck = false;
-        if (cassNextStep) {
-          await cass.walk([cassNextStep]);
-          cassNextStep = false;
+    const floraPlayer = {
+      story: flora,
+      waiting: false,
+      hasKeyword: false,
+      gotKeyword: false,
+    };
+
+    const cassPlayer = {
+      story: cass,
+      waiting: false,
+      hasKeyword: false,
+      gotKeyword: false,
+    }
+
+    const step = async (player) => {
+      const character = player.story.currentKnot.state.playerCharacter;
+      if (!player.story.currentKnot.isAnEnding && !player.waiting && !player.hasKeyword) {
+        if (player.gotKeyword) {
+          await player.story.walk([player.gotKeyword]);
+          record(character, player.gotKeyword + ' => ' + player.story.currentKnot.passageName);
+          player.gotKeyword = false;
         } else {
-          await cass.randomWalk();
+          const link = await player.story.randomWalk();
+          record(character, link + ' => ' + player.story.currentKnot.passageName);
         }
-        // console.log(cass.currentKnot.passageName);
 
         // Find a readaloud keyword
-        if (m = cass.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
-          cassKeyword = m && m[1];
-          console.log(`Cass has a keyword for flora: ${cassKeyword}`)
+        if (m = player.story.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
+          player.hasKeyword = m && m[1];
+          record(character, `${character} has a keyword: ${player.hasKeyword}`)
         }
 
         // Find a stop box (both can happen in one knot)
-        if (cass.currentKnot.html.includes(`class="stop"`)) {
-          console.log('Cass is waiting on Flora');
-          cassWaiting = true;
+        if (player.story.currentKnot.html.includes(`class="stop"`)) {
+          record(character, `${character} is waiting on a keyword`);
+          player.waiting = true;
         } 
-
+        return true; // Advanced
       }
+      return false; // Did not advance
+    };
 
-      if (!flora.currentKnot.isAnEnding && !floraWaiting && !floraKeyword) {
-        stuck = false;
-        if (floraNextStep) {
-          await flora.walk([floraNextStep]);
-          floraNextStep = false;
-        } else {
-          await flora.randomWalk();
-        }
-        // console.log(flora.currentKnot.passageName);
-
-        if (m = flora.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
-          floraKeyword = m && m[1];
-          console.log(`Flora has a keyword for cass: ${floraKeyword}`)
-        }
-
-        if (flora.currentKnot.html.includes(`class="stop"`)) {
-          console.log('Flora is waiting on cass');
-          floraWaiting = true;
-        } 
+    const tryPass = (fromPlayer, toPlayer) => {
+      if (fromPlayer.hasKeyword && toPlayer.waiting) {
+        toPlayer.gotKeyword = fromPlayer.hasKeyword;
+        fromPlayer.hasKeyword = toPlayer.waiting = false;
+        eventLog.push(' '.repeat(40) + '-'.repeat(20) + ' KEYWORD EXCHANGE ' + '-'.repeat(20));
       }
+    }
 
-      if (cassWaiting && floraKeyword) {
-        cassNextStep = floraKeyword;
-        cassWaiting = false;
-        floraKeyword = false;
-      } else if (floraWaiting && cassKeyword) {
-        floraNextStep = cassKeyword;
-        floraWaiting = false;
-        cassKeyword = false;
-      }
+    while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
+      let stuck = true;
+      let moved = await Promise.all([step(cassPlayer), step(floraPlayer)]);
+      moved = moved.some(x => x);
 
-      if (stuck) {
+      tryPass(cassPlayer, floraPlayer);
+      tryPass(floraPlayer, cassPlayer);
+
+      if (!moved) {
         throw new Error('Got stuck!');
       }
     }
+
+    console.log(eventLog.join('\n'));
 
     t.end();
   });
