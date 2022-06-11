@@ -36,6 +36,10 @@ module.exports = class Story {
     }
   }
 
+  async randomWalk() {
+    await this.currentKnot.followLink(_.sample(Object.keys(this.currentKnot.children)));
+  }
+
   /**
    * Fully explores a subset of story-space, starting from the current story knot
    * and proceeding as far as it can. Exploration stops at specified passages,
@@ -154,7 +158,7 @@ class Knot {
       const links = await this.story.page.$$('tw-passage a');
       for (let link of links) {
         const text = await link.evaluate(l => l.innerText);
-        if (linkText === text) return link;
+        if (linkText.toLowerCase() === text.toLowerCase()) return link;
       }
       return null;
     }
