@@ -8,7 +8,7 @@ module.exports = class Story {
     this.browser = await puppeteer.launch({
       // headless: false,
       // devtools: true,
-      // slowMo: 5,
+      // slowMo: 20,
     });
     this.page = await this.browser.newPage();
     await this.page.goto(`file:${path.join(__dirname, '..', 'main.html')}`);

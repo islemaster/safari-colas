@@ -224,24 +224,34 @@ Hand crossbow with silver bolts: Restrung.
 
 Wooden stake: Polished to a sheen.
 
-Holy water: Freshly blessed.
+Rock salt: Still fresh.
 
 ---
 
 The nosy crowd in the dining car has you on edge. Maybe you should carry something back to the sleeper car with you, just in case?
 
-[[The stake is your oldest friend.->Cass/Baggage/Take the Stake]]
+[[The crossbow can attack from a distance.->Cass/Baggage/Take the Crossbow]]
 
-[[The holy water will be easiest to conceal in your cloak.->Cass/Baggage/Take the Holy Water]]
+[[The stake is good for a close-quarters situation.->Cass/Baggage/Take the Stake]]
 
-:: Cass/Baggage/Take the Stake
-You grab the stake and make your way back to your sleeper car.
+[[The salt is a reliable ward.->Cass/Baggage/Take the Salt]]
 
+:: Cass/Baggage/Take the Crossbow
+You tuck the crossbow under your cloak and make your way back to the sleeper car.
+
+<% CassInventory.add('crossbow') %>
 <%= story.render("Cass/Sleeper/Beat 1") %>
 
-:: Cass/Baggage/Take the Holy Water
-You grab the holy water and make your way back to your sleeper car.
+:: Cass/Baggage/Take the Stake
+You tuck the stake into your sash and make your way back to the sleeper car.
 
+<% CassInventory.add('stake') %>
+<%= story.render("Cass/Sleeper/Beat 1") %>
+
+:: Cass/Baggage/Take the Salt
+You grab the saltbox and make your way back to your sleeper car.
+
+<% CassInventory.add('salt') %>
 <%= story.render("Cass/Sleeper/Beat 1") %>
 
 :: Cass/Sleeper/Beat 1

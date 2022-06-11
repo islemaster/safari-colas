@@ -29,6 +29,30 @@ test('Scene Explorations', async t => {
     t.end();
   });
 
+  t.test(`Cass Baggage car scene`, async t => {
+    await story.restart();
+    await story.walk([
+      'Play as Cassia',
+      `You’re in the dining car.`,
+      `take another bite of pheasant.`,
+      `isn’t cut out for this after all.`,
+      `Flora will too.`,
+      `Necklace`,
+      `“None of your business.”`,
+      `dangerous`,
+      `simpler that way.`,
+      `a family at another table.`,
+      `you feel calmer, watching them.`,
+      `leave`,
+    ]);
+    const exploration = await story.exploreTo([`Cass/Sleeper/Beat 2`]);
+    t.equal(exploration.totalKnots, 6);
+    t.equal(exploration.convergences, 0);
+    t.equal(exploration.terminalStates, 3);
+    t.true(exploration.fullyExplored);
+    t.end();
+  });
+
   t.test(`Flora Dining conversation with Cass`, async t => {
     await story.restart();
     await story.walk([
