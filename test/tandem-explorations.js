@@ -7,12 +7,12 @@ put a 'readaloud' annotation in a passage.
 */
 
 const test = require('tape');
-const Story = require('./Story');
+const SyntheticPlayer = require('./SyntheticPlayer');
 
 test('Tandem Explorations', async t => {
   t.test(`Joint random walk`, async t => {
-    const flora = new Story();
-    const cass = new Story();
+    const flora = new SyntheticPlayer();
+    const cass = new SyntheticPlayer();
     t.teardown(async () => {
       await flora.teardown();
       await cass.teardown();
@@ -35,40 +35,34 @@ test('Tandem Explorations', async t => {
       eventLog.push(text);
     }
 
-    const floraPlayer = {
-      story: flora,
-      waiting: false,
-      hasKeyword: false,
-      gotKeyword: false,
-    };
-
-    const cassPlayer = {
-      story: cass,
-      waiting: false,
-      hasKeyword: false,
-      gotKeyword: false,
+    const decorateForKeywordPassing = player => {
+      player.waiting = false;
+      player.hasKeyword = false;
+      player.gotKeyword = false;
     }
+    decorateForKeywordPassing(flora);
+    decorateForKeywordPassing(cass);
 
     const tryStep = async (player) => {
-      const character = player.story.currentKnot.state.playerCharacter;
-      if (!player.story.currentKnot.isAnEnding && !player.waiting && !player.hasKeyword) {
+      const character = player.currentKnot.state.playerCharacter;
+      if (!player.currentKnot.isAnEnding && !player.waiting && !player.hasKeyword) {
         if (player.gotKeyword) {
-          await player.story.walk([player.gotKeyword]);
-          record(character, player.gotKeyword + ' => ' + player.story.currentKnot.passageName);
+          await player.walk([player.gotKeyword]);
+          record(character, player.gotKeyword + ' => ' + player.currentKnot.passageName);
           player.gotKeyword = false;
         } else {
-          const link = await player.story.randomWalk();
-          record(character, link + ' => ' + player.story.currentKnot.passageName);
+          const link = await player.randomWalk();
+          record(character, link + ' => ' + player.currentKnot.passageName);
         }
 
         // Find a readaloud keyword
-        if (m = player.story.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
+        if (m = player.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
           player.hasKeyword = m && m[1];
           record(character, `${character} has a keyword: ${player.hasKeyword}`)
         }
 
         // Find a stop box (both can happen in one knot)
-        if (player.story.currentKnot.html.includes(`class="stop"`)) {
+        if (player.currentKnot.html.includes(`class="stop"`)) {
           record(character, `${character} is waiting on a keyword`);
           player.waiting = true;
         } 
@@ -87,13 +81,13 @@ test('Tandem Explorations', async t => {
 
     while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
       let moved = await Promise.all([
-        tryStep(cassPlayer),
-        tryStep(floraPlayer)
+        tryStep(cass),
+        tryStep(flora)
       ]);
       moved = moved.some(x => x);
 
-      tryPass(cassPlayer, floraPlayer);
-      tryPass(floraPlayer, cassPlayer);
+      tryPass(cass, flora);
+      tryPass(cass, flora);
 
       if (!moved) {
         throw new Error('Got stuck!\n\n' + eventLog.join('\n'));

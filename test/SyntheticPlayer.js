@@ -3,7 +3,7 @@ const path = require('path');
 const _ = require('lodash');
 const process = require('process');
 
-module.exports = class Story {
+module.exports = class SyntheticPlayer {
   async setup() {
     // Create browser, navigate to game
     this.browser = await puppeteer.launch({
@@ -137,12 +137,12 @@ module.exports = class Story {
 class Knot {
   children = {};
 
-  static async capture(story, parentKnot) {
+  static async capture(player, parentKnot) {
     const knot = new Knot();
-    knot.story = story;
+    knot.player = player;
     knot.parent = parentKnot;
 
-    const passage = await story.page.$('tw-passage');
+    const passage = await player.page.$('tw-passage');
     knot.passageName = await passage.evaluate(() => window.passage.name);
     knot.text = await passage.evaluate(p => p.innerText);
     knot.html = await passage.evaluate(p => p.innerHTML);
@@ -167,13 +167,13 @@ class Knot {
    * @param {string} linkText
    */
   async followLink(linkText) {
-    if (this.story.currentKnot !== this) {
+    if (this.player.currentKnot !== this) {
       throw new Error(`Tried to follow link [[${linkText}]] from knot ${this.name()} `
         + `but it is not the current knot.`);
     }
 
     const findLink = async () => {
-      const links = await this.story.page.$$('tw-passage a');
+      const links = await this.player.page.$$('tw-passage a');
       for (let link of links) {
         const text = await link.evaluate(l => l.innerText);
         if (linkText.toLowerCase() === text.toLowerCase()) return link;
@@ -183,21 +183,21 @@ class Knot {
 
     const link = await findLink();
     if (!link) {
-      const passageText = await this.story.page.$eval('tw-passage', p => p.innerText);
+      const passageText = await this.player.page.$eval('tw-passage', p => p.innerText);
       throw new Error(`Expected a link with text "${linkText}" but none was found `
         + `in passage:\n\n${passageText}`);
     }
 
     await link.click();
     await this.assertNoError();
-    this.children[linkText] = this.children[linkText] || await Knot.capture(this.story, this);
-    this.story.currentKnot = this.children[linkText];
+    this.children[linkText] = this.children[linkText] || await Knot.capture(this.player, this);
+    this.player.currentKnot = this.children[linkText];
   }
 
   async restore() {
-    await this.story.page.evaluate((h) => window.story.restore(h), this.saveHash);
+    await this.player.page.evaluate((h) => window.story.restore(h), this.saveHash);
     await this.assertNoError();
-    const textAfterRestore = await this.story.page.$eval('tw-passage', p => p.innerText);
+    const textAfterRestore = await this.player.page.$eval('tw-passage', p => p.innerText);
     if (this.text != textAfterRestore) {
       throw new Error(`Passage text mismatch after restore:\n`
         + `<<<<<<<< EXPECTED\n`
@@ -206,7 +206,7 @@ class Knot {
         + textAfterRestore
         + `\n>>>>>>>> ACTUAL`);
     }
-    this.story.currentKnot = this;
+    this.player.currentKnot = this;
   }
 
   anyDescendant(predicate) {
@@ -262,9 +262,9 @@ class Knot {
   }
 
   async assertNoError() {
-    const passage = await this.story.page.$('tw-passage');
+    const passage = await this.player.page.$('tw-passage');
     if (!passage) {
-      const errorMessage = await this.story.page.$eval('tw-story', el => el.innerText);
+      const errorMessage = await this.player.page.$eval('tw-story', el => el.innerText);
       throw new Error(`Twine reported an error: ${errorMessage}`);
     }
   }

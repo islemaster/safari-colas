@@ -6,19 +6,19 @@ Walk a particular sequence of choices:
 */
 
 const test = require('tape');
-const Story = require('./Story');
+const SyntheticPlayer = require('./SyntheticPlayer');
 
 test('Blessed Paths', async t => {
-  const story = new Story();
-  await story.setup();
+  const player = new SyntheticPlayer();
+  await player.setup();
 
   t.teardown(async () => {
-    await story.teardown();
+    await player.teardown();
   });
 
   t.test('Cass path 1', async t => {
-    await story.restart();
-    await story.walk([
+    await player.restart();
+    await player.walk([
       'Play as Cassia',
       `You’re in the dining car.`,
       `a mortal`,
@@ -42,13 +42,13 @@ test('Blessed Paths', async t => {
       `The stake is good for a close-quarters situation.`,
       `You attend to one of the thoughts.`,
     ]);
-    t.match(story.currentKnot.text, /END OF PROTOTYPE/);
+    t.match(player.currentKnot.text, /END OF PROTOTYPE/);
     t.end();
   });
 
   t.test('Flora path 1', async t => {
-    await story.restart();
-    await story.walk([
+    await player.restart();
+    await player.walk([
       'Play as Flora',
       'You’re in the dining car.',
       'You observe in disgust.',
@@ -75,7 +75,7 @@ test('Blessed Paths', async t => {
       `We’ve reached the mountains.`,
       `You’re not quite ready for sleep.`,
     ]);
-    t.match(story.currentKnot.text, /END OF PROTOTYPE/);
+    t.match(player.currentKnot.text, /END OF PROTOTYPE/);
     t.end();
   });
 });

@@ -6,18 +6,18 @@ WARNING! These are very slow, can take 30s or more to finish.
 */
 
 const test = require('tape');
-const Story = require('./Story');
+const SyntheticPlayer = require('./SyntheticPlayer');
 
 test('Full Explorations', async t => {
-  const story = new Story();
-  await story.setup();
-  t.teardown(async () => await story.teardown());
+  const player = new SyntheticPlayer();
+  await player.setup();
+  t.teardown(async () => await player.teardown());
 
   t.test(`Cassia`, async t => {
-    await story.restart();
-    await story.walk(['Play as Cassia']);
+    await player.restart();
+    await player.walk(['Play as Cassia']);
 
-    const exploration = await story.exploreTo([`Cass/Sleeper/Beat 2`]);
+    const exploration = await player.exploreTo([`Cass/Sleeper/Beat 2`]);
     t.equal(exploration.totalKnots, 312);
     t.equal(exploration.convergences, 232);
     t.equal(exploration.terminalStates, 9);
@@ -26,10 +26,10 @@ test('Full Explorations', async t => {
   });
 
   t.test(`Flora`, async t => {
-    await story.restart();
-    await story.walk(['Play as Flora']);
+    await player.restart();
+    await player.walk(['Play as Flora']);
 
-    const exploration = await story.exploreTo([`Flora/Sleeper/Beat 2`]);
+    const exploration = await player.exploreTo([`Flora/Sleeper/Beat 2`]);
     t.equal(exploration.totalKnots, 309);
     t.equal(exploration.convergences, 238);
     t.equal(exploration.terminalStates, 3);
