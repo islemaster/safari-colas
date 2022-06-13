@@ -1,12 +1,16 @@
 /*
-Tests that run two browsers and check lockstep scenarios for the two players.
+Tests that use two simulated players to walk through the game
+and simulate the keyword-passing mechanic, looking for scenarios
+where we are stuck because each player is waiting on a keyword
+from the other.  For example, this could happen if we forget to
+put a 'readaloud' annotation in a passage.
 */
 
 const test = require('tape');
 const Story = require('./Story');
 
 test('Tandem Explorations', async t => {
-  t.test(`Validate set paths`, async t => {
+  t.test(`Joint random walk`, async t => {
     const flora = new Story();
     const cass = new Story();
     t.teardown(async () => {
@@ -45,7 +49,7 @@ test('Tandem Explorations', async t => {
       gotKeyword: false,
     }
 
-    const step = async (player) => {
+    const tryStep = async (player) => {
       const character = player.story.currentKnot.state.playerCharacter;
       if (!player.story.currentKnot.isAnEnding && !player.waiting && !player.hasKeyword) {
         if (player.gotKeyword) {
@@ -82,19 +86,19 @@ test('Tandem Explorations', async t => {
     }
 
     while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
-      let stuck = true;
-      let moved = await Promise.all([step(cassPlayer), step(floraPlayer)]);
+      let moved = await Promise.all([
+        tryStep(cassPlayer),
+        tryStep(floraPlayer)
+      ]);
       moved = moved.some(x => x);
 
       tryPass(cassPlayer, floraPlayer);
       tryPass(floraPlayer, cassPlayer);
 
       if (!moved) {
-        throw new Error('Got stuck!');
+        throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
       }
     }
-
-    console.log(eventLog.join('\n'));
 
     t.end();
   });

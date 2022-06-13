@@ -1,5 +1,6 @@
 /*
-Tests that explore a subset of game-space.
+Tests that fully explore a particular scene.
+Checks for errors and dead-ends.
 */
 
 const test = require('tape');

@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 const _ = require('lodash');
+const process = require('process');
 
 module.exports = class Story {
   async setup() {
@@ -42,6 +43,8 @@ module.exports = class Story {
     return link;
   }
 
+  
+
   /**
    * Fully explores a subset of story-space, starting from the current story knot
    * and proceeding as far as it can. Exploration stops at specified passages,
@@ -57,15 +60,23 @@ module.exports = class Story {
    *        will return `fullyExplored = false`.
    * @returns 
    */
-  async exploreTo(terminalPassageNames, maxDepth = 50) {
+  async exploreTo(terminalPassageNames, {maxDepth = 50, progressReport = true} = {}) {
     let totalKnots = 0;
     let convergences = 0;
     let terminalStates = 0;
     let fullyExplored = true; // Until proven otherwise
+    let startTimeMs = Date.now();
+    let lastReportMs = -Infinity;
 
     const explorationRoot = this.currentKnot;
     const knotsToExplore = [explorationRoot];
     while (knotsToExplore.length > 0) {
+      const now = Date.now();
+      if (progressReport && now - lastReportMs > 300) {
+        lastReportMs = now;
+        rewriteProgressReport(now - startTimeMs, totalKnots, terminalStates);
+      }
+
       const knotBeingExplored = knotsToExplore.pop();
       totalKnots++;
 
@@ -110,6 +121,11 @@ module.exports = class Story {
 
         knotsToExplore.push(this.currentKnot);
       }
+    }
+
+    if (progressReport) {
+      rewriteProgressReport(Date.now() - startTimeMs, totalKnots, terminalStates);
+      process.stderr.write('\n');
     }
 
     return { totalKnots, convergences, terminalStates, fullyExplored };
@@ -252,4 +268,16 @@ class Knot {
       throw new Error(`Twine reported an error: ${errorMessage}`);
     }
   }
+}
+
+function rewriteProgressReport(elapsedMs, totalKnots, endings) {
+  process.stderr.clearLine(0);
+  process.stderr.cursorTo(0);
+  process.stderr.write(`${formatTime(elapsedMs)} | Knots: ${totalKnots} | Endings: ${endings}`);
+}
+
+function formatTime(ms) {
+  const mins = Math.floor(ms / 60000);
+  const secs = Math.floor((ms - mins * 60000) / 1000);
+  return `${('00' + mins).slice(-2)}:${('00' + secs).slice(-2)}`;
 }
