@@ -6,8 +6,7 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "lodash": "^4.17.21",
     "puppeteer": "^14.2.1",
