@@ -177,7 +177,7 @@ It will be [[simpler that way.->Cass/Dining/Beat 7]]
 :: Cass/Dining/Beat 7
 You apparently offend her, because she stands up.
 
-> "I need some air."
+"I need some air."
 
 As she leaves the car, she passes [[a family at another table.->Cass/Dining/Beat 8]]
 
@@ -265,7 +265,7 @@ TODO: Choices here of thoughts to attend to.
 [[You attend to one of the thoughts.->Cass/Sleeper/Beat 2]]
 
 :: Cass/Sleeper/Beat 2
-As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. You've reached the mountains.
+<div.interlude>As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. We've reached the mountains.</div>
 
 END OF PROTOTYPE. [[Restart?->Start]]
 

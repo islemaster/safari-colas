@@ -170,7 +170,7 @@ You may not have an appetite anymore, but you need this person.  You have a job 
 
 Cass interrupts.
 
-> "I need you, but I don't want to know you."
+"I need you, but I don't want to know you."
 
 [[Maybe you are more alone than you realized.->Flora/Dining/Beat 4]]
 
@@ -182,7 +182,7 @@ Well, if she's going to be like that, you might as well get some air.
 <% Convo('Flora/Dining').cleanup() %>
 
 :: Flora/Smoke Break/Beat 1
-*Between cars, at sunset.*
+<div.scene-heading>Between cars, at sunset.</div>
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
 
@@ -210,7 +210,7 @@ He listens carefully to your story and looks concerned. Then he shares rumors of
 :: Flora/Smoke Break/Beat 5
 He breaks the spell.
 
-> "But I'm sure it's just superstition. Local color, right?"
+"But I'm sure it's just superstition. Local color, right?"
 
 He shrugs it off and compliments your hair. He asks if he can buy you a drink sometime.
 
@@ -221,14 +221,18 @@ He shrugs it off and compliments your hair. He asks if he can buy you a drink so
 :: Flora/Smoke Break/Beat 6
 He's cheery and unfazed.
 
-> "Another time then."
+"Another time then."
 
 You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/Smoke Break/Coda]]
 
 :: Flora/Smoke Break/Coda
+<div.interlude>
 The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
+<% $('body').css('backgroundColor', '#111') %>
+
 [[We've reached the mountains.->Flora/Sleeper/Beat 1]]
+</div>
 
 :: Flora/Sleeper/Beat 1
 It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is already asleep on the lower bunk.
