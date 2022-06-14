@@ -2,26 +2,33 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Use Go 1.13
         uses: actions/setup-go@v1
         with:
           go-version: 1.13.x
 
-      - name: build game
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - run: go get github.com/tmedwards/tweego
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+      - name: Copy game to dist/ for gh-pages
         run: |
-          go get github.com/tmedwards/tweego
-          export PATH=$PATH:$(go env GOPATH)/bin
           mkdir -p dist
-          tweego src -o dist/index.html
+          cp main.html dist/index.html
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3

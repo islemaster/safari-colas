@@ -72,6 +72,12 @@ module.exports = class SyntheticPlayer {
     let startTimeMs = Date.now();
     let lastReportMs = -Infinity;
 
+    // Automatically nope out of printing progress if we feature-detect that
+    // stderr is not a TTY (like in our CI environment).
+    if (typeof process.stderr.clearLine !== 'function') {
+      progressReport = false;
+    }
+
     const explorationRoot = this.currentKnot;
     const knotsToExplore = [explorationRoot];
     while (knotsToExplore.length > 0) {

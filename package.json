@@ -13,9 +13,9 @@
     "tape": "^5.5.3"
   },
   "scripts": {
-    "build": "tweego -o main.html src",
+    "build": "$(go env GOPATH)/bin/tweego -o main.html src",
     "test": "tape test/*.js",
-    "watch": "tweego -o main.html --watch --test src"
+    "watch": "$(go env GOPATH)/bin/tweego -o main.html --watch --test src"
   },
   "repository": {
     "type": "git",
