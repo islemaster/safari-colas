@@ -11,85 +11,19 @@ const SyntheticPlayer = require('./SyntheticPlayer');
 
 test('Tandem Explorations', async t => {
   t.test(`Joint random walk`, async t => {
-    const flora = new SyntheticPlayer();
-    const cass = new SyntheticPlayer();
+    const eventLog = [];
+    const flora = new KeywordPassingPlayer('Flora', eventLog);
+    const cass = new KeywordPassingPlayer('Cassia', eventLog);
     t.teardown(async () => {
       await flora.teardown();
       await cass.teardown();
     });
-
-    await Promise.all([
-      (async () => {
-        await flora.setup();
-        await flora.walk(['Play as Flora']);
-      })(),
-      (async () => {
-        await cass.setup();
-        await cass.walk(['Play as Cassia'])
-      })()
-    ]);
-
-    const eventLog = [];
-    const record = (character, text) => {
-      if (character == 'Flora') text = ' '.repeat(80) + text;
-      eventLog.push(text);
-    }
-
-    const decorateForKeywordPassing = player => {
-      player.waiting = false;
-      player.hasKeyword = false;
-      player.gotKeyword = false;
-    }
-    decorateForKeywordPassing(flora);
-    decorateForKeywordPassing(cass);
-
-    const tryStep = async (player) => {
-      const character = player.currentKnot.state.playerCharacter;
-      if (!player.currentKnot.isAnEnding && !player.waiting && !player.hasKeyword) {
-        if (player.gotKeyword) {
-          await player.walk([player.gotKeyword]);
-          record(character, player.gotKeyword + ' => ' + player.currentKnot.passageName);
-          player.gotKeyword = false;
-        } else {
-          const link = await player.randomWalk();
-          record(character, link + ' => ' + player.currentKnot.passageName);
-        }
-
-        // Find a readaloud keyword
-        if (m = player.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
-          player.hasKeyword = m && m[1];
-          record(character, `${character} has a keyword: ${player.hasKeyword}`)
-        }
-
-        // Find a stop box (both can happen in one knot)
-        if (player.currentKnot.html.includes(`class="stop"`)) {
-          record(character, `${character} is waiting on a keyword`);
-          player.waiting = true;
-        } 
-        return true; // Advanced
-      }
-      return false; // Did not advance
-    };
-
-    const tryPass = (fromPlayer, toPlayer) => {
-      if (fromPlayer.hasKeyword && toPlayer.waiting) {
-        toPlayer.gotKeyword = fromPlayer.hasKeyword;
-        fromPlayer.hasKeyword = toPlayer.waiting = false;
-        eventLog.push(' '.repeat(40) + '-'.repeat(20) + ' KEYWORD EXCHANGE ' + '-'.repeat(20));
-      }
-    }
+    await Promise.all([flora.setup(), cass.setup()]);
 
     while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
-      let moved = await Promise.all([
-        tryStep(cass),
-        tryStep(flora)
-      ]);
-      moved = moved.some(x => x);
-
-      tryPass(cass, flora);
-      tryPass(cass, flora);
-
-      if (!moved) {
+      const moved = (await Promise.all([cass.tryStep(), flora.tryStep()])).some(x => x);
+      const passedAKeyword = [cass.tryPassTo(flora), flora.tryPassTo(cass)].some(x => x);
+      if (!moved && !passedAKeyword) {
         throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
       }
     }
@@ -97,3 +31,62 @@ test('Tandem Explorations', async t => {
     t.end();
   });
 });
+
+class KeywordPassingPlayer extends SyntheticPlayer {
+  constructor(characterName, eventLog) {
+    super();
+    this.characterName = characterName;
+    this.eventLog = eventLog;
+    this.waiting = false;
+    this.hasKeyword = false;
+    this.gotKeyword = false;
+  }
+
+  async setup() {
+    await super.setup();
+    await this.walk([`Play as ${this.characterName}`]);
+  }
+
+  record(eventString) {
+    if (this.characterName == 'Flora') eventString = ' '.repeat(80) + eventString;
+    this.eventLog.push(eventString);
+  }
+
+  async tryStep() {
+    if (!this.currentKnot.isAnEnding && !this.waiting && !this.hasKeyword) {
+      if (this.gotKeyword) {
+        await this.walk([this.gotKeyword]);
+        this.record(this.gotKeyword + ' => ' + this.currentKnot.passageName);
+        this.gotKeyword = false;
+      } else {
+        const link = await this.randomWalk();
+        this.record(link + ' => ' + this.currentKnot.passageName);
+      }
+
+      // Find a readaloud keyword
+      let m;
+      if (m = this.currentKnot.html.match(/class="readaloud">([^<]+)/)) {
+        this.hasKeyword = m && m[1];
+        this.record(`${this.characterName} has a keyword: ${this.hasKeyword}`)
+      }
+
+      // Find a stop box (both can happen in one knot)
+      if (this.currentKnot.html.includes(`class="stop"`)) {
+        this.record(`${this.characterName} is waiting on a keyword`);
+        this.waiting = true;
+      }
+      return true; // Advanced
+    }
+    return false; // Did not advance
+  }
+
+  tryPassTo(toPlayer) {
+    if (this.hasKeyword && toPlayer.waiting) {
+      toPlayer.gotKeyword = this.hasKeyword;
+      this.hasKeyword = toPlayer.waiting = false;
+      this.eventLog.push(' '.repeat(40) + '-'.repeat(20) + ' KEYWORD EXCHANGE ' + '-'.repeat(20));
+      return true; // Passed a keyword
+    }
+    return false; // Did not pass a keyword
+  }
+}
