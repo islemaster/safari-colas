@@ -10,26 +10,29 @@ const test = require('tape');
 const SyntheticPlayer = require('./SyntheticPlayer');
 
 test('Tandem Explorations', async t => {
-  t.test(`Joint random walk`, async t => {
-    const eventLog = [];
-    const flora = new KeywordPassingPlayer('Flora', eventLog);
-    const cass = new KeywordPassingPlayer('Cassia', eventLog);
-    t.teardown(async () => {
-      await flora.teardown();
-      await cass.teardown();
-    });
-    await Promise.all([flora.setup(), cass.setup()]);
-
-    while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
-      const moved = (await Promise.all([cass.tryStep(), flora.tryStep()])).some(x => x);
-      const passedAKeyword = [cass.tryPassTo(flora), flora.tryPassTo(cass)].some(x => x);
-      if (!moved && !passedAKeyword) {
-        throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
+  for (let i = 1; i <= 10; i++) {
+    t.test(`Joint random walk ${('00' + i).slice(-2)}`, async t => {
+      const eventLog = [];
+      const flora = new KeywordPassingPlayer('Flora', eventLog);
+      const cass = new KeywordPassingPlayer('Cassia', eventLog);
+      t.teardown(async () => {
+        await flora.teardown();
+        await cass.teardown();
+      });
+      await Promise.all([flora.setup(), cass.setup()]);
+  
+      while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
+        const moved = (await Promise.all([cass.tryStep(), flora.tryStep()])).some(x => x);
+        const passedAKeyword = [cass.tryPassTo(flora), flora.tryPassTo(cass)].some(x => x);
+        if (!moved && !passedAKeyword) {
+          throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
+        }
       }
-    }
-
-    t.end();
-  });
+  
+      t.end();
+    });
+  }
+  
 });
 
 class KeywordPassingPlayer extends SyntheticPlayer {
