@@ -21,7 +21,7 @@ Prototype of a new game by Brad and Yotam.
 5. Run all tests with
 
    ```
-   npm run test
+   npm test
    ```
    
    These tests can be a little slow. They launch a headless browser and actually play through the game in various ways. Some tests exhaustively explore the possibility space. If you want to run one test file, they can be run directly on node:
