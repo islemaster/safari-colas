@@ -3,6 +3,10 @@ const path = require('path');
 const _ = require('lodash');
 const process = require('process');
 
+// When exploring a game-space, how often the logged progress
+// display updates.
+const PROGRESS_REPORT_INTERVAL_MS = 150;
+
 module.exports = class SyntheticPlayer {
   async setup() {
     // Create browser, navigate to game
@@ -72,7 +76,7 @@ module.exports = class SyntheticPlayer {
     const knotsToExplore = [explorationRoot];
     while (knotsToExplore.length > 0) {
       const now = Date.now();
-      if (progressReport && now - lastReportMs > 300) {
+      if (progressReport && now - lastReportMs > PROGRESS_REPORT_INTERVAL_MS) {
         lastReportMs = now;
         rewriteProgressReport(now - startTimeMs, totalKnots, terminalStates);
       }
