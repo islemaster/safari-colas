@@ -30,9 +30,9 @@ test('Full Explorations', async t => {
     await player.walk(['Play as Flora']);
 
     const exploration = await player.exploreTo([`Flora/Sleeper/Beat 2`]);
-    t.equal(exploration.totalKnots, 309);
-    t.equal(exploration.convergences, 238);
-    t.equal(exploration.terminalStates, 3);
+    t.equal(exploration.totalKnots, 342);
+    t.equal(exploration.convergences, 244);
+    t.equal(exploration.terminalStates, 12);
     t.true(exploration.fullyExplored);
     t.end();
   });

@@ -16,6 +16,12 @@ tw-story {
   border: darkslategray solid thin;
   box-shadow: 3px 3px 4px 1px #0005;
 }
+@media only screen and (max-width: 600px) {
+  tw-story {
+    margin: 0.5em auto;
+    padding: 1em;
+  }
+}
 
 a {
   font-weight: bold;
@@ -78,4 +84,26 @@ blockquote {
 
 .stop::before {
   content: "🛑 ";
+}
+
+.dev-panel {
+  position: absolute;
+  width: 300px;
+  top: 1em;
+  right: 0;
+  background-color: white;
+  border: solid black thin;
+  padding: 1em;
+  font-size: 10pt;
+  font-family: sans-serif;
+}
+@media only screen and (max-width: 600px) {
+  .dev-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    width: unset;
+  }
 }

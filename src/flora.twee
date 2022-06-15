@@ -135,6 +135,7 @@ Stop! How did your partner respond?
 
 :: Flora/Dining/Homework
 "I suppose you should do your homework. It's in my rucksack, take a look later." You make a mental note.
+<% s.theBestiaryIsInTheRucksack = true %>
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
@@ -235,14 +236,19 @@ The handsome man takes a deep breath, lights another cigarette, takes a long dra
 </div>
 
 :: Flora/Sleeper/Beat 1
-It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is already asleep on the lower bunk.
+It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is [[already asleep->Flora/Sleeper/Examine Cass]] on the lower bunk.
+
+[[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
+
+:: Flora/Sleeper/Examine Cass
+It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is **already asleep** on the lower bunk.
 
 Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.
 
 [[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
 
 :: Flora/Sleeper/Beat 2
-You spot one of Cassia's books lying open at the foot of her bed.  You grab it and start studying. If you're going to kill a monster, you need to be ready - and if there's one thing you can do, it's study.
+<% if (s.theBestiaryIsInTheRucksack) { %>You dig in Cassia's rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.<% } else { %>You spot one of Cassia's books lying open at the foot of her bed.<% } %>  You grab it and start studying. If you're going to kill a monster, you need to be ready - and if there's one thing you can do, it's study.
 
 END OF PROTOTYPE. [[Restart?->Start]]
 

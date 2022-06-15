@@ -1,7 +1,5 @@
 # Safari Colas
 
-[Play online](https://islemaster.github.io/safari-colas)
-
 ## About
 
 Prototype of a new game by Brad and Yotam.
