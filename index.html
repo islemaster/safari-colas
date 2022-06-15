@@ -10,74 +10,234 @@
 	</head>
 	<body>
 		<tw-story tags></tw-story>
-		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="63" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">body {
-    font-family: "Georgia", "Verdana", serif;
-    font-size: 16pt;
-    color: #333;
-    max-width: 600px;
-    margin: 2em auto;
+		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="64" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">body {
+  background-color: antiquewhite;
+  transition: background-color 2s ease-in-out 0.5s;
 }
 
 tw-story {
-    line-height: 160%;
+  line-height: 160%;
+  font-family: "Georgia", "Verdana", serif;
+  font-size: 16pt;
+  color: #333;
+  background-color: white;
+  max-width: 600px;
+  margin: 1em auto;
+  min-height: calc(100vh - 7em);
+  padding: 2em;
+  border: darkslategray solid thin;
+  box-shadow: 3px 3px 4px 1px #0005;
+}
+@media only screen and (max-width: 600px) {
+  tw-story {
+    margin: 0.5em auto;
+    padding: 1em;
+  }
 }
 
 a {
-    font-weight: bold;
-    color: #912d38;
-    text-decoration: none;
+  font-weight: bold;
+  color: #912d38;
+  text-decoration: none;
 }
+
 a:hover {
-    color: #e0273c;
+  color: #e0273c;
 }
 
 blockquote {
-    font-style: italic;
+  font-style: italic;
+}
+
+.interlude {
+  display: block;
+  text-align: center;
+  font-style: italic;
+  margin-top: 25vh;
+}
+
+.scene-heading {
+  text-align: center;
+  font-variant: small-caps;
 }
 
 .readaloud {
-    position: relative;
-    font-variant: small-caps;
-    text-decoration: double underline #912d38;
+  position: relative;
+  font-variant: small-caps;
+  text-decoration: double underline #912d38;
 }
+
 .readaloud::before {
-    content: "READ ALOUD";
-    white-space: nowrap;
-    position: absolute;
-    text-align: center;
-    width: 8em;
-    margin-left: -4em;
-    left: 50%;
-    top: 1.3em;
-    font-family: sans-serif;
-    font-size: x-small;
-    font-weight: bold;
-    color: #912d38;
+  content: "READ ALOUD";
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+  width: 8em;
+  margin-left: -4em;
+  left: 50%;
+  top: 1.3em;
+  font-family: sans-serif;
+  font-size: x-small;
+  font-weight: bold;
+  color: #912d38;
 }
 
 .stop {
-    display: block;
-    width: 100%;
-    padding: 1em;
-    margin-left: -1em;
-    border: #912d38 solid thin;
-    border-radius: 2em;
-    background-color: #912d381c;
-    font-variant: small-caps;
-    font-size: smaller;
+  display: block;
+  width: 100%;
+  padding: 1em;
+  margin-left: -1em;
+  border: #912d38 solid thin;
+  border-radius: 2em;
+  background-color: #912d381c;
+  font-variant: small-caps;
+  font-size: smaller;
 }
+
 .stop::before {
-    content: "🛑 ";
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Global story properties
+  content: "🛑 ";
+}
+
+.dev-panel {
+  position: absolute;
+  width: 300px;
+  top: 1em;
+  right: 0;
+  background-color: white;
+  border: solid black thin;
+  padding: 1em;
+  font-size: 10pt;
+  font-family: sans-serif;
+}
+@media only screen and (max-width: 600px) {
+  .dev-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    width: unset;
+  }
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "devPanel.js" */
+function createDevPanel() {
+  const AUTOSAVE_KEY = 'dev-autosave';
+  const SAVES_KEY = 'dev-saves';
+
+  const devPanel = document.createElement('div');
+  const heading = document.createElement('strong');
+  const devPanelContent = document.createElement('div');
+  devPanel.appendChild(heading);
+  devPanel.appendChild(devPanelContent);
+
+  devPanel.className = 'dev-panel';
+  
+  heading.textContent = 'Developer Tools';
+  heading.style.cursor = 'pointer';
+  $(heading).click(evt => {
+    const $content = $(devPanelContent);
+    $content[$content.is( ":hidden" ) ? 'slideDown' : 'slideUp']('fast');
+  });
+
+  document.body.appendChild(devPanel);
+
+  function getSaves() {
+    const json = window.localStorage.getItem(SAVES_KEY);
+    if (!json) return [];
+    try {
+      return JSON.parse(json);
+    } catch (err) {
+      console.warn(`Failed to parse saves: `, err, json);
+      return [];
+    }
+  }
+
+  function getAutosave() {
+    const json = window.localStorage.getItem(AUTOSAVE_KEY);
+    if (!json) return null;
+    try {
+      return JSON.parse(json);
+    } catch (err) {
+      console.warn(`Failed to parse autosave: `, err, json);
+    }
+  }
+
+  function buildSave() {
+    return {
+      passageName: window.passage.name,
+      saveHash: window.story.saveHash(),
+      saveTime: Date.now()
+    };
+  }
+
+  window.saveNow = devPanel.saveNow = () => {
+    const saves = [buildSave(), ...getSaves()].slice(0, 5);
+    window.localStorage.setItem(SAVES_KEY, JSON.stringify(saves));
+    devPanel.render();
+  };
+
+  devPanel.autosave = () => {
+    window.localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildSave()));
+  }
+
+  window.loadAutosave = devPanel.loadAutosave = () => {
+    const autosave = getAutosave();
+    window.story.restore(autosave.saveHash);
+  };
+
+  window.loadSave = devPanel.loadSave = (saveIndex) => {
+    const save = getSaves()[saveIndex];
+    window.story.restore(save.saveHash);
+  };
+
+  devPanel.render = () => {
+    const content = [];
+    content.push(`<hr />`);
+    content.push(`<center><a href="javascript:saveNow()">[[ Save now ]]</a></center>`);
+    const autosave = getAutosave();
+    if (autosave) {
+      content.push(`<a href="javascript:loadAutosave()">AUTOSAVE | ${autosave.passageName}</a>`);
+    }
+    getSaves().forEach((save, i) => {
+      content.push(`<br /><a href="javascript:loadSave(${i})">${ago(save.saveTime)} | ${save.passageName}</a>`);
+    });
+    devPanelContent.innerHTML = content.join('\n');
+  }
+
+  devPanel.render();
+  return devPanel;
+}
+
+function ago(ms) {
+  var secs = Math.floor((Date.now() - ms) / 1000);
+  if (secs < 5) { return "just now"; }
+  if (secs < 60) { return secs + "s ago"; }
+  if (secs < 3600) { return Math.floor(secs / 60) + "m ago"; }
+  if (secs < 86400) { return Math.floor(secs / 3600) + "h ago"; }
+  if (secs < 604800) { return Math.floor(secs / 172800) + "d ago"; }
+  if (secs < 31536000) { return Math.floor(secs / 2592000) + "mo ago"; }
+  return "more than year ago";
+}
+/* twine-user-script #2: "main.js" */
+// Global story properties
 story.title = 'Safari Colas'
 story.FLORA = 'Flora'
 story.CASSIA = 'Cass'
+
+const DEVELOPER_MODE = true;
+let devPanel = DEVELOPER_MODE ? createDevPanel() : null;
 
 // The util namespace holds our helper functions
 window.util = window.util || {};
 
 // Enables back/forward buttons for every passage
-$(window).on('sm.passage.shown', () => story.checkpoint());
+$(window).on('sm.passage.shown', () => {
+  story.checkpoint();
+  if (DEVELOPER_MODE) {
+    if (window.passage.name !== 'Start') devPanel.autosave();
+    devPanel.render();
+    
+  }
+});
 
 // State
 story.state.playerCharacter = null;
@@ -164,6 +324,26 @@ util.continuation = function (text, nextPassage) {
     return `
     <a href="javascript:void(0)" id="continuation">${text}</a>
     `;
+}
+
+/**
+ * Creates a link which, when clicked, shows a hidden element in the
+ * passage (specified by id). The link changes to plain text once clicked.
+ * @param {string} linkText 
+ * @param {string} idToReveal 
+ * @returns 
+ */
+util.revealer = function (linkText, idToReveal, passageName) {
+  $(() => {
+    $(`#reveal-${idToReveal}`).click(event => {
+      $(`#${idToReveal}`).fadeIn('fast');
+      renderToSelector(`#${idToReveal}`, passageName);
+      event.target.replaceWith($(`<strong>${linkText}</strong>`)[0]);
+    })
+  });
+  return `
+  <a href="javascript:void(0)" id="reveal-${idToReveal}">${linkText}</a>
+  `;
 }</script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">This is the first decent meal you&#39;ve had in a long time.
 
 Your hunger masks the loneliness of sitting across the table from [[a mortal-&gt;Cass/Dining/Examine Flora]] and not knowing what to say next.
@@ -278,7 +458,7 @@ You&#39;re not exactly ready to open up to this novice nurse from Nowheresburgh.
 
 It will be [[simpler that way.-&gt;Cass/Dining/Beat 7]]</tw-passagedata><tw-passagedata pid="22" name="Cass/Dining/Beat 7" tags="" position="225,350" size="100,100">You apparently offend her, because she stands up.
 
-&gt; &quot;I need some air.&quot;
+&quot;I need some air.&quot;
 
 As she leaves the car, she passes [[a family at another table.-&gt;Cass/Dining/Beat 8]]
 
@@ -336,7 +516,7 @@ You climb into the lower bunk. The grasping thoughts you pushed aside throughout
 &lt;!--
 TODO: Choices here of thoughts to attend to.
 --&gt;
-[[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="32" name="Cass/Sleeper/Beat 2" tags="" position="225,475" size="100,100">As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. You&#39;ve reached the mountains.
+[[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="32" name="Cass/Sleeper/Beat 2" tags="" position="225,475" size="100,100">&lt;div.interlude&gt;As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. We&#39;ve reached the mountains.&lt;/div&gt;
 
 END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
@@ -430,6 +610,7 @@ Stop! How did your partner respond?
   - [[Bite-&gt;Flora/Dining/Bite]]
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Homework" tags="" position="850,600" size="100,100">&quot;I suppose you should do your homework. It&#39;s in my rucksack, take a look later.&quot; You make a mental note.
+&lt;% s.theBestiaryIsInTheRucksack = true %&gt;
 
 &lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="48" name="Flora/Dining/Monsters" tags="" position="975,600" size="100,100">&quot;So,&quot; you say, &quot;who really hunts &lt;span.readaloud&gt;monsters&lt;/span&gt; for a living? How do you get that job?&quot;
 
@@ -449,13 +630,13 @@ Stop! How did your partner respond?
 
 Cass interrupts.
 
-&gt; &quot;I need you, but I don&#39;t want to know you.&quot;
+&quot;I need you, but I don&#39;t want to know you.&quot;
 
 [[Maybe you are more alone than you realized.-&gt;Flora/Dining/Beat 4]]</tw-passagedata><tw-passagedata pid="53" name="Flora/Dining/Beat 4" tags="" position="350,725" size="100,100">Well, if she&#39;s going to be like that, you might as well get some air.
 
 [[You walk out of the car without looking back.-&gt;Flora/Smoke Break/Beat 1]]
 
-&lt;% Convo(&#39;Flora/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="54" name="Flora/Smoke Break/Beat 1" tags="" position="475,725" size="100,100">*Between cars, at sunset.*
+&lt;% Convo(&#39;Flora/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="54" name="Flora/Smoke Break/Beat 1" tags="" position="475,725" size="100,100">&lt;div.scene-heading&gt;Between cars, at sunset.&lt;/div&gt;
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
 
@@ -471,7 +652,7 @@ You make casual conversation. [[He&#39;s friendly enough.-&gt;Flora/Smoke Break/
 
 [[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="58" name="Flora/Smoke Break/Beat 5" tags="" position="975,725" size="100,100">He breaks the spell.
 
-&gt; &quot;But I&#39;m sure it&#39;s just superstition. Local color, right?&quot;
+&quot;But I&#39;m sure it&#39;s just superstition. Local color, right?&quot;
 
 He shrugs it off and compliments your hair. He asks if he can buy you a drink sometime.
 
@@ -479,24 +660,34 @@ He shrugs it off and compliments your hair. He asks if he can buy you a drink so
 
 [[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="59" name="Flora/Smoke Break/Beat 6" tags="" position="1100,725" size="100,100">He&#39;s cheery and unfazed.
 
-&gt; &quot;Another time then.&quot;
+&quot;Another time then.&quot;
 
-You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="60" name="Flora/Smoke Break/Coda" tags="" position="1225,725" size="100,100">The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
+You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="60" name="Flora/Smoke Break/Coda" tags="" position="1225,725" size="100,100">&lt;div.interlude&gt;
+The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
-[[We&#39;ve reached the mountains.-&gt;Flora/Sleeper/Beat 1]]</tw-passagedata><tw-passagedata pid="61" name="Flora/Sleeper/Beat 1" tags="" position="100,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is already asleep on the lower bunk.
+&lt;% $(&#39;body&#39;).css(&#39;backgroundColor&#39;, &#39;#111&#39;) %&gt;
+
+[[We&#39;ve reached the mountains.-&gt;Flora/Sleeper/Beat 1]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="61" name="Flora/Sleeper/Beat 1" tags="" position="100,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is [[already asleep-&gt;Flora/Sleeper/Examine Cass]] on the lower bunk.
+
+[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Sleeper/Examine Cass" tags="" position="225,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is **already asleep** on the lower bunk.
 
 Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.
 
-[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Sleeper/Beat 2" tags="" position="225,850" size="100,100">You spot one of Cassia&#39;s books lying open at the foot of her bed.  You grab it and start studying. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s study.
+[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Sleeper/Beat 2" tags="" position="350,850" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and start studying. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s study.
 
 END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
-&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="63" name="Start" tags="" position="350,850" size="100,100">Welcome to &lt;%= story.title %&gt;.
+&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="64" name="Start" tags="" position="475,850" size="100,100">Welcome to &lt;%= story.title %&gt;.
 
 * [[How to Play]] (Definitely read your first time!)
 * [[Play as Cassia]]
 * [[Play as Flora]]
-* [[About]]</tw-passagedata><tw-passagedata pid="64" name="How to Play" tags="" position="475,850" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
+* [[About]]
+
+--
+
+[[Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="65" name="How to Play" tags="" position="600,850" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
 One of you will play as **Cassia** and the other as **Flora**.  The game is designed
 to be played together in real-time with voice chat.
 
@@ -510,17 +701,21 @@ When you see a box like this:
 Pick your next choice based on what your partner says to you - it might
 be a keyword or a whole phrase.
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="65" name="Play as Cassia" tags="" position="600,850" size="100,100">&lt;%
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="66" name="Play as Cassia" tags="" position="725,850" size="100,100">&lt;%
 s.playerCharacter = story.CASSIA
 $(() =&gt; story.show(&quot;Act II&quot;))
-%&gt;</tw-passagedata><tw-passagedata pid="66" name="Play as Flora" tags="" position="725,850" size="100,100">&lt;%
+%&gt;</tw-passagedata><tw-passagedata pid="67" name="Play as Flora" tags="" position="850,850" size="100,100">&lt;%
 s.playerCharacter = story.FLORA
 $(() =&gt; story.show(&quot;Act II&quot;))
-%&gt;</tw-passagedata><tw-passagedata pid="67" name="About" tags="" position="850,850" size="100,100">A prototype of our multiplayer Twine game.
+%&gt;</tw-passagedata><tw-passagedata pid="68" name="About" tags="" position="975,850" size="100,100">A prototype of our multiplayer Twine game.
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="68" name="Act II" tags="" position="975,850" size="100,100">A locomotive chugs through farmland, and towards autumny, mountainous terrain. We&#39;re not in town anymore.
+--
 
-[[You&#39;re in the dining car.-&gt;&lt;%=s.playerCharacter%&gt;/Dining/Beat 1]]</tw-passagedata></tw-storydata>
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="69" name="Act II" tags="" position="1100,850" size="100,100">&lt;div.interlude&gt;
+A locomotive chugs through farmland, and towards autumny, mountainous terrain. We&#39;re not in town anymore.
+
+[[You&#39;re in the dining car.-&gt;&lt;%=s.playerCharacter%&gt;/Dining/Beat 1]]
+&lt;/div&gt;</tw-passagedata></tw-storydata>
 		<script>
 		(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";window.either=function(){for(var n=[],t=0;t<arguments.length;t++)if(arguments[t]instanceof Array)for(var r=0;r<arguments[t].length;r++)n.push(arguments[t][r]);else n.push(arguments[t]);return n[_.random(n.length-1)]},window.hasVisited=function(){var n=null;if(1==arguments.length)return null!=(n=window.story.passage(arguments[0]))&&window.story.history.includes(n.id);for(var t=0;t<arguments.length;t++)if(null==(n=window.story.passage(arguments[t]))||0==window.story.history.includes(n.id))return!1;return!0},window.visited=function(){for(var n=[],t=[],r=0;r<arguments.length;r++){var e=window.story.passage(arguments[r]);null!=e&&(t=window.story.history.filter(function(n){return n==e.id})),n.push(t.length)}return Math.min.apply(Math,n)},window.renderToSelector=function(n,t){var r=window.story.passage(t);null!=r&&$(n).html(r.render())},window.getStyles=function(){return $.when.apply($,$.map(arguments,function(n){return $.get(n,function(n){$("<style>"+n+"</style>").appendTo("head")})}))};
