@@ -227,6 +227,7 @@ He's cheery and unfazed.
 You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/Smoke Break/Coda]]
 
 :: Flora/Smoke Break/Coda
+
 <div.interlude>
 The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
@@ -236,11 +237,13 @@ The handsome man takes a deep breath, lights another cigarette, takes a long dra
 </div>
 
 :: Flora/Sleeper/Beat 1
+
 It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is [[already asleep->Flora/Sleeper/Examine Cass]] on the lower bunk.
 
 [[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
 
 :: Flora/Sleeper/Examine Cass
+
 It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is **already asleep** on the lower bunk.
 
 Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.
@@ -248,7 +251,35 @@ Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave 
 [[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
 
 :: Flora/Sleeper/Beat 2
-<% if (s.theBestiaryIsInTheRucksack) { %>You dig in Cassia's rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.<% } else { %>You spot one of Cassia's books lying open at the foot of her bed.<% } %>  You grab it and start studying. If you're going to kill a monster, you need to be ready - and if there's one thing you can do, it's study.
+
+<% if (s.theBestiaryIsInTheRucksack) { %>You dig in Cassia's rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.<% } else { %>You spot one of Cassia's books lying open at the foot of her bed.<% } %>  You grab it and climb into your bunk. If you're going to kill a monster, you need to be ready - and if there's one thing you can do, it's [[study.->Flora/Sleeper/Beat 3]]
+
+:: Flora/Sleeper/Beat 3
+
+You're lost in a remarkably detailed sketch of a crooked tree when a chill wind blows behind your ears.
+
+The lamps flicker and dim.
+
+Holding your breath, you [[climb out of bed.->Flora/Sleeper/Beat 4]]
+
+:: Flora/Sleeper/Beat 4
+
+Yellow light pours through the window of the [[forward door.->Flora/Sleeper/Beat 5]]
+
+:: Flora/Sleeper/Beat 5
+
+You pull it open and find yourself hurtling forward into a barren landscape, blasted with dry, cold wind.
+
+Turning around, you find the door locked behind you.
+
+Theres [[a noise, above you.->Flora/Sleeper/Beat 6]]
+
+:: Flora/Sleeper/Beat 6
+
+Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
+
+It freezes as you lock eyes.
+
 
 END OF PROTOTYPE. [[Restart?->Start]]
 

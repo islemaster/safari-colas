@@ -27,6 +27,11 @@ test('Tandem Explorations', async t => {
         if (!moved && !passedAKeyword) {
           throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
         }
+
+        // If we see the same event ten times in a row, we got stuck.
+        if (eventLog.length >= 10 && eventLog.slice(-10).every((x, _, arr) => x == arr[0])) {
+          throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
+        }
       }
   
       t.end();

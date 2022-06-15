@@ -42,7 +42,6 @@ test('Blessed Paths', async t => {
       `The stake is good for a close-quarters situation.`,
       `You attend to one of the thoughts.`,
     ]);
-    t.match(player.currentKnot.text, /END OF PROTOTYPE/);
     t.end();
   });
 
@@ -75,7 +74,6 @@ test('Blessed Paths', async t => {
       `We’ve reached the mountains.`,
       `You’re not quite ready for sleep.`,
     ]);
-    t.match(player.currentKnot.text, /END OF PROTOTYPE/);
     t.end();
   });
 });

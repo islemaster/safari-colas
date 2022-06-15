@@ -17,10 +17,6 @@ Welcome to <%= story.title %>.
 * [[Play as Flora]]
 * [[About]]
 
---
-
-[[Flora/Smoke Break/Beat 6]]
-
 :: How to Play
 <%= story.title %> is a two-player CYOA-style adventure. Find someone to play with.
 One of you will play as **Cassia** and the other as **Flora**.  The game is designed

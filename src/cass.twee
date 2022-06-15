@@ -265,7 +265,45 @@ TODO: Choices here of thoughts to attend to.
 [[You attend to one of the thoughts.->Cass/Sleeper/Beat 2]]
 
 :: Cass/Sleeper/Beat 2
-<div.interlude>As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel. We've reached the mountains.</div>
+
+<div.interlude>
+As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel.
+
+[[We've reached the mountains.->Cass/Dream/Beat 1]]
+</div>
+
+:: Cass/Dream/Beat 1
+
+Cassia stand on a high hill in the light of dawn. It's [[cold.->Cass/Dream/Beat 1 Alt]]
+
+She came [[prepared->Cass/Dream/Prepared]] to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
+
+:: Cass/Dream/Beat 1 Alt
+Cassia stand on a high hill in the light of dawn. It's familiar, comfortable, **cold**.
+
+She came [[prepared->Cass/Dream/Prepared]] to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
+
+:: Cass/Dream/Prepared
+
+Preparation is critically important to Cass now. Being unprepared meant losing her brother. [[Burying him here.->Cass/Dream/Headstone]]
+
+Cass spends a few moments reflecting on how she remembers her brother, but it's hazy like trying to catch a petal on the wind.
+
+:: Cass/Dream/Headstone
+
+Her attention turns to the headstone. Moss has staked its claim, growing thick over everything. Cass gets out a brush and [[starts to clean.->Cass/Dream/Clean]]
+
+:: Cass/Dream/Clean
+
+She clears the face of the headstone first, revealing her brother's name.
+
+<center><tt>FLORA</tt></center>
+
+[[You wake.->Cass/Haunt/Beat 1]]
+
+:: Cass/Haunt/Beat 1
+
+You spring from your bed towards an unnatural light shining through the forward door.  As your eyes adjust you see Flora through the glass, staring upward, transfixed.
 
 END OF PROTOTYPE. [[Restart?->Start]]
 

@@ -3,7 +3,23 @@ story.title = 'Safari Colas'
 story.FLORA = 'Flora'
 story.CASSIA = 'Cass'
 
-const DEVELOPER_MODE = true;
+/**
+ * Checks the url for whether to turn on developer mode.
+ * Falls back on a default value if not.
+ * Can set in URL with ?dev=true or ?dev=1
+ * Or unset with ?dev=false or ?dev=0
+ */
+const DEVELOPER_MODE = (() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('dev')) {
+    try {
+      return !!JSON.parse(urlParams.get('dev'));
+    } catch { /* ignore if unparseable */ }
+  }
+  // Default if no queryparam is set
+  return true;
+})();
+
 let devPanel = DEVELOPER_MODE ? createDevPanel() : null;
 
 // The util namespace holds our helper functions
