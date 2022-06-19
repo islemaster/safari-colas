@@ -110,6 +110,7 @@ module.exports = class SyntheticPlayer {
         // If we've reached one of the terminal passages we can stop
         // exploring in this direction.
         if (terminalPassageNames.includes(this.currentKnot.passageName)) {
+          this.currentKnot.children  = {};
           terminalStates++;
           continue;
         }
@@ -124,7 +125,12 @@ module.exports = class SyntheticPlayer {
         // If we arrive at a knot that is equivalent to an existing one
         // paths converge here and we only need to explore it once
         // so don't bother pushing for further exploration.
-        if (explorationRoot.anyDescendant(d => d.equivalent(this.currentKnot))) {
+        let matchingKnot = false;
+        if (matchingKnot = explorationRoot.anyDescendant(d => d.equivalent(this.currentKnot))) {
+          Object.entries(this.currentKnot._parents).forEach(([linkText, parentKnots]) => {
+            parentKnots.forEach(parentKnot => parentKnot.children[linkText] = matchingKnot);
+            matchingKnot._parents[linkText] = (matchingKnot._parents[linkText] || []).concat(parentKnots);
+          });
           convergences++;
           continue;
         }
@@ -138,19 +144,37 @@ module.exports = class SyntheticPlayer {
       process.stderr.write('\n');
     }
 
+    // Stats on story length
+    const lengths = explorationRoot.lengthsFrom();
+    const table = {};
+    ['characters', 'words', 'knots'].forEach(row => {
+      const data = lengths.map(l => l[row]).sort();
+      table[row] = {
+        min: data[0],
+        max: data[data.length - 1],
+        mean: Math.round(data.reduce((acc, x) => acc + x, 0) / data.length),
+        median: data[Math.floor(data.length / 2)], // Close enough :)
+      };
+    });
+    console.log(`Found ${lengths.length} possible paths.`);
+    console.table(table);
+
     return { totalKnots, convergences, terminalStates, fullyExplored };
   }
-
 
 }
 
 class Knot {
   children = {};
 
-  static async capture(player, parentKnot) {
+  static async capture(player, parentKnot, fromLinkText) {
     const knot = new Knot();
     knot.player = player;
     knot.parent = parentKnot;
+    knot._parents = {};
+    if (parentKnot) {
+      knot._parents[fromLinkText] = [parentKnot]
+    }
 
     const passage = await player.page.$('tw-passage');
     knot.passageName = await passage.evaluate(() => window.passage.name);
@@ -200,7 +224,7 @@ class Knot {
 
     await link.click();
     await this.assertNoError();
-    this.children[linkText] = this.children[linkText] || await Knot.capture(this.player, this);
+    this.children[linkText] = this.children[linkText] || await Knot.capture(this.player, this, linkText);
     this.player.currentKnot = this.children[linkText];
   }
 
@@ -223,7 +247,7 @@ class Knot {
     const stack = [this];
     while (stack.length) {
       const knot = stack.shift();
-      if (predicate(knot)) return true;
+      if (predicate(knot)) return knot;
       const newObjs = Object.values(knot.children).filter(k => k);
       Array.prototype.push.apply(stack, newObjs);
     }
@@ -253,6 +277,34 @@ class Knot {
     return depth;
   }
 
+  lengthsFrom() {
+    // Depth-first search to build eval sequence
+    const lengthEvaluationSequence = [this];
+    let i = 0;
+    while (i < lengthEvaluationSequence.length) {
+      for (let childKnot of Object.values(lengthEvaluationSequence[i].children)) {
+        if (!lengthEvaluationSequence.includes(childKnot)) {
+          lengthEvaluationSequence.push(childKnot);
+        }
+      }
+      i++;
+    }
+    // console.log(`Okay, going to evaluate ${lengthEvaluationSequence.length} knots`);
+    while (lengthEvaluationSequence.length > 0) {
+      const nextKnot = lengthEvaluationSequence.pop();
+      const nextKnotLength = StoryLength.fromKnot(nextKnot);
+      if (Object.values(nextKnot.children).length > 0) {
+        nextKnot._lengths = Object.values(nextKnot.children).flatMap(k => {
+          if (!k._lengths) return [];
+          return k._lengths.map(l => l.addTo(nextKnotLength));
+        });
+      } else {
+        nextKnot._lengths = [nextKnotLength];
+      }
+    }
+    return this._lengths;
+  }
+
   transcript() {
     const path = [this];
     let parent = this.parent;
@@ -279,6 +331,24 @@ class Knot {
     }
   }
 }
+
+class StoryLength {
+  static fromKnot(knot) {
+    const l = new StoryLength();
+    l.characters = knot.text.length;
+    l.words = knot.text.split(/\s+/).length;
+    l.knots = 1;
+    return l;
+  }
+
+  addTo(other) {
+    const l = new StoryLength();
+    l.characters = this.characters + other.characters;
+    l.words = this.words + other.words;
+    l.knots = this.knots + other.knots;
+    return l;
+  }
+};
 
 function rewriteProgressReport(elapsedMs, totalKnots, endings) {
   process.stderr.clearLine(0);

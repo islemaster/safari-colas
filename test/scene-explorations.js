@@ -22,10 +22,7 @@ test('Scene Explorations', async t => {
     ]);
     t.match(player.currentKnot.text, /Stop! What did your partner say\?/);
 
-    const exploration = await player.exploreTo([`Cass/Dining/Beat 7`]);
-    t.equal(exploration.totalKnots, 279);
-    t.equal(exploration.convergences, 181);
-    t.equal(exploration.terminalStates, 50);
+    const exploration = await player.exploreTo([`Cass/Dining/Beat 8`]);
     t.true(exploration.fullyExplored);
     t.end();
   });
@@ -47,9 +44,6 @@ test('Scene Explorations', async t => {
       `leave`,
     ]);
     const exploration = await player.exploreTo([`Cass/Sleeper/Beat 2`]);
-    t.equal(exploration.totalKnots, 6);
-    t.equal(exploration.convergences, 0);
-    t.equal(exploration.terminalStates, 3);
     t.true(exploration.fullyExplored);
     t.end();
   });
@@ -63,10 +57,7 @@ test('Scene Explorations', async t => {
     ]);
     t.match(player.currentKnot.text, /When in doubt, gather information./);
 
-    const exploration = await player.exploreTo([`Flora/Dining/Beat 4`]);
-    t.equal(exploration.totalKnots, 280);
-    t.equal(exploration.convergences, 182);
-    t.equal(exploration.terminalStates, 50);
+    const exploration = await player.exploreTo([`Flora/Smoke Break/Beat 1`]);
     t.true(exploration.fullyExplored);
     t.end();
   });
