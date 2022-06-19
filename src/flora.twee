@@ -280,7 +280,55 @@ Atop the train staring down at you is a creature with the face of a fruit bat, t
 
 It freezes as you lock eyes.
 
+Panicked, you try the door again and it [[gives way.->Flora/Sleeper/Beat 7]]
+
+:: Flora/Sleeper/Beat 7
+
+You find yourself in the dining car. It is dark and empty except for a table at the far end. You step closer and realize Cass is there. You sit down across from her, and ask her what's going on.
+
+She's staring at the table. You follow her gaze and see a spider crawling across the table towards you. You go to brush it away, but your hands won't move; looking down, they are caught by a mess of web. You shudder and make a sound of disgust as you try to break free.
+
+Your eyes go back to the spider. No, spiders; waves of them, crawling towards you across the table. Cassia's hands flash out. She is grabbing spiders by the handful and swallowing them as fast as she can, keeping them from reaching you. You are simultaneously disgusted and grateful.
+
+You finally get your hand free. You raise it to sweep the table clear, and get a good look at the red-and-black spider on your wrist just before it sinks fangs into your skin. Fire runs through your veins as you [[black out.->Flora/Morning/Beat 1]]
+
+:: Flora/Morning/Beat 1
+
+You wake feeling like you never slept. Was that a dream? Cassia has obviously gotten into your head. At least she was protecting you.
+
+The train has stopped in a small mountain burg to resupply, and you feel a need to get away from the train for a bit, so you head out onto the platform. There's a hazy grey sunrise beneath heavy clouds. You spot Cass heading for a nearby pub, and follow her, shielding your head from thick drops of rain.
+
+Cassia is just stepping up to the bar as you enter. You lean on the bar beside her. "That was a rough night," you begin. "I'm so hungry. What's for breakfast?"
+
+"Looks like eggs," she says, glancing at the other patrons. "What happened to you?"
+
+"I'm not sure," you shiver. "I found myself stuck outside the train, but we weren't in the mountains, and there was this bat-thing..." She trails off.
+
+Cassia looks thoughtful as you share the details of your night. As you return to the train together, she tries to explain what you saw. It makes a convoluted sense.
+
+For the rest of the day you drill together on key survival skills. The train stops every couple of hours, and your car slowly empties as passengers disembark. You are about ready to move to the dining car for supper when the piercing sound of screeching brakes demands your attention. Something is blocking the track. A train attendant enters the car and tries to assure the remaining passengers that it will only be a short delay.
+
+You catch Cassia's unease. "What is it?"
+
+"This can't be a coincidence," she muses. "Something is after you, and it knows you are here. We should probably leave the train, but we're still far from our destination and the terrain is rough. Without the train, we'll travel on foot."
+
+"So, no option is good," you say.
+
+Cassia looks you in the eye. "Let's test those instincts, hunter. What do you think we should do?"
+
+Your answer is cut short as the entire car rocks to one side. Something is out there!
+
 
 END OF PROTOTYPE. [[Restart?->Start]]
 
 <div.ending></div>
+
+:: Flora/Future Scenes
+
+The river is very low, reduced to a trickle. Scrawny trees line a wide mud flat. They lean in as if reaching for a drink.
+
+--
+
+A tangle of sun-bleached timber blankets the valley. "Like an elephant graveyard," Flora whispers.
+
+"An Ent graveyward," Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.

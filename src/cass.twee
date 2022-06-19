@@ -274,12 +274,12 @@ As you drift to sleep, the moonglow on the windows steals away, replaced by the 
 
 :: Cass/Dream/Beat 1
 
-Cassia stand on a high hill in the light of dawn. It's [[cold.->Cass/Dream/Beat 1 Alt]]
+Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It's [[cold.->Cass/Dream/Beat 1 Alt]]
 
 She came [[prepared->Cass/Dream/Prepared]] to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
 
 :: Cass/Dream/Beat 1 Alt
-Cassia stand on a high hill in the light of dawn. It's familiar, comfortable, **cold**.
+Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It's familiar, comfortable, **cold**.
 
 She came [[prepared->Cass/Dream/Prepared]] to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
 
@@ -299,11 +299,35 @@ She clears the face of the headstone first, revealing her brother's name.
 
 <center><tt>FLORA</tt></center>
 
-[[You wake.->Cass/Haunt/Beat 1]]
+[[You wake.->Cass/Morning/Beat 1]]
 
-:: Cass/Haunt/Beat 1
+:: Cass/Morning/Beat 1
 
-You spring from your bed towards an unnatural light shining through the forward door.  As your eyes adjust you see Flora through the glass, staring upward, transfixed.
+You wake, still groggy from a night poorly slept.  You only remember fragments of your dream, but it lingers like a coating of oil, filmy and unpleasant.
+
+The train has stopped in a small mountain burg to resupply. You have about an hour to stretch and eat before the train departs again. It never hurts to pick up local gossip, so you make your way through the rain to a nearby pub.
+
+As you step up to the bar, you notice that Flora has followed you in. She leans on the bar beside you. "That was a rough night," she begins. "I'm so hungry. What's for breakfast?"
+
+"Looks like eggs," you say, glancing at the other patrons. "What happened to you?"
+
+"I'm not sure," she shivers. "I found myself stuck outside the train, but we weren't in the mountains, and there was this bat-thing..." She trails off.
+
+You are starting to connect the dots between your dream and Flora's night. Is she somehow sensitive to her fate? If so... maybe it's time to open up a bit. It seems like Flora is in trouble whether you are around or not.
+
+As you return to the train together, you try to explain to Flora what she saw. She's catching on faster than you expected.
+
+For the rest of the day you try to fill Flora in on key survival skills. The train stops every couple of hours, and your car slowly empties as passengers disembark. You are about ready to move to the dining car for supper when the piercing sound of screeching brakes demands your attention. Something is blocking the track. A train attendant enters the car and tries to assure the remaining passengers that it will only be a short delay.
+
+Flora notices your unease. "What is it?"
+
+"This can't be a coincidence," you muse. "Something is after you, and it knows you are here. We should probably leave the train, but we're still far from our destination and the terrain is rough. Without the train, we'll travel on foot."
+
+"So, no option is good," she says.
+
+Perhaps this is a teaching moment. "Let's test those instincts, hunter. What do you think we should do?"
+
+Her answer is cut short as the entire car rocks to one side. Something is out there!
 
 END OF PROTOTYPE. [[Restart?->Start]]
 
