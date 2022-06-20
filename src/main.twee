@@ -10,12 +10,22 @@
 Safari Colas
 
 :: Start
-Welcome to <%= story.title %>.
 
-* [[How to Play]] (Definitely read your first time!)
-* [[Play as Cassia]]
-* [[Play as Flora]]
-* [[About]]
+<div.title-page>
+
+# <%= story.title %>
+
+## A curious tale.
+
+### *
+
+[[How to Play]]
+
+[[Play as Cassia]] | [[Play as Flora]]
+
+[[About]]
+
+</div>
 
 :: How to Play
 <%= story.title %> is a two-player CYOA-style adventure. Find someone to play with.

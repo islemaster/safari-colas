@@ -197,11 +197,9 @@ You make casual conversation. [[He's friendly enough.->Flora/Smoke Break/Beat 3]
 :: Flora/Smoke Break/Beat 3
 He asks where you're headed.
 
-[[You tell him everything.->Flora/Smoke Break/Beat 4]]
-
-[[You're honest about the destination, but coy about the reason.->Flora/Smoke Break/Beat 4]]
-
-[[You lie about your destination.->Flora/Smoke Break/Beat 4]]
+  - [[You tell him everything.->Flora/Smoke Break/Beat 4]]
+  - [[You're honest about the destination, but coy about the reason.->Flora/Smoke Break/Beat 4]]
+  - [[You lie about your destination.->Flora/Smoke Break/Beat 4]]
 
 :: Flora/Smoke Break/Beat 4
 He listens carefully to your story and looks concerned. Then he shares rumors of strange goings-on in the mountains ahead - rumors of a curse.
