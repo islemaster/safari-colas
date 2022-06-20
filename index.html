@@ -37,6 +37,10 @@ tw-story {
   }
 }
 
+tw-story strong {
+  font-family: "IM Fell DW Pica", "Georgia", "Verdata", serif;
+}
+
 tw-story a {
   font-family: "IM Fell DW Pica", "Georgia", "Verdata", serif;
   /* font-weight: bold; */ /* The font does the work. */
@@ -88,20 +92,24 @@ blockquote {
   color: #912d38;
 }
 
+/* A stop-box indicates the other player is going to provide
+   you with a keyword; so we don't want you to miss it. */
 .stop {
   display: block;
   width: 100%;
   padding: 1em;
   margin-left: -1em;
   border: #912d38 solid thin;
-  border-radius: 2em;
+  border-radius: 5px;
   background-color: #912d381c;
   font-family: "IM Fell English SC";
   /* font-variant: small-caps; */ /* Implied by the font */
 }
-
 .stop::before {
   content: "🛑 ";
+}
+.stop a {
+  font-family: "IM Fell English SC";
 }
 
 .dev-panel {
