@@ -74,16 +74,6 @@ class Conversation {
   // List of topics, for the player driving the conversation
   topicMenu() {
     const options = Object.entries(story.state.conversations[this.prefix]);
-    return this.buildMenu(options);
-  }
-
-  // List of keys, for the player on the receiving end
-  keyMenu() {
-    const options = Object.keys(story.state.conversations[this.prefix]).map(k => [k, k]);
-    return this.buildMenu(options);
-  }
-
-  buildMenu(options) {
     const listItems = options.map(([key, topic]) => (
       `<li>
                 <a href="javascript:void(0)"
@@ -99,6 +89,24 @@ class Conversation {
       })
     );
     return `<ul>${listItems.join('')}</ul>`;
+  }
+
+  // List of keys, for the player on the receiving end
+  keyMenu() {
+    const options = Object.keys(story.state.conversations[this.prefix]).map(k => [k, k]);
+    const list = options.map(([key, topic]) => (
+      `<a href="javascript:void(0)"
+        data-passage="${this.prefix}/${key}"
+        data-topic-key="${key}"
+      >${topic}</a>`
+    )).join(` &middot; `);
+    $(() =>
+      $('[data-topic-key]').one('click', (evt) => {
+        const clickedTopic = $(evt.target).data('topic-key');
+        delete story.state.conversations[this.prefix][clickedTopic];
+      })
+    );
+    return `<center>${list}</center>`;
   }
 
   /** Cleans up game state, which converges knots and makes testing easier. */
