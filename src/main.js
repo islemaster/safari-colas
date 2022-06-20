@@ -25,6 +25,9 @@ let devPanel = DEVELOPER_MODE ? createDevPanel() : null;
 // The util namespace holds our helper functions
 window.util = window.util || {};
 
+// Don't start background fades until after initial load
+$(() => $('body').css('transition', 'background-color 2s ease-in-out 0.5s'));
+
 // Enables back/forward buttons for every passage
 $(window).on('sm.passage.shown', () => {
   story.checkpoint();

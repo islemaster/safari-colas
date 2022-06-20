@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap');
 
 body {
-  background-color: antiquewhite;
-  transition: background-color 2s ease-in-out 0.5s;
+  background-color: #82626d;
 }
 
 tw-story {
@@ -38,6 +37,15 @@ tw-story a {
 
 tw-story a:hover {
   color: #e0273c;
+}
+
+tw-story ul {
+  list-style-type: "* ";
+  line-height: 125%;
+}
+tw-story ul li::marker {
+  font-family: "IM Fell DW Pica";
+  font-weight: bold;
 }
 
 blockquote {
