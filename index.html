@@ -13,8 +13,7 @@
 		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="77" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap');
 
 body {
-  background-color: antiquewhite;
-  transition: background-color 2s ease-in-out 0.5s;
+  background-color: #82626d;
 }
 
 tw-story {
@@ -52,9 +51,56 @@ tw-story a:hover {
   color: #e0273c;
 }
 
+tw-story ul {
+  list-style-type: "* ";
+  line-height: 125%;
+}
+tw-story ul li::marker {
+  font-family: "IM Fell DW Pica";
+  font-weight: bold;
+}
+
 blockquote {
   font-style: italic;
 }
+
+.title-page {
+  text-align: center;
+  margin-top: 25vh;
+}
+@media only screen and (max-width: 600px) {
+  .title-page {
+    margin-top: 5vh;
+  }
+}
+.title-page h1 {
+  font-size: 3em;
+}
+@media only screen and (max-width: 600px) {
+  .title-page h1 {
+    font-size: 2em;
+    line-height: 100%;
+  }
+}
+.title-page h2 {
+  font-size: 1.2em;
+}
+.title-page h3 {
+  font-size: 1.2em;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+@media only screen and (max-width: 600px) {
+  .title-page h3 {
+    margin-top: unset;
+    margin-bottom: unset;
+  }
+}
+.title-page a {
+  font-size: larger;
+}
+
+
 
 .interlude {
   display: block;
@@ -258,6 +304,9 @@ let devPanel = DEVELOPER_MODE ? createDevPanel() : null;
 
 // The util namespace holds our helper functions
 window.util = window.util || {};
+
+// Don't start background fades until after initial load
+$(() => $('body').css('transition', 'background-color 2s ease-in-out 0.5s'));
 
 // Enables back/forward buttons for every passage
 $(window).on('sm.passage.shown', () => {
@@ -700,11 +749,9 @@ You lean on a rail and attempt to light a cigarette, but the match keeps going o
 
 You make casual conversation. [[He&#39;s friendly enough.-&gt;Flora/Smoke Break/Beat 3]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/Beat 3" tags="" position="225,850" size="100,100">He asks where you&#39;re headed.
 
-[[You tell him everything.-&gt;Flora/Smoke Break/Beat 4]]
-
-[[You&#39;re honest about the destination, but coy about the reason.-&gt;Flora/Smoke Break/Beat 4]]
-
-[[You lie about your destination.-&gt;Flora/Smoke Break/Beat 4]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/Beat 4" tags="" position="350,850" size="100,100">He listens carefully to your story and looks concerned. Then he shares rumors of strange goings-on in the mountains ahead - rumors of a curse.
+  - [[You tell him everything.-&gt;Flora/Smoke Break/Beat 4]]
+  - [[You&#39;re honest about the destination, but coy about the reason.-&gt;Flora/Smoke Break/Beat 4]]
+  - [[You lie about your destination.-&gt;Flora/Smoke Break/Beat 4]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/Beat 4" tags="" position="350,850" size="100,100">He listens carefully to your story and looks concerned. Then he shares rumors of strange goings-on in the mountains ahead - rumors of a curse.
 
 [[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/Beat 5" tags="" position="475,850" size="100,100">He breaks the spell.
 
@@ -781,12 +828,21 @@ END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
 A tangle of sun-bleached timber blankets the valley. &quot;Like an elephant graveyard,&quot; Flora whispers.
 
-&quot;An Ent graveyward,&quot; Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.</tw-passagedata><tw-passagedata pid="77" name="Start" tags="" position="850,975" size="100,100">Welcome to &lt;%= story.title %&gt;.
+&quot;An Ent graveyward,&quot; Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.</tw-passagedata><tw-passagedata pid="77" name="Start" tags="" position="850,975" size="100,100">&lt;div.title-page&gt;
 
-* [[How to Play]] (Definitely read your first time!)
-* [[Play as Cassia]]
-* [[Play as Flora]]
-* [[About]]</tw-passagedata><tw-passagedata pid="78" name="How to Play" tags="" position="975,975" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
+# &lt;%= story.title %&gt;
+
+## A curious tale.
+
+### *
+
+[[How to Play]]
+
+[[Play as Cassia]] | [[Play as Flora]]
+
+[[About]]
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="78" name="How to Play" tags="" position="975,975" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
 One of you will play as **Cassia** and the other as **Flora**.  The game is designed
 to be played together in real-time with voice chat.
 
