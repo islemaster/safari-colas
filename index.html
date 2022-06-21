@@ -411,7 +411,16 @@ util.continuation = function (text, nextPassage) {
   return `
     <a href="javascript:void(0)" id="continuation">${text}</a>
     `;
-}</script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">This is the first decent meal you&#39;ve had in a long time.
+}
+
+/**
+ * Change the background color behind the page.
+ * @param {string} color Any valid CSS color string.
+ */
+util.background = function (color) {
+  $('body').css('backgroundColor', color);
+};
+</script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">This is the first decent meal you&#39;ve had in a long time.
 
 Your hunger masks the loneliness of sitting across the table from [[a mortal-&gt;Cass/Dining/Examine Flora]] and not knowing what to say next.
 
@@ -541,7 +550,9 @@ You try to answer honestly, but this scares the patron away.
 TODO: Expand this scene. Use alternative choices to reveal information to the player even if they are unchosen options.
 --&gt;
 
-This isn&#39;t going well. You [[leave-&gt;Cass/Baggage/Beat 1]] before anyone else starts asking questions.</tw-passagedata><tw-passagedata pid="25" name="Cass/Baggage/Beat 1" tags="" position="600,350" size="100,100">You make your way to the baggage car, which holds the two large trunks you brought along. The baggageman remembers you and lets you through without question.
+This isn&#39;t going well. You [[leave-&gt;Cass/Baggage/Beat 1]] before anyone else starts asking questions.</tw-passagedata><tw-passagedata pid="25" name="Cass/Baggage/Beat 1" tags="" position="600,350" size="100,100">&lt;% util.background(&#39;rgb(98, 32, 66)&#39;) %&gt;
+
+You make your way to the baggage car, which holds the two large trunks you brought along. The baggageman remembers you and lets you through without question.
 
 [[It is a memorable face.-&gt;Cass/Baggage/Beat 2]]
 
@@ -583,11 +594,15 @@ You climb into the lower bunk. The grasping thoughts you pushed aside throughout
 &lt;!--
 TODO: Choices here of thoughts to attend to.
 --&gt;
-[[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="32" name="Cass/Sleeper/Beat 2" tags="" position="225,475" size="100,100">&lt;div.interlude&gt;
+[[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="32" name="Cass/Sleeper/Beat 2" tags="" position="225,475" size="100,100">&lt;% util.background(&#39;#111&#39;) %&gt;
+
+&lt;div.interlude&gt;
 As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel.
 
 [[We&#39;ve reached the mountains.-&gt;Cass/Dream/Beat 1]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="Cass/Dream/Beat 1" tags="" position="350,475" size="100,100">Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It&#39;s [[cold.-&gt;Cass/Dream/Beat 1 Alt]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="Cass/Dream/Beat 1" tags="" position="350,475" size="100,100">&lt;% util.background(&#39;rgb(235, 240, 217)&#39;) %&gt;
+
+Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It&#39;s [[cold.-&gt;Cass/Dream/Beat 1 Alt]]
 
 She came [[prepared-&gt;Cass/Dream/Prepared]] to attend to her brother&#39;s grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.</tw-passagedata><tw-passagedata pid="34" name="Cass/Dream/Beat 1 Alt" tags="" position="475,475" size="100,100">Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It&#39;s familiar, comfortable, **cold**.
 
@@ -597,7 +612,9 @@ Cass spends a few moments reflecting on how she remembers her brother, but it&#3
 
 &lt;center&gt;&lt;tt&gt;FLORA&lt;/tt&gt;&lt;/center&gt;
 
-[[You wake.-&gt;Cass/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="38" name="Cass/Morning/Beat 1" tags="" position="975,475" size="100,100">You wake, still groggy from a night poorly slept.  You only remember fragments of your dream, but it lingers like a coating of oil, filmy and unpleasant.
+[[You wake.-&gt;Cass/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="38" name="Cass/Morning/Beat 1" tags="" position="975,475" size="100,100">&lt;% util.background(&#39;rgb(129, 139, 164)&#39;) %&gt;
+
+You wake, still groggy from a night poorly slept.  You only remember fragments of your dream, but it lingers like a coating of oil, filmy and unpleasant.
 
 The train has stopped in a small mountain burg to resupply. You have about an hour to stretch and eat before the train departs again. It never hurts to pick up local gossip, so you make your way through the rain to a nearby pub.
 
@@ -741,19 +758,25 @@ Cass interrupts.
 
 [[You walk out of the car without looking back.-&gt;Flora/Smoke Break/Beat 1]]
 
-&lt;% Convo(&#39;Flora/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="60" name="Flora/Smoke Break/Beat 1" tags="" position="1225,725" size="100,100">&lt;div.scene-heading&gt;Between cars, at sunset.&lt;/div&gt;
+&lt;% Convo(&#39;Flora/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="60" name="Flora/Smoke Break/Beat 1" tags="" position="1225,725" size="100,100">&lt;% util.background(&#39;rgb(242, 171, 154)&#39;) %&gt;
+
+&lt;div.scene-heading&gt;Between cars, at sunset.&lt;/div&gt;
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
 
 [[Someone offers their lighter.-&gt;Flora/Smoke Break/Beat 2]]</tw-passagedata><tw-passagedata pid="61" name="Flora/Smoke Break/Beat 2" tags="" position="100,850" size="100,100">You light your cigarette and look up at a strange man. He smiles.
 
-You make casual conversation. [[He&#39;s friendly enough.-&gt;Flora/Smoke Break/Beat 3]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/Beat 3" tags="" position="225,850" size="100,100">He asks where you&#39;re headed.
+You make casual conversation. [[He&#39;s friendly enough.-&gt;Flora/Smoke Break/Beat 3]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/Beat 3" tags="" position="225,850" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
+
+He asks where you&#39;re headed.
 
   - [[You tell him everything.-&gt;Flora/Smoke Break/Beat 4]]
   - [[You&#39;re honest about the destination, but coy about the reason.-&gt;Flora/Smoke Break/Beat 4]]
   - [[You lie about your destination.-&gt;Flora/Smoke Break/Beat 4]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/Beat 4" tags="" position="350,850" size="100,100">He listens carefully to your story and looks concerned. Then he shares rumors of strange goings-on in the mountains ahead - rumors of a curse.
 
-[[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/Beat 5" tags="" position="475,850" size="100,100">He breaks the spell.
+[[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/Beat 5" tags="" position="475,850" size="100,100">&lt;% util.background(&#39;rgb(147, 71, 52)&#39;) %&gt;
+
+He breaks the spell.
 
 &quot;But I&#39;m sure it&#39;s just superstition. Local color, right?&quot;
 
@@ -761,14 +784,16 @@ He shrugs it off and compliments your hair. He asks if he can buy you a drink so
 
 [[You agree, but not tonight.-&gt;Flora/Smoke Break/Beat 6]]
 
-[[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Beat 6" tags="" position="600,850" size="100,100">He&#39;s cheery and unfazed.
+[[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Beat 6" tags="" position="600,850" size="100,100">&lt;% util.background(&#39;rgb(115, 31, 9)&#39;) %&gt;
+
+He&#39;s cheery and unfazed.
 
 &quot;Another time then.&quot;
 
 You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/Coda" tags="" position="725,850" size="100,100">&lt;div.interlude&gt;
 The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
-&lt;% $(&#39;body&#39;).css(&#39;backgroundColor&#39;, &#39;#111&#39;) %&gt;
+&lt;% util.background(&#39;#111&#39;) %&gt;
 
 [[We&#39;ve reached the mountains.-&gt;Flora/Sleeper/Beat 1]]
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="67" name="Flora/Sleeper/Beat 1" tags="" position="850,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is [[already asleep-&gt;Flora/Sleeper/Examine Cass]] on the lower bunk.
@@ -785,7 +810,7 @@ Holding your breath, you [[climb out of bed.-&gt;Flora/Sleeper/Beat 4]]</tw-pass
 
 Turning around, you find the door locked behind you.
 
-Theres [[a noise, above you.-&gt;Flora/Sleeper/Beat 6]]</tw-passagedata><tw-passagedata pid="73" name="Flora/Sleeper/Beat 6" tags="" position="350,975" size="100,100">Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
+There&#39;s [[a noise, above you.-&gt;Flora/Sleeper/Beat 6]]</tw-passagedata><tw-passagedata pid="73" name="Flora/Sleeper/Beat 6" tags="" position="350,975" size="100,100">Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
 
 It freezes as you lock eyes.
 
@@ -866,7 +891,9 @@ $(() =&gt; story.show(&quot;Act II&quot;))
 
 --
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="82" name="Act II" tags="" position="225,1100" size="100,100">&lt;div.interlude&gt;
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="82" name="Act II" tags="" position="225,1100" size="100,100">&lt;% util.background(&#39;#9b543e&#39;) %&gt;
+
+&lt;div.interlude&gt;
 A locomotive chugs through farmland, and towards autumny, mountainous terrain. We&#39;re not in town anymore.
 
 [[You&#39;re in the dining car.-&gt;&lt;%=s.playerCharacter%&gt;/Dining/Beat 1]]
