@@ -132,3 +132,11 @@ util.continuation = function (text, nextPassage) {
     <a href="javascript:void(0)" id="continuation">${text}</a>
     `;
 }
+
+/**
+ * Change the background color behind the page.
+ * @param {string} color Any valid CSS color string.
+ */
+util.background = function (color) {
+  $('body').css('backgroundColor', color);
+};

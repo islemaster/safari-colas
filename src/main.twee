@@ -64,6 +64,8 @@ A prototype of our multiplayer Twine game.
 [[Return.->Start]]
 
 :: Act II
+<% util.background('#9b543e') %>
+
 <div.interlude>
 A locomotive chugs through farmland, and towards autumny, mountainous terrain. We're not in town anymore.
 

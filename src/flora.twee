@@ -183,6 +183,9 @@ Well, if she's going to be like that, you might as well get some air.
 <% Convo('Flora/Dining').cleanup() %>
 
 :: Flora/Smoke Break/Beat 1
+
+<% util.background('rgb(242, 171, 154)') %>
+
 <div.scene-heading>Between cars, at sunset.</div>
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
@@ -195,6 +198,9 @@ You light your cigarette and look up at a strange man. He smiles.
 You make casual conversation. [[He's friendly enough.->Flora/Smoke Break/Beat 3]]
 
 :: Flora/Smoke Break/Beat 3
+
+<% util.background('rgb(206, 139, 122)') %>
+
 He asks where you're headed.
 
   - [[You tell him everything.->Flora/Smoke Break/Beat 4]]
@@ -207,6 +213,9 @@ He listens carefully to your story and looks concerned. Then he shares rumors of
 [[You take a shaky drag on your cigarette.->Flora/Smoke Break/Beat 5]]
 
 :: Flora/Smoke Break/Beat 5
+
+<% util.background('rgb(147, 71, 52)') %>
+
 He breaks the spell.
 
 "But I'm sure it's just superstition. Local color, right?"
@@ -218,6 +227,9 @@ He shrugs it off and compliments your hair. He asks if he can buy you a drink so
 [[You demur.->Flora/Smoke Break/Beat 6]]
 
 :: Flora/Smoke Break/Beat 6
+
+<% util.background('rgb(115, 31, 9)') %>
+
 He's cheery and unfazed.
 
 "Another time then."
@@ -229,7 +241,7 @@ You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/
 <div.interlude>
 The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
-<% $('body').css('backgroundColor', '#111') %>
+<% util.background('#111') %>
 
 [[We've reached the mountains.->Flora/Sleeper/Beat 1]]
 </div>
@@ -270,7 +282,7 @@ You pull it open and find yourself hurtling forward into a barren landscape, bla
 
 Turning around, you find the door locked behind you.
 
-Theres [[a noise, above you.->Flora/Sleeper/Beat 6]]
+There's [[a noise, above you.->Flora/Sleeper/Beat 6]]
 
 :: Flora/Sleeper/Beat 6
 

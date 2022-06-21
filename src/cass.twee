@@ -202,6 +202,9 @@ TODO: Expand this scene. Use alternative choices to reveal information to the pl
 This isn't going well. You [[leave->Cass/Baggage/Beat 1]] before anyone else starts asking questions.
 
 :: Cass/Baggage/Beat 1
+
+<% util.background('rgb(98, 32, 66)') %>
+
 You make your way to the baggage car, which holds the two large trunks you brought along. The baggageman remembers you and lets you through without question.
 
 [[It is a memorable face.->Cass/Baggage/Beat 2]]
@@ -266,6 +269,8 @@ TODO: Choices here of thoughts to attend to.
 
 :: Cass/Sleeper/Beat 2
 
+<% util.background('#111') %>
+
 <div.interlude>
 As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel.
 
@@ -273,6 +278,8 @@ As you drift to sleep, the moonglow on the windows steals away, replaced by the 
 </div>
 
 :: Cass/Dream/Beat 1
+
+<% util.background('rgb(235, 240, 217)') %>
 
 Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It's [[cold.->Cass/Dream/Beat 1 Alt]]
 
@@ -302,6 +309,8 @@ She clears the face of the headstone first, revealing her brother's name.
 [[You wake.->Cass/Morning/Beat 1]]
 
 :: Cass/Morning/Beat 1
+
+<% util.background('rgb(129, 139, 164)') %>
 
 You wake, still groggy from a night poorly slept.  You only remember fragments of your dream, but it lingers like a coating of oil, filmy and unpleasant.
 
