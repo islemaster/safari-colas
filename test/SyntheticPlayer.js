@@ -11,7 +11,7 @@ module.exports = class SyntheticPlayer {
   async setup() {
     // Create browser, navigate to game
     this.browser = await puppeteer.launch({
-      // headless: false,
+      headless: false,
       // devtools: true,
       // slowMo: 20,
     });

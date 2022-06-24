@@ -120,7 +120,7 @@ _What?_ There's no plan? This seems bad.
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Book
-You ask, "Do you have a vampire <span.readaloud>book</span> I could read?"
+You ask, <span.readaloud>"Do you have a vampire book I could read?"</span>
 
 <% Convo('Flora/Dining').addTopic('Monsters', "Who really hunts monsters for a living?") %>
 
