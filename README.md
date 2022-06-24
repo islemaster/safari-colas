@@ -27,3 +27,29 @@ Prototype of a new game by Brad and Yotam.
    ```
    node test/scene-exploration.js
    ```
+
+## Workflow guide
+
+After you save changes to a file, rebuild your local copy with
+
+```
+tweego src -o main.html
+```
+
+Inspect your local changes
+
+```
+git diff
+```
+
+Add changed files and commit them with a message
+
+```
+git commit -am "Here's my cool message"
+```
+
+Push changes to GitHub
+
+```
+git push
+```
