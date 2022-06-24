@@ -51,9 +51,12 @@ tw-story a {
   color: #912d38;
   text-decoration: none;
 }
-
 tw-story a:hover {
   color: #e0273c;
+}
+tw-story .link-like {
+  /* Keep consistent with link style (font, boldness) but not color */
+  font-family: "IM Fell DW Pica", "Georgia", "Verdata", serif;
 }
 
 tw-story ul {
@@ -63,6 +66,17 @@ tw-story ul {
 tw-story ul li::marker {
   font-family: "IM Fell DW Pica";
   font-weight: bold;
+}
+
+/* Text that's a little faded out, usually when it's been
+   read and a new part of the passage has been revealed. */
+tw-story .faded-text {
+  transition: color 300ms;
+  color: #888;
+}
+
+tw-story .new-text {
+  transition: color 
 }
 
 blockquote {

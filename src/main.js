@@ -34,11 +34,17 @@ $(() => {
   $('body').css('transition', 'background-color 2s ease-in-out 0.5s');
 });
 
-// Enables back/forward buttons for every passage
+// Fixups after each passage transition
 $(window).on('sm.passage.shown', () => {
+  // Enables back/forward buttons for every passage
   story.checkpoint();
+
   // Update the character name watermark.
   $('#character-watermark').text(story.state.playerCharacter === story.FLORA ? 'Flora' : 'Cassia');
+
+  // Fix rendering so we get a paragraph at the top of the passage every time.
+  $('tw-passage').html(paragraphFix($('tw-passage').html()));
+
   // Update the developer panel.
   if (DEVELOPER_MODE) {
     if (window.passage.name !== 'Start') devPanel.autosave();
@@ -131,7 +137,23 @@ function slugify(text) {
   return text.toLowerCase()
     .replace(/^[^a-z0-9]+/, '') // Drop leading non-word characters
     .replace(/[^a-z0-9]+$/, '') // Drop trailing non-word characters
-    .replace(/[^a-z0-9]+/, '-'); // Replace other non-word characters with hyphens
+    .replace(/[^a-z0-9]+/g, '-'); // Replace other non-word characters with hyphens
+}
+
+/**
+ * There seems to be a bug in Twine/Snowman that doesn't always balance
+ * tags in rendered content. This is a workaround.
+ * @param {string} html 
+ * @returns 
+ */
+function paragraphFix(html) {
+  // Rendered content _should_ always open with a paragraph tag.
+  // If it doesn't, we've proabbly hit this bug and we should restore
+  // the opening and closing paragraph tags.
+  if ('<p' !== html.slice(0, 2)) {
+    html = `<p>${html}</p>`;
+  }
+  return html;
 }
 
 /**
@@ -143,11 +165,10 @@ function slugify(text) {
  * @param {function?} onClick Optional additional callback to run when the link is clicked.
  * @returns The initial link.
  */
-util.inlineExpansion = function (linkText, expandedText, onClick) {
+window.inlineExpander = function (linkText, expandedText, onClick) {
   const id = `inline-expand-${slugify(linkText)}`;
   $(() => $(`#${id}`).one('click', event => {
-    $(event.target).after(expandedText);
-    $(event.target).remove();
+    $(event.target).replaceWith(expandedText);
     if (typeof onClick === 'function') onClick();
   }));
   return `
@@ -155,6 +176,19 @@ util.inlineExpansion = function (linkText, expandedText, onClick) {
     `;
 }
 
+window.passageAppender = function (linkText, passageName) {
+  const id = `append-passage-${slugify(linkText)}`;
+  $(() => $(`#${id}`).one('click', event => {
+    $(event.target).replaceWith(`<span class="link-like">${linkText}</span>`);
+    // Fade existing paragraphs a bit
+    $(`.passage p`).addClass('faded-text');
+    let content = paragraphFix(story.render(passageName));
+    $('.passage').append(`<div>${content}</div>`);
+  }));
+  return `
+    <a href="javascript:void(0)" id="${id}">${linkText}</a>
+    `;
+}
 
 util.continuation = function (text, nextPassage) {
   $(() => {
