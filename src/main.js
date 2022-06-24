@@ -127,6 +127,34 @@ class Conversation {
 }
 window.Convo = prefix => new Conversation(prefix);
 
+function slugify(text) {
+  return text.toLowerCase()
+    .replace(/^[^a-z0-9]+/, '') // Drop leading non-word characters
+    .replace(/[^a-z0-9]+$/, '') // Drop trailing non-word characters
+    .replace(/[^a-z0-9]+/, '-'); // Replace other non-word characters with hyphens
+}
+
+/**
+ * Creates a link. When clicked, the link is replaced with the provided
+ * html. Optionally you can specify additional code to run when the
+ * link is clicked.
+ * @param {htmlString} linkText The initial content of the link.
+ * @param {htmlString} expandedText The content after the link is clicked.
+ * @param {function?} onClick Optional additional callback to run when the link is clicked.
+ * @returns The initial link.
+ */
+util.inlineExpansion = function (linkText, expandedText, onClick) {
+  const id = `inline-expand-${slugify(linkText)}`;
+  $(() => $(`#${id}`).one('click', event => {
+    $(event.target).after(expandedText);
+    $(event.target).remove();
+    if (typeof onClick === 'function') onClick();
+  }));
+  return `
+    <a href="javascript:void(0)" id="${id}">${linkText}</a>
+    `;
+}
+
 
 util.continuation = function (text, nextPassage) {
   $(() => {

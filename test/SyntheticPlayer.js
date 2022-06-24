@@ -68,6 +68,7 @@ module.exports = class SyntheticPlayer {
     let totalKnots = 0;
     let convergences = 0;
     let terminalStates = 0;
+    let terminalKnots = [];
     let fullyExplored = true; // Until proven otherwise
     let startTimeMs = Date.now();
     let lastReportMs = -Infinity;
@@ -111,6 +112,7 @@ module.exports = class SyntheticPlayer {
         // exploring in this direction.
         if (terminalPassageNames.includes(this.currentKnot.passageName)) {
           this.currentKnot.children  = {};
+          terminalKnots.push(this.currentKnot);
           terminalStates++;
           continue;
         }
@@ -159,7 +161,7 @@ module.exports = class SyntheticPlayer {
     console.log(`Found ${lengths.length} possible paths.`);
     console.table(table);
 
-    return { totalKnots, convergences, terminalStates, fullyExplored };
+    return { totalKnots, convergences, terminalKnots, fullyExplored };
   }
 
 }
@@ -195,6 +197,14 @@ class Knot {
   constructor() { }
 
   /**
+   * Whether this knot represents an un-restorable state, because it resulted
+   * from a mutation within a passage.
+   */
+  isCosmetic() {
+    return this.parent && this.passageName === this.parent.passageName;
+  }
+
+  /**
    * Advances the story by clicking on the link with exactly the given text
    * within the page.
    * Prerequisite: Must already be navigated to this knot.
@@ -202,7 +212,7 @@ class Knot {
    */
   async followLink(linkText) {
     if (this.player.currentKnot !== this) {
-      throw new Error(`Tried to follow link [[${linkText}]] from knot ${this.name()} `
+      throw new Error(`Tried to follow link [[${linkText}]] from knot ${this.passageName} `
         + `but it is not the current knot.`);
     }
 
@@ -229,6 +239,15 @@ class Knot {
   }
 
   async restore() {
+    // Cosmetic (intra-passage mutation) knots are a special case; restored by
+    // restoring their parent and then clicking the link to return to them.
+    if (this.isCosmetic()) {
+      const pathFromParent = _.findKey(this._parents, knots => knots.includes(this.parent));
+      await this.parent.restore();
+      await this.parent.followLink(pathFromParent);
+      return;
+    }
+
     await this.player.page.evaluate((h) => window.story.restore(h), this.saveHash);
     await this.assertNoError();
     const textAfterRestore = await this.player.page.$eval('tw-passage', p => p.innerText);
