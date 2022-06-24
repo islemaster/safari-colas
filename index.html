@@ -33,8 +33,9 @@ tw-story {
 }
 @media only screen and (max-width: 600px) {
   tw-story {
-    margin: 0.5em auto;
+    margin: 0.5em auto 2.5em;
     padding: 1em;
+    min-height: calc(100vh - 5em);
   }
 }
 
@@ -314,22 +315,25 @@ story.title = 'Safari Colas'
 story.FLORA = 'Flora'
 story.CASSIA = 'Cass'
 
-/**
- * Checks the url for whether to turn on developer mode.
- * Falls back on a default value if not.
- * Can set in URL with ?dev=true or ?dev=1
- * Or unset with ?dev=false or ?dev=0
- */
-const DEVELOPER_MODE = (() => {
+function getUrlFlag(key, defaultValue) {
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('dev')) {
+  if (urlParams.has(key)) {
     try {
-      return !!JSON.parse(urlParams.get('dev'));
+      return !!JSON.parse(urlParams.get(key));
     } catch { /* ignore if unparseable */ }
   }
   // Default if no queryparam is set
-  return true;
-})();
+  return defaultValue;
+}
+
+/** Used for automated tests. */
+const AUTOMATION_MODE = getUrlFlag('automation', false);
+
+/**
+ * Can set in URL with ?dev=true or ?dev=1
+ * Or unset with ?dev=false or ?dev=0
+ */
+const DEVELOPER_MODE = !AUTOMATION_MODE && getUrlFlag('dev', true);
 
 let devPanel = DEVELOPER_MODE ? createDevPanel() : null;
 
@@ -355,6 +359,9 @@ $(window).on('sm.passage.shown', () => {
 
   // Fix rendering so we get a paragraph at the top of the passage every time.
   $('tw-passage').html(paragraphFix($('tw-passage').html()));
+
+  // Reset scroll position
+  snapToTop();
 
   // Update the developer panel.
   if (DEVELOPER_MODE) {
@@ -477,7 +484,7 @@ function paragraphFix(html) {
  * @returns The initial link.
  */
 window.inlineExpander = function (linkText, expandedText, onClick) {
-  const id = `inline-expand-${slugify(linkText)}`;
+  const id = `inline-expander-${slugify(linkText)}`;
   $(() => $(`#${id}`).one('click', event => {
     $(event.target).replaceWith(expandedText);
     if (typeof onClick === 'function') onClick();
@@ -487,30 +494,61 @@ window.inlineExpander = function (linkText, expandedText, onClick) {
     `;
 }
 
-window.passageAppender = function (linkText, passageName) {
-  const id = `append-passage-${slugify(linkText)}`;
+/**
+ * Creates a link. When clicked, the link becomes plain text, and the
+ * specified passage is inserted after the paragraph containing the link.
+ * All content earlier than the inserted passage is faded.
+ * @param {htmlString} linkText 
+ * @param {string} passageName 
+ */
+window.passageInserter = function (linkText, passageName) {
+  const id = `passage-inserter-${slugify(linkText)}`;
   $(() => $(`#${id}`).one('click', event => {
-    $(event.target).replaceWith(`<span class="link-like">${linkText}</span>`);
-    // Fade existing paragraphs a bit
-    $(`.passage p`).addClass('faded-text');
+    // Insert new content after the link's paragraph
     let content = paragraphFix(story.render(passageName));
-    $('.passage').append(`<div>${content}</div>`);
+    let $p = $(event.target).closest('p');
+    $p.after(content);
+
+    // Fade previous paragraphs a bit
+    while ($p.length) {
+      $p.addClass('faded-text');
+      $p = $p.prev();
+    }
+
+    scrollTo(event.target)
+
+    // Turn the link into plain text
+    $(event.target).replaceWith(`<span class="link-like">${linkText}</span>`);
   }));
   return `
     <a href="javascript:void(0)" id="${id}">${linkText}</a>
     `;
 }
 
-util.continuation = function (text, nextPassage) {
-  $(() => {
-    $('#continuation').click(event => {
-      let content = story.render(nextPassage);
-      $('.passage').append(`<p>${content}</p>`)
-      event.target.remove()
-    })
-  })
+/**
+ * Creates a link. When clicked, the link becomes plain text, and the
+ * specified passage is appended to the end of the current page.
+ * All previous page content is faded.
+ * 
+ * @param {htmlString} linkText The initial content of the link.
+ * @param {string} passageName The passage to append to the page on click.
+ * @returns The intiial link.
+ */
+window.passageAppender = function (linkText, passageName) {
+  const id = `passage-appender-${slugify(linkText)}`;
+  $(() => $(`#${id}`).one('click', event => {
+    
+    // Fade existing paragraphs a bit
+    $(`.passage p`).addClass('faded-text');
+    let content = paragraphFix(story.render(passageName));
+    $('.passage').append(content);
+
+    scrollTo(event.target);
+
+    $(event.target).replaceWith(`<span class="link-like">${linkText}</span>`);
+  }));
   return `
-    <a href="javascript:void(0)" id="continuation">${text}</a>
+    <a href="javascript:void(0)" id="${id}">${linkText}</a>
     `;
 }
 
@@ -521,13 +559,36 @@ util.continuation = function (text, nextPassage) {
 util.background = function (color) {
   $('body').css('backgroundColor', color);
 };
+
+/**
+ * Quick-scroll the target to the top of the viewport.
+ * (Or as far as we can get, anyway.)
+ * In AUTOMATION_MODE we snap to the position for faster tests.
+ * @param {Element} target 
+ */
+ function scrollTo(target) {
+  const $doc = $([document.documentElement, document.body]);
+  const targetTop = $(target).offset().top;
+  if (AUTOMATION_MODE) {
+    $doc.scrollTop(targetTop);
+  } else {
+    $doc.animate({scrollTop: targetTop}, 400);
+  }
+}
+
+/**
+ * Snap the viewport back to the top of the page.
+ */
+function snapToTop() {
+  $([document.documentElement, document.body]).scrollTop(0);
+}
 </script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">This is the first decent meal you&#39;ve had in a long time.
 
 Your hunger masks the loneliness of sitting across the table from [[a mortal-&gt;Cass/Dining/Examine Flora]] and not knowing what to say next.
 
 So you [[take another bite of pheasant.-&gt;Cass/Dining/Beat 2]]</tw-passagedata><tw-passagedata pid="2" name="Cass/Dining/Examine Flora" tags="" position="225,100" size="100,100">Your tablemate is **Flora**, a young woman you met on your last job. She&#39;s hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
 
-&lt;%= util.continuation(&quot;Flora is staring.&quot;, &quot;Cass/Dining/Beat 2&quot;) %&gt;</tw-passagedata><tw-passagedata pid="3" name="Cass/Dining/Beat 2" tags="" position="350,100" size="100,100">**Flora is staring.** Again.
+&lt;%= passageAppender(&quot;Flora is staring.&quot;, &quot;Cass/Dining/Beat 2&quot;) %&gt;</tw-passagedata><tw-passagedata pid="3" name="Cass/Dining/Beat 2" tags="" position="350,100" size="100,100">Again.
 
 Maybe she [[isn&#39;t cut out for this after all.-&gt;Cass/Dining/Beat 4]]</tw-passagedata><tw-passagedata pid="4" name="Cass/Dining/Beat 4" tags="" position="475,100" size="100,100">Everyone wants to help, to make the appearance of it anyway. But then, when things are laid bare, when the help is really needed... everyone backs away.
 
@@ -891,13 +952,9 @@ The handsome man takes a deep breath, lights another cigarette, takes a long dra
 &lt;% util.background(&#39;#111&#39;) %&gt;
 
 [[We&#39;ve reached the mountains.-&gt;Flora/Sleeper/Beat 1]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="68" name="Flora/Sleeper/Beat 1" tags="" position="975,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is [[already asleep-&gt;Flora/Sleeper/Examine Cass]] on the lower bunk.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="68" name="Flora/Sleeper/Beat 1" tags="" position="975,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is &lt;%= passageInserter(&#39;already asleep&#39;, &#39;Flora/Sleeper/Examine Cass&#39;) %&gt; on the lower bunk.
 
-[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Sleeper/Examine Cass" tags="" position="1100,850" size="100,100">It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is **already asleep** on the lower bunk.
-
-Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.
-
-[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="70" name="Flora/Sleeper/Beat 2" tags="" position="1225,850" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and climb into your bunk. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s [[study.-&gt;Flora/Sleeper/Beat 3]]</tw-passagedata><tw-passagedata pid="71" name="Flora/Sleeper/Beat 3" tags="" position="100,975" size="100,100">You&#39;re lost in a remarkably detailed sketch of a crooked tree when a chill wind blows behind your ears.
+[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Sleeper/Examine Cass" tags="" position="1100,850" size="100,100">Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.</tw-passagedata><tw-passagedata pid="70" name="Flora/Sleeper/Beat 2" tags="" position="1225,850" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and climb into your bunk. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s [[study.-&gt;Flora/Sleeper/Beat 3]]</tw-passagedata><tw-passagedata pid="71" name="Flora/Sleeper/Beat 3" tags="" position="100,975" size="100,100">You&#39;re lost in a remarkably detailed sketch of a crooked tree when a chill wind blows behind your ears.
 
 The lamps flicker and dim.
 
