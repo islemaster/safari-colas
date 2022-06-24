@@ -2,9 +2,11 @@
 
 body {
   background-color: #82626d;
+  overflow-x: hidden;
 }
 
 tw-story {
+  position: relative;
   line-height: 160%;
   font-family: "IM Fell English", "Georgia", "Verdana", serif;
   font-size: 24px;
@@ -22,6 +24,21 @@ tw-story {
     margin: 0.5em auto;
     padding: 1em;
   }
+}
+
+#character-watermark {
+  position: absolute;
+  top: 10vh;
+  left: calc(100% - 10px);
+  writing-mode: vertical-rl;
+  font-family: "IM Fell DW Pica";
+  font-size: 100px;
+  line-height: 100%;
+  color: #fff6;
+}
+@media only screen and (max-width: 600px) {
+  /* No watermark on mobile */
+  #character-watermark { display: none; }
 }
 
 tw-story strong {

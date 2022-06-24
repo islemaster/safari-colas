@@ -25,16 +25,24 @@ let devPanel = DEVELOPER_MODE ? createDevPanel() : null;
 // The util namespace holds our helper functions
 window.util = window.util || {};
 
-// Don't start background fades until after initial load
-$(() => $('body').css('transition', 'background-color 2s ease-in-out 0.5s'));
+// After initial load: Do extra UI setup.
+$(() => {
+  // Character watermark
+  $('tw-story').append('<div id="character-watermark"></div>');
+
+  // Don't start background fades until after initial load
+  $('body').css('transition', 'background-color 2s ease-in-out 0.5s');
+});
 
 // Enables back/forward buttons for every passage
 $(window).on('sm.passage.shown', () => {
   story.checkpoint();
+  // Update the character name watermark.
+  $('#character-watermark').text(story.state.playerCharacter === story.FLORA ? 'Flora' : 'Cassia');
+  // Update the developer panel.
   if (DEVELOPER_MODE) {
     if (window.passage.name !== 'Start') devPanel.autosave();
     devPanel.render();
-
   }
 });
 
