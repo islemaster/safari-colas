@@ -16,7 +16,7 @@ module.exports = class SyntheticPlayer {
       // slowMo: 20,
     });
     this.page = await this.browser.newPage();
-    await this.page.goto(`file:${path.join(__dirname, '..', 'main.html?dev=false')}`);
+    await this.page.goto(`file:${path.join(__dirname, '..', 'main.html?automation=true')}`);
 
     // Capture root knot for quick restart
     this.root = await Knot.capture(this);

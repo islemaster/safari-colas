@@ -21,8 +21,9 @@ tw-story {
 }
 @media only screen and (max-width: 600px) {
   tw-story {
-    margin: 0.5em auto;
+    margin: 0.5em auto 2.5em;
     padding: 1em;
+    min-height: calc(100vh - 5em);
   }
 }
 

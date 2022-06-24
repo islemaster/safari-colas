@@ -248,17 +248,13 @@ The handsome man takes a deep breath, lights another cigarette, takes a long dra
 
 :: Flora/Sleeper/Beat 1
 
-It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is [[already asleep->Flora/Sleeper/Examine Cass]] on the lower bunk.
+It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is <%= passageInserter('already asleep', 'Flora/Sleeper/Examine Cass') %> on the lower bunk.
 
 [[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
 
 :: Flora/Sleeper/Examine Cass
 
-It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is **already asleep** on the lower bunk.
-
 Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.
-
-[[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
 
 :: Flora/Sleeper/Beat 2
 
