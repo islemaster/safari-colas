@@ -2,9 +2,11 @@
 
 body {
   background-color: #82626d;
+  overflow-x: hidden;
 }
 
 tw-story {
+  position: relative;
   line-height: 160%;
   font-family: "IM Fell English", "Georgia", "Verdana", serif;
   font-size: 24px;
@@ -19,9 +21,25 @@ tw-story {
 }
 @media only screen and (max-width: 600px) {
   tw-story {
-    margin: 0.5em auto;
+    margin: 0.5em auto 2.5em;
     padding: 1em;
+    min-height: calc(100vh - 5em);
   }
+}
+
+#character-watermark {
+  position: absolute;
+  top: 10vh;
+  left: calc(100% - 10px);
+  writing-mode: vertical-rl;
+  font-family: "IM Fell DW Pica";
+  font-size: 100px;
+  line-height: 100%;
+  color: #fff6;
+}
+@media only screen and (max-width: 600px) {
+  /* No watermark on mobile */
+  #character-watermark { display: none; }
 }
 
 tw-story strong {
@@ -34,9 +52,12 @@ tw-story a {
   color: #912d38;
   text-decoration: none;
 }
-
 tw-story a:hover {
   color: #e0273c;
+}
+tw-story .link-like {
+  /* Keep consistent with link style (font, boldness) but not color */
+  font-family: "IM Fell DW Pica", "Georgia", "Verdata", serif;
 }
 
 tw-story ul {
@@ -46,6 +67,17 @@ tw-story ul {
 tw-story ul li::marker {
   font-family: "IM Fell DW Pica";
   font-weight: bold;
+}
+
+/* Text that's a little faded out, usually when it's been
+   read and a new part of the passage has been revealed. */
+tw-story .faded-text {
+  transition: color 300ms;
+  color: #888;
+}
+
+tw-story .new-text {
+  transition: color 
 }
 
 blockquote {

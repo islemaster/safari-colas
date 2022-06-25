@@ -12,10 +12,10 @@ So you [[take another bite of pheasant.->Cass/Dining/Beat 2]]
 :: Cass/Dining/Examine Flora
 Your tablemate is **Flora**, a young woman you met on your last job. She's hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
 
-<%= util.continuation("Flora is staring.", "Cass/Dining/Beat 2") %>
+<% appendPassage("Cass/Dining/Beat 2") %>
 
 :: Cass/Dining/Beat 2
-**Flora is staring.** Again.
+Flora is staring. Again.
 
 Maybe she [[isn't cut out for this after all.->Cass/Dining/Beat 4]]
 
@@ -281,28 +281,27 @@ As you drift to sleep, the moonglow on the windows steals away, replaced by the 
 
 <% util.background('rgb(235, 240, 217)') %>
 
-Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It's [[cold.->Cass/Dream/Beat 1 Alt]]
+Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It's <%= inlineExpander('cold.', `<span>familiar, comfortable; cold.</span>`) %>
 
-She came [[prepared->Cass/Dream/Prepared]] to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
-
-:: Cass/Dream/Beat 1 Alt
-Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It's familiar, comfortable, **cold**.
-
-She came [[prepared->Cass/Dream/Prepared]] to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
+She came <%= passageAppender('prepared', 'Cass/Dream/Prepared') %> to attend to her brother's grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.
 
 :: Cass/Dream/Prepared
 
-Preparation is critically important to Cass now. Being unprepared meant losing her brother. [[Burying him here.->Cass/Dream/Headstone]]
+Preparation is critically important to Cass now. Being unprepared meant losing <%= passageAppender('her brother.', 'Cass/Dream/Brother') %> [[Burying him here.->Cass/Dream/Headstone]]
+
+:: Cass/Dream/Brother
 
 Cass spends a few moments reflecting on how she remembers her brother, but it's hazy like trying to catch a petal on the wind.
 
 :: Cass/Dream/Headstone
 
-Her attention turns to the headstone. Moss has staked its claim, growing thick over everything. Cass gets out a brush and [[starts to clean.->Cass/Dream/Clean]]
+Her attention turns to the headstone. Moss has staked its claim, growing thick over everything. Cass gets out a brush and <%= passageAppender('starts to clean.', 'Cass/Dream/Clean') %>
 
 :: Cass/Dream/Clean
 
-She clears the face of the headstone first, revealing her brother's name.
+She clears the face of the headstone first, revealing her brother's <%= passageAppender('name.', 'Cass/Dream/Name') %>
+
+:: Cass/Dream/Name
 
 <center><tt>FLORA</tt></center>
 
