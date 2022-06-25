@@ -12,10 +12,10 @@ So you [[take another bite of pheasant.->Cass/Dining/Beat 2]]
 :: Cass/Dining/Examine Flora
 Your tablemate is **Flora**, a young woman you met on your last job. She's hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
 
-<%= passageAppender("Flora is staring.", "Cass/Dining/Beat 2") %>
+<% appendPassage("Cass/Dining/Beat 2") %>
 
 :: Cass/Dining/Beat 2
-Again.
+Flora is staring. Again.
 
 Maybe she [[isn't cut out for this after all.->Cass/Dining/Beat 4]]
 

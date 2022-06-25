@@ -225,19 +225,32 @@ window.passageInserter = function (linkText, passageName) {
 window.passageAppender = function (linkText, passageName) {
   const id = `passage-appender-${slugify(linkText)}`;
   $(() => $(`#${id}`).one('click', event => {
-    
     // Fade existing paragraphs a bit
     $(`.passage p`).addClass('faded-text');
-    let content = paragraphFix(story.render(passageName));
-    $('.passage').append(content);
 
+    // Add the new passage to the end of the page
+    appendPassage(passageName);
+
+    // Ensure it's scrolled into view
     scrollTo(event.target);
 
+    // Convert the link to plain text
     $(event.target).replaceWith(`<span class="link-like">${linkText}</span>`);
   }));
   return `
     <a href="javascript:void(0)" id="${id}">${linkText}</a>
     `;
+}
+
+/**
+ * Immediately appends the named passage to the end of the current page.
+ * @param {string} passageName 
+ */
+window.appendPassage = function (passageName) {
+  $(() => {
+    let content = paragraphFix(story.render(passageName));
+    $('.passage').append(content);
+  });
 }
 
 /**
