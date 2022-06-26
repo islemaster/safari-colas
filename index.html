@@ -73,12 +73,12 @@ tw-story .link-like {
 }
 
 tw-story ul {
-  list-style-type: "* ";
-  line-height: 125%;
+  list-style-type: "⊳ ";
+  line-height: 150%;
 }
 tw-story ul li::marker {
   font-family: "IM Fell DW Pica";
-  font-weight: bold;
+ /* font-weight: bold; */
 }
 
 /* Text that's a little faded out, usually when it's been
@@ -188,6 +188,23 @@ blockquote {
 }
 .stop a {
   font-family: "IM Fell English SC";
+}
+
+/* Indicates a passage read by the other player */
+.partnertext {
+  font-family: "IM Fell English SC";
+  font-size: larger;
+  color: #5c5354;
+  font-style: italic;
+  border-left: solid;
+  padding-left: 0.5em;
+}
+/* quotes kept showing up as close quotes only so I added this */
+.partnertext::before {
+  content: "\201c";
+}
+.partnertext::after {
+  content: "\201d";
 }
 
 .dev-panel {
@@ -597,15 +614,13 @@ function snapToTop() {
 }
 </script><tw-passagedata pid="1" name="Cass/Dining/Beat 1" tags="" position="100,100" size="100,100">This is the first decent meal you&#39;ve had in a long time.
 
-Your hunger masks the loneliness of sitting across the table from [[a mortal-&gt;Cass/Dining/Examine Flora]] and not knowing what to say next.
+Your hunger masks the loneliness of sitting across the table from &lt;%= passageInserter(&#39;a mortal.&#39;,&#39;Cass/Dining/Examine Flora&#39;) %&gt; You don&#39;t know what to say next.
 
-So you [[take another bite of pheasant.-&gt;Cass/Dining/Beat 2]]</tw-passagedata><tw-passagedata pid="2" name="Cass/Dining/Examine Flora" tags="" position="225,100" size="100,100">Your tablemate is **Flora**, a young woman you met on your last job. She&#39;s hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
+So you &lt;%= passageAppender(&#39;take another bite of pheasant.&#39;, &#39;Cass/Dining/Beat 2&#39;) %&gt;</tw-passagedata><tw-passagedata pid="2" name="Cass/Dining/Examine Flora" tags="" position="225,100" size="100,100">Your tablemate is **Flora**, a young medic you met on your last job. She&#39;s hired you for this hunt, and foolishly you agreed she could tag along.</tw-passagedata><tw-passagedata pid="3" name="Cass/Dining/Beat 2" tags="" position="350,100" size="100,100">Flora is staring. Again.
 
-&lt;% appendPassage(&quot;Cass/Dining/Beat 2&quot;) %&gt;</tw-passagedata><tw-passagedata pid="3" name="Cass/Dining/Beat 2" tags="" position="350,100" size="100,100">Flora is staring. Again.
+Maybe she &lt;%= passageAppender(&quot;isn&#39;t cut out for this&quot;, &quot;Cass/Dining/Beat 4&quot;) %&gt; after all.</tw-passagedata><tw-passagedata pid="4" name="Cass/Dining/Beat 4" tags="" position="475,100" size="100,100">Everyone wants to help. Or give the appearance of it, anyway. But when things are laid bare, and stakes rise, everyone backs away.
 
-Maybe she [[isn&#39;t cut out for this after all.-&gt;Cass/Dining/Beat 4]]</tw-passagedata><tw-passagedata pid="4" name="Cass/Dining/Beat 4" tags="" position="475,100" size="100,100">Everyone wants to help, to make the appearance of it anyway. But then, when things are laid bare, when the help is really needed... everyone backs away.
-
-[[Flora will too.-&gt;Cass/Dining/Beat 5]]</tw-passagedata><tw-passagedata pid="5" name="Cass/Dining/Beat 5" tags="" position="600,100" size="100,100">Flora breaks the silence with a question.
+&lt;%= passageAppender(&#39;She will too.&#39;, &#39;Cass/Dining/Beat 5&#39;) %&gt;</tw-passagedata><tw-passagedata pid="5" name="Cass/Dining/Beat 5" tags="" position="600,100" size="100,100">Flora breaks the silence with a question.
 
 &lt;%
 Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Hunting&#39;);
@@ -613,11 +628,11 @@ Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Necklace&#39;);
 %&gt;
 
 &lt;div.stop&gt;
-Stop! What did your partner say?
-&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Cass/Dining/Hunting" tags="" position="725,100" size="100,100">&quot;What exactly are we hunting?&quot;
+Stop! What did your partner ask about?
+&lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Cass/Dining/Hunting" tags="" position="725,100" size="100,100">&lt;div.partnertext&gt;What exactly are we hunting?&lt;/div&gt;
 
-&quot;A vampire. Once it was a man. Now it&#39;s a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with.&quot;
+&quot;A vampire. Once it was a man. Now it&#39;s a soulless demon, feeding on the weak and blighting the land. Not to be trifled with.&quot;
 
 &lt;%
 Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Schattental&#39;);
@@ -625,9 +640,11 @@ Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Book&#39;);
 %&gt;
 
 &lt;div.stop&gt;
-Stop! What did your partner say?
-&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Cass/Dining/Necklace" tags="" position="850,100" size="100,100">&quot;What is that necklace you&#39;re wearing?&quot;
+Stop! What did your partner ask about?
+&lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
+&lt;/div&gt;
+
+&lt;!-- TODO: We should fix what the necklace is: is it holy water or a reliquette --&gt;</tw-passagedata><tw-passagedata pid="7" name="Cass/Dining/Necklace" tags="" position="850,100" size="100,100">&lt;div.partnertext&gt;What is that necklace you&#39;re wearing?&lt;/div&gt;
 
   - [[&quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Vial]]
   - [[(Lie) &quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Holy]]
@@ -889,7 +906,7 @@ Organized crime? You thought you were hunting a monster.
 
 _What?_ There&#39;s no plan? This seems bad.
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="53" name="Flora/Dining/Book" tags="" position="350,725" size="100,100">You ask, &quot;Do you have a vampire &lt;span.readaloud&gt;book&lt;/span&gt; I could read?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="53" name="Flora/Dining/Book" tags="" position="350,725" size="100,100">You ask, &lt;span.readaloud&gt;&quot;Do you have a vampire book I could read?&quot;&lt;/span&gt;
 
 &lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Monsters&#39;, &quot;Who really hunts monsters for a living?&quot;) %&gt;
 
@@ -1053,7 +1070,7 @@ $(() =&gt; story.show(&quot;Act II&quot;))
 [[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="86" name="Act II" tags="" position="725,1100" size="100,100">&lt;% util.background(&#39;#9b543e&#39;) %&gt;
 
 &lt;div.interlude&gt;
-A locomotive chugs through farmland, and towards autumny, mountainous terrain. We&#39;re not in town anymore.
+A locomotive chugs through farmland and towards autumny, mountainous terrain. We&#39;re not in town anymore.
 
 [[You&#39;re in the dining car.-&gt;&lt;%=s.playerCharacter%&gt;/Dining/Beat 1]]
 &lt;/div&gt;</tw-passagedata></tw-storydata>
