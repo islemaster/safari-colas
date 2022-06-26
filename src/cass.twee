@@ -5,24 +5,22 @@ This file contains Cassia's story.  Passages are prefixed with "Cass/" to avoid 
 :: Cass/Dining/Beat 1
 This is the first decent meal you've had in a long time.
 
-Your hunger masks the loneliness of sitting across the table from [[a mortal->Cass/Dining/Examine Flora]] and not knowing what to say next.
+Your hunger masks the loneliness of sitting across the table from <%= passageInserter('a mortal.','Cass/Dining/Examine Flora') %> You don't know what to say next.
 
-So you [[take another bite of pheasant.->Cass/Dining/Beat 2]]
+So you <%= passageAppender('take another bite of pheasant.', 'Cass/Dining/Beat 2') %>
 
 :: Cass/Dining/Examine Flora
-Your tablemate is **Flora**, a young woman you met on your last job. She's hired you for this hunt, and you agreed she could tag along. She proved a decent medic back in town.
-
-<% appendPassage("Cass/Dining/Beat 2") %>
+Your tablemate is **Flora**, a young medic you met on your last job. She's hired you for this hunt, and foolishly you agreed she could tag along.
 
 :: Cass/Dining/Beat 2
 Flora is staring. Again.
 
-Maybe she [[isn't cut out for this after all.->Cass/Dining/Beat 4]]
+Maybe she <%= passageAppender("isn't cut out for this", "Cass/Dining/Beat 4") %> after all.
 
 :: Cass/Dining/Beat 4
-Everyone wants to help, to make the appearance of it anyway. But then, when things are laid bare, when the help is really needed... everyone backs away.
+Everyone wants to help. Or give the appearance of it, anyway. But when things are laid bare, and stakes rise, everyone backs away.
 
-[[Flora will too.->Cass/Dining/Beat 5]]
+<%= passageAppender('She will too.', 'Cass/Dining/Beat 5') %>
 
 :: Cass/Dining/Beat 5
 Flora breaks the silence with a question.
@@ -33,14 +31,14 @@ Convo('Cass/Dining').addTopic('Necklace');
 %>
 
 <div.stop>
-Stop! What did your partner say?
-<%= Convo('Cass/Dining').keyMenu() %>
+Stop! What did your partner ask about?
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Hunting
-"What exactly are we hunting?"
+<div.partnertext>What exactly are we hunting?</div>
 
-"A vampire. Once it was a man. Now it's a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with."
+"A vampire. Once it was a man. Now it's a soulless demon, feeding on the weak and blighting the land. Not to be trifled with."
 
 <%
 Convo('Cass/Dining').addTopic('Schattental');
@@ -48,12 +46,13 @@ Convo('Cass/Dining').addTopic('Book');
 %>
 
 <div.stop>
-Stop! What did your partner say?
-<%= Convo('Cass/Dining').keyMenu() %>
+Stop! What did your partner ask about?
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
+<!-- TODO: We should fix what the necklace is: is it holy water or a reliquette -->
 :: Cass/Dining/Necklace
-"What is that necklace you're wearing?"
+<div.partnertext>What is that necklace you're wearing?</div>
 
   - [["It's holy water."->Cass/Dining/Vial]]
   - [[(Lie) "It's holy water."->Cass/Dining/Holy]]

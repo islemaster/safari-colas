@@ -67,7 +67,7 @@ A prototype of our multiplayer Twine game.
 <% util.background('#9b543e') %>
 
 <div.interlude>
-A locomotive chugs through farmland, and towards autumny, mountainous terrain. We're not in town anymore.
+A locomotive chugs through farmland and towards autumny, mountainous terrain. We're not in town anymore.
 
 [[You're in the dining car.-><%=s.playerCharacter%>/Dining/Beat 1]]
 </div>

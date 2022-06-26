@@ -61,12 +61,12 @@ tw-story .link-like {
 }
 
 tw-story ul {
-  list-style-type: "* ";
-  line-height: 125%;
+  list-style-type: "⊳ ";
+  line-height: 150%;
 }
 tw-story ul li::marker {
   font-family: "IM Fell DW Pica";
-  font-weight: bold;
+ /* font-weight: bold; */
 }
 
 /* Text that's a little faded out, usually when it's been
@@ -176,6 +176,23 @@ blockquote {
 }
 .stop a {
   font-family: "IM Fell English SC";
+}
+
+/* Indicates a passage read by the other player */
+.partnertext {
+  font-family: "IM Fell English SC";
+  font-size: larger;
+  color: #5c5354;
+  font-style: italic;
+  border-left: solid;
+  padding-left: 0.5em;
+}
+/* quotes kept showing up as close quotes only so I added this */
+.partnertext::before {
+  content: "\201c";
+}
+.partnertext::after {
+  content: "\201d";
 }
 
 .dev-panel {
