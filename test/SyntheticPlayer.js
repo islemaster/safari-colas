@@ -9,11 +9,20 @@ const PROGRESS_REPORT_INTERVAL_MS = 150;
 
 module.exports = class SyntheticPlayer {
   async setup() {
+    console.log(process.env.CI);
+    console.log(false || process.env.CI);
+    console.log(!!process.env.CI);
     // Create browser, navigate to game
     this.browser = await puppeteer.launch({
-      headless: false,
-      // devtools: true,
+      // Uncomment to make the tests open a window so you can watch.
+      headless: !!process.env.CI,
+
+      // Uncomment to slow down the tests, helpful in combination with above.
+      // Given as milliseconds of delay per step, so 200 is 10x slower than 20.
       // slowMo: 20,
+
+      // Opens the Chromium developer tools, used for step-debugging tests.
+      // devtools: true,
     });
     this.page = await this.browser.newPage();
     await this.page.goto(`file:${path.join(__dirname, '..', 'main.html?automation=true')}`);
@@ -47,7 +56,7 @@ module.exports = class SyntheticPlayer {
     return link;
   }
 
-  
+
 
   /**
    * Fully explores a subset of story-space, starting from the current story knot
@@ -64,7 +73,7 @@ module.exports = class SyntheticPlayer {
    *        will return `fullyExplored = false`.
    * @returns 
    */
-  async exploreTo(terminalPassageNames, {maxDepth = 50, progressReport = true} = {}) {
+  async exploreTo(terminalPassageNames, { maxDepth = 50, progressReport = true } = {}) {
     let totalKnots = 0;
     let convergences = 0;
     let terminalStates = 0;
@@ -111,7 +120,7 @@ module.exports = class SyntheticPlayer {
         // If we've reached one of the terminal passages we can stop
         // exploring in this direction.
         if (terminalPassageNames.includes(this.currentKnot.passageName)) {
-          this.currentKnot.children  = {};
+          this.currentKnot.children = {};
           terminalKnots.push(this.currentKnot);
           terminalStates++;
           continue;
