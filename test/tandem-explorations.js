@@ -21,17 +21,23 @@ test('Tandem Explorations', async t => {
       });
       await Promise.all([flora.setup(), cass.setup()]);
   
-      while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
-        const moved = (await Promise.all([cass.tryStep(), flora.tryStep()])).some(x => x);
-        const passedAKeyword = [cass.tryPassTo(flora), flora.tryPassTo(cass)].some(x => x);
-        if (!moved && !passedAKeyword) {
-          throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
+      try {
+        while (!(cass.currentKnot.isAnEnding && flora.currentKnot.isAnEnding)) {
+          const moved = (await Promise.all([cass.tryStep(), flora.tryStep()])).some(x => x);
+          const passedAKeyword = [cass.tryPassTo(flora), flora.tryPassTo(cass)].some(x => x);
+          if (!moved && !passedAKeyword) {
+            throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
+          }
+  
+          // If we see the same event ten times in a row, we got stuck.
+          if (eventLog.length >= 10 && eventLog.slice(-10).every((x, _, arr) => x == arr[0])) {
+            throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
+          }
         }
-
-        // If we see the same event ten times in a row, we got stuck.
-        if (eventLog.length >= 10 && eventLog.slice(-10).every((x, _, arr) => x == arr[0])) {
-          throw new Error('Got stuck!\n\n' + eventLog.join('\n'));
-        }
+      }
+      catch (err) {
+        console.error(`Caught error after the following events:\n\n` + eventLog.join('\n'));
+        throw err;
       }
   
       t.end();

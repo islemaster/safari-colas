@@ -9,15 +9,12 @@ const PROGRESS_REPORT_INTERVAL_MS = 150;
 
 module.exports = class SyntheticPlayer {
   async setup() {
-    console.log(process.env.CI);
-    console.log(false || process.env.CI);
-    console.log(!!process.env.CI);
     // Create browser, navigate to game
     this.browser = await puppeteer.launch({
       // Uncomment to make the tests open a window so you can watch.
-      headless: !!process.env.CI,
+      // headless: !!process.env.CI,
 
-      // Uncomment to slow down the tests, helpful in combination with above.
+      // Change to slow down the tests, helpful in combination with above.
       // Given as milliseconds of delay per step, so 200 is 10x slower than 20.
       // slowMo: 20,
 
@@ -187,6 +184,10 @@ class Knot {
       knot._parents[fromLinkText] = [parentKnot]
     }
 
+    // Wait a moment to ensure the passage is fully loaded
+    await player.page.waitForTimeout(1);
+
+    // Capture knot properties from the DOM
     const passage = await player.page.$('tw-passage');
     knot.passageName = await passage.evaluate(() => window.passage.name);
     knot.text = await passage.evaluate(p => p.innerText);
@@ -238,7 +239,7 @@ class Knot {
     if (!link) {
       const passageText = await this.player.page.$eval('tw-passage', p => p.innerText);
       throw new Error(`Expected a link with text "${linkText}" but none was found `
-        + `in passage:\n\n${passageText}`);
+        + `in passage:\n\n${passageText}\n\nBacktrace:\n ${this.backtrace()}`);
     }
 
     await link.click();
@@ -333,14 +334,33 @@ class Knot {
     return this._lengths;
   }
 
-  transcript() {
+  /**
+   * Return the series of knots that led to this point, in order,
+   * ending in this knot.
+   */
+  path() {
     const path = [this];
     let parent = this.parent;
     while (parent) {
       path.unshift(parent);
       parent = parent.parent;
     }
-    return path.map((knot, i, path) => {
+    return path;
+  }
+
+  backtrace() {
+    return this.path().map((knot, i, path) => {
+      let text = knot.passageName;
+      if (i < path.length) {
+        const exit = _.findKey(knot.children, k => k === path[i + 1]);
+        text = text + ` => ${exit}`;
+      }
+      return text;
+    }).join('\n  ');
+  }
+
+  transcript() {
+    return this.path().map((knot, i, path) => {
       let text = knot.text;
       Object.keys(knot.children).forEach(link => {
         text = text.replace(link, `[[${link}]]`);
