@@ -161,7 +161,8 @@ Stop! What did your partner say next?
   - [[Ignore her.->Cass/Dining/Bite]]
 
 :: Cass/Dining/Homework
-"I suppose you should do your <span.readaloud>homework</span>. It's in my rucksack, take a look later."
+"I suppose you should do your <span.readaloud>homework</span>. It's in my rucksack. Maybe you should go get it."
+<!-- Brad: This seems plausible to me here, even though Cass is cagey, because it might redirect Flora. -->
 
 <div.stop>
 Stop! What did your partner say next?
@@ -177,7 +178,9 @@ You're not exactly ready to open up to this novice nurse from Nowheresburgh.
   - [[Ignore her.->Cass/Dining/Bite]]
 
 :: Cass/Dining/Beat 6
-Her role here is clear: She will help, and then she will go home.
+You tire of this examination.
+
+"Look here lass. While in your employ I will suffer your chatter, but your breath is wasted. When our work is done, we will part ways for good. Yes?"
 
 It will be [[simpler that way.->Cass/Dining/Beat 7]]
 

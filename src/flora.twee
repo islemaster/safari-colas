@@ -20,9 +20,9 @@ Convo('Flora/Dining').addTopic('Necklace', "What is that necklace you're wearing
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Examine Cass
-You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to see her: she's covered in simple, durable fabrics and unadorned leather, like she's plucked from a different time. She appeared that night and chased the vampire out of town, but not before one of your dear friends was killed.
+You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to <%= inlineExpander('see', `<span class="link-like">see</span> - and <em>smell</em> -`) %> her: she's covered in simple, durable fabrics and unadorned leather, like she's plucked from a different time.
 
-Now you've hired her to track the monster back to its lair and destory it. You owe Oliver that much.
+She appeared that night and chased the vampire out of town, but not before one of your dear friends was killed. Now you've hired her to track the monster back to its lair and destory it. You owe Oliver that much.
 
 You let out a gentle sigh; Cassia seems odd and you can't put your finger on why.
 
@@ -57,8 +57,6 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Heirloom
-<!-- suppressing this for now. why are we adding it to Cass's inventory twice anyway? 
-<% CassInventory.add('holy water') %> -->
 <span.partnertext>It's a family heirloom.</span>
 
 She pauses for a moment. "It's a common quartz. My brother gave it to me."
@@ -68,7 +66,6 @@ That was unexpectedly sentimental. She's clearly hiding something, you saw her l
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Holy
-<% CassInventory.add('reliquette') %>
 "It's a vial of holy water,"
 
 "In case of emergency," she quickly adds sardonically.
@@ -82,12 +79,12 @@ What the heck is holy water? Is it some kind of aqua regia or is it more for cle
 :: Flora/Dining/Medication
 "<span.readaloud>Holy water? Is that like a medication</span>?"
 
-"Not exactly," she grunts.
+"Not exactly," she grunts. You wait for her to explain, but she doesn't say any more.
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Pale
-Looking at the small vial you notice something else. "Why is your skin so <span.readaloud>pale</span>?"
+Looking at the small vial you notice something else. "<span.readaloud>Why is your skin so pale?</span>"
 
 <div.stop>
 Stop! How did your partner respond?
@@ -98,7 +95,7 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Schattental
-You ask, "How will we find the vampire when we get to <span.readaloud>Schattental</span>?"
+You ask, "<span.readaloud>How will we find the vampire when we get to Schattental?</span>" {{Should we help the player pronounce this? "SHOT-in-tall"}}
 
 <% Convo('Flora/Dining').addTopic('Monsters', "Who really hunts monsters for a living?") %>
 
@@ -112,19 +109,25 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Castle
-"Look for the castle. Vampires always have a castle." You are skeptical of this, but you bite your tongue. Cassia is being cagey for some reason.
+<div.partnertext>Look for the castle.</div>
+
+"Vampires always have a castle." You are skeptical of this, but you bite your tongue. Cassia is being cagey for some reason.
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Money
-"Follow the money," she explains. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
+<div.partnertext>Follow the money,</div>
+
+she explains. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
 
 Organized crime? You thought you were hunting a monster.
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Find Us
-"He'll find us. Not a lot of strangers in the valley of shadows." She gives you a pointed look. "We'll just have to be ready for a fight."
+<div.partnertext>He'll find us.</div>
+
+"Not a lot of strangers in the valley of shadows." She gives you a pointed look. "We'll just have to be ready for a fight."
 
 _What?_ There's no plan? This seems bad.
 
@@ -145,7 +148,7 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Homework
-"I suppose you should do your homework. It's in my rucksack, take a look later." You make a mental note.
+"I suppose you should do your homework. It's in my rucksack. Maybe you should go get it." You make a mental note.
 <% s.theBestiaryIsInTheRucksack = true %>
 
 <%= Convo('Flora/Dining').topicMenu() %>
@@ -178,11 +181,11 @@ A spider crawls across the table. Without turning her gaze, Cass grabs the creat
 [[You push your plate away.->Flora/Dining/Beat 3]]
 
 :: Flora/Dining/Beat 3
-You may not have an appetite anymore, but you need this person.  You have a job to do together. You try a different approach and start telling a story about home.
+You may not have an appetite anymore, but you need this person.  You have a job to do together. {{You try a different approach and start telling a story about home.}}
 
 Cass interrupts.
 
-"I need you, but I don't want to know you."
+"Look here lass. While in your employ I will suffer your chatter, but your breath is wasted. When our work is done, we will part ways for good. Yes?"
 
 [[Maybe you are more alone than you realized.->Flora/Dining/Beat 4]]
 
@@ -201,6 +204,10 @@ Well, if she's going to be like that, you might as well get some air.
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
 
+<!-- A potential exploration here: Alleson shared some thoughts on the female gaze
+and _Bridgerton_, especially a focus on hands and small motions expressing internality.
+I'd like to capture some of that in the characterization of this figure, whom I'm
+starting to think of as an agent of the monster rather than the moster itself. -->
 [[Someone offers their lighter.->Flora/Smoke Break/Beat 2]]
 
 :: Flora/Smoke Break/Beat 2
@@ -219,7 +226,7 @@ He asks where you're headed.
   - [[You lie about your destination.->Flora/Smoke Break/Beat 4]]
 
 :: Flora/Smoke Break/Beat 4
-He listens carefully to your story and looks concerned. Then he shares rumors of strange goings-on in the mountains ahead - rumors of a curse.
+He {{listens carefully to your story}} and looks concerned. Then he {{shares rumors of strange goings-on in the mountains ahead - rumors of a curse}}.
 
 [[You take a shaky drag on your cigarette.->Flora/Smoke Break/Beat 5]]
 
@@ -231,11 +238,12 @@ He breaks the spell.
 
 "But I'm sure it's just superstition. Local color, right?"
 
-He shrugs it off and compliments your hair. He asks if he can buy you a drink sometime.
+<!-- This is meant to be a little creepy, but I'm not sure how it will read to different players.-->
+He shrugs it off and {{compliments your hair.}} {{He asks if he can buy you a drink sometime.}}
 
-[[You agree, but not tonight.->Flora/Smoke Break/Beat 6]]
-
-[[You demur.->Flora/Smoke Break/Beat 6]]
+<!-- Make this choice more consequential. -->
+  - [[You agree, but not tonight.->Flora/Smoke Break/Beat 6]]
+  - [[You demur.->Flora/Smoke Break/Beat 6]]
 
 :: Flora/Smoke Break/Beat 6
 
@@ -250,7 +258,7 @@ You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/
 :: Flora/Smoke Break/Coda
 
 <div.interlude>
-The handsome man takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
+The {{handsome man}} takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
 <% util.background('#111') %>
 
@@ -258,6 +266,7 @@ The handsome man takes a deep breath, lights another cigarette, takes a long dra
 </div>
 
 :: Flora/Sleeper/Beat 1
+<% util.background('#633') %>
 
 It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is <%= passageInserter('already asleep', 'Flora/Sleeper/Examine Cass') %> on the lower bunk.
 
@@ -273,8 +282,10 @@ Or is she? Her eyes are wide open, but she's sawing like a lumberjack. You wave 
 
 :: Flora/Sleeper/Beat 3
 
-You're lost in a remarkably detailed sketch of a crooked tree when a chill wind blows behind your ears.
+<!-- I want Flora to find something useful in the book. I also had the idea that the illustration she finds here might be the thing that conveys one or more decisions from the smoking scene to C's game. -->
+You're lost in a remarkably detailed sketch of a {{crooked tree}} when a chill wind blows behind your ears.
 
+<!-- This could be an opportunity for a subtle special effect. -->
 The lamps flicker and dim.
 
 Holding your breath, you <%= passageAppender('climb out of bed.', 'Flora/Sleeper/Beat 4') %>
@@ -317,7 +328,7 @@ You finally get your hand free. You raise it to sweep the table clear, and get a
 
 :: Flora/Morning/Beat 1
 
-You wake feeling like you never slept. Was that a dream? Cassia has obviously gotten into your head. At least she was protecting you.
+You wake feeling like you never slept. Cassia has obviously gotten into your head. At least she was protecting you.
 
 The train has stopped in a small mountain burg to resupply, and you feel a need to get away from the train for a bit, so you head out onto the platform. There's a hazy grey sunrise beneath heavy clouds. You spot Cass heading for a nearby pub, and follow her, shielding your head from thick drops of rain.
 
