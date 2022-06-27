@@ -632,7 +632,11 @@ Stop! What did your partner ask about?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Cass/Dining/Hunting" tags="" position="725,100" size="100,100">&lt;div.partnertext&gt;What exactly are we hunting?&lt;/div&gt;
 
+You take a moment to survey her expression. Her eyes are stern, but she&#39;s nervous. Why did you bring her? You mumble through your food.
+
 &quot;A vampire. Once it was a man. Now it&#39;s a soulless demon, feeding on the weak and blighting the land. Not to be trifled with.&quot;
+
+You swallow the bite, sensing another question coming.
 
 &lt;%
 Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Schattental&#39;);
@@ -644,31 +648,33 @@ Stop! What did your partner ask about?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
 &lt;/div&gt;
 
-&lt;!-- TODO: We should fix what the necklace is: is it holy water or a reliquette --&gt;</tw-passagedata><tw-passagedata pid="7" name="Cass/Dining/Necklace" tags="" position="850,100" size="100,100">&lt;div.partnertext&gt;What is that necklace you&#39;re wearing?&lt;/div&gt;
+&lt;!-- TODO: We should fix what the necklace is: is it holy water or a reliquette
+6/26: I think the scrap of soul is more compelling right now. I&#39;m rerouting from the vial to an heirloom, but it does mean we don&#39;t really have any inventory here.
+ --&gt;</tw-passagedata><tw-passagedata pid="7" name="Cass/Dining/Necklace" tags="" position="850,100" size="100,100">&lt;div.partnertext&gt;What is that necklace you&#39;re wearing?&lt;/div&gt;
 
-  - [[&quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Vial]]
+You curse under your breath. For how long have you wearing it openly? You tuck the reliquette back under your jerkin. Flora doesn&#39;t need to know that you wear a scrap of your soul around your neck.
+&lt;% CassInventory.add(&#39;reliquette&#39;) %&gt;
+
+  - [[&quot;It&#39;s a family heirloom.&quot;-&gt;Cass/Dining/Heirloom]]
   - [[(Lie) &quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Holy]]
-  - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]
+  - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]</tw-passagedata><tw-passagedata pid="8" name="Cass/Dining/Heirloom" tags="" position="975,100" size="100,100">&lt;!-- &lt;% CassInventory.add(&#39;holy water&#39;) %&gt; --&gt;
+&quot;&lt;span.readaloud&gt;It&#39;s a family heirloom&lt;/span&gt;,&quot; you mutter. 
 
-&lt;!-- Cass is honest, and we add &quot;holy water&quot; to our inventory. --&gt;</tw-passagedata><tw-passagedata pid="8" name="Cass/Dining/Vial" tags="" position="975,100" size="100,100">&lt;% CassInventory.add(&#39;holy water&#39;) %&gt;
-&quot;It&#39;s a &lt;span.readaloud&gt;vial&lt;/span&gt; of holy water,&quot; you explain. &quot;In case of emergency.&quot;
-
-&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Pale&#39;) %&gt;
-&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Medication&#39;) %&gt;
-&lt;div.stop&gt;
-Stop! What did your partner say next?
-&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
-&lt;/div&gt;
-
-&lt;!-- Cass lies, and we add &quot;reliquette&quot; to our inventory. --&gt;</tw-passagedata><tw-passagedata pid="9" name="Cass/Dining/Holy" tags="" position="1100,100" size="100,100">&lt;% CassInventory.add(&#39;reliquette&#39;) %&gt;
-&quot;It&#39;s a vial of &lt;span.readaloud&gt;holy&lt;/span&gt; water,&quot; you lie. &quot;In case of emergency.&quot; You tuck the reliquette back under your jerkin. Flora doesn&#39;t need to know that you wear a scrap of your soul around your neck.
+Her expression is a like a confused deer. &quot;It&#39;s a common quartz. My brother gave it to me.&quot;
 
 &lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Pale&#39;) %&gt;
 &lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Medication&#39;) %&gt;
 &lt;div.stop&gt;
 Stop! What did your partner say next?
 &lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Cass/Dining/Medication" tags="" position="1225,100" size="100,100">&quot;Holy water?&quot; she asks. &quot;Is that like a medication?&quot;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Cass/Dining/Holy" tags="" position="1100,100" size="100,100">&quot;&lt;span.readaloud&gt;It&#39;s a vial of holy water&lt;/span&gt;,&quot; you lie. &quot;In case of emergency.&quot; 
+
+&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Pale&#39;) %&gt;
+&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Medication&#39;) %&gt;
+&lt;div.stop&gt;
+Stop! What did your partner say next?
+&lt;%= Convo(&#39;Cass/Dining&#39;).keyMenu() %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Cass/Dining/Medication" tags="" position="1225,100" size="100,100">&lt;span.partnertext&gt;Holy water? Is that like a medication?&lt;/span&gt;
 
 &quot;Not exactly,&quot; you respond.
 &lt;div.stop&gt;
@@ -830,29 +836,32 @@ END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
 &lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="Flora/Dining/Beat 1" tags="" position="1225,475" size="100,100">Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
 
-[[You observe in disgust.-&gt;Flora/Dining/Beat 2]]</tw-passagedata><tw-passagedata pid="41" name="Flora/Dining/Beat 2" tags="" position="100,600" size="100,100">Who exactly have you [[partnered up with?-&gt;Flora/Dining/Examine Cass]]
+&lt;%= passageAppender(&quot;You observe in disgust.&quot;, &quot;Flora/Dining/Beat 2&quot;) %&gt;</tw-passagedata><tw-passagedata pid="41" name="Flora/Dining/Beat 2" tags="" position="100,600" size="100,100">Who exactly have you &lt;%= passageInserter(&quot;partnered up with?&quot;, &quot;Flora/Dining/Examine Cass&quot;) %&gt;
 
-Your mother&#39;s voice: &quot;When in doubt, gather information.&quot; So you ask:
+Your mother&#39;s voice slips in: &quot;When in doubt, gather information.&quot; 
 
+So you ask:
 &lt;%
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Hunting&#39;, &quot;What exactly are we hunting?&quot;);
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Necklace&#39;, &quot;What is that necklace you&#39;re wearing?&quot;);
 %&gt;
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="42" name="Flora/Dining/Examine Cass" tags="" position="225,600" size="100,100">You met **Cassia of Tarsigg** just a few days ago. A strange name for an even stranger person. She helped chase a vampire out of town, but not before one of your dear friends was killed.
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="42" name="Flora/Dining/Examine Cass" tags="" position="225,600" size="100,100">You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to see her: she&#39;s covered in simple, durable fabrics and unadorned leather, like she&#39;s plucked from a different time. She appeared that night and chased the vampire out of town, but not before one of your dear friends was killed.
 
 Now you&#39;ve hired her to track the monster back to its lair and destory it. You owe Oliver that much.
 
-But now that you&#39;ve had a moment to take a breath... Cassia seems [[odd.-&gt;Flora/Dining/Beat 2]]</tw-passagedata><tw-passagedata pid="43" name="Flora/Dining/Hunting" tags="" position="350,600" size="100,100">&quot;What exactly are we &lt;span.readaloud&gt;hunting&lt;/span&gt;?&quot;
+You let out a gentle sigh; Cassia seems odd and you can&#39;t put your finger on why.</tw-passagedata><tw-passagedata pid="43" name="Flora/Dining/Hunting" tags="" position="350,600" size="100,100">&quot;&lt;span.readaloud&gt;What exactly are we hunting&lt;/span&gt;?&quot;
 
-She mumbles around her food. &quot;A vampire. Once it was a man. Now it&#39;s a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with.&quot;
+She raises her eyes, and mumbles around her food. &quot;A vampire. Once it was a man. Now it&#39;s a soulless demon. It will feed on the weak and blight the land. Not to be trifled with.&quot;
 
-Well, that&#39;s creepy.
+Well, that&#39;s creepy. You heard the legends, and thought they were just stories, but she talks like she&#39;s done this before.
 
 &lt;%
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Schattental&#39;, &quot;How will we find the vampire when we get to Schattental?&quot;)
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Book&#39;, &quot;Do you have a vampire book I could read?&quot;)
 %&gt;
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="44" name="Flora/Dining/Necklace" tags="" position="475,600" size="100,100">You ask, &quot;What is that &lt;span.readaloud&gt;necklace&lt;/span&gt; you&#39;re wearing?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="44" name="Flora/Dining/Necklace" tags="" position="475,600" size="100,100">The chain around her neck glints in the light and you follow it to the roughly hewn gemstone pendant. Given her dress, this seems inconsistent to you.
+
+You ask, &quot;&lt;span.readaloud&gt;What is that necklace you&#39;re wearing?&lt;/span&gt;&quot;
 
 &lt;!-- Flora notices Cass&#39; pale skin. --&gt;
 &lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Pale&#39;, &quot;Why is your skin so pale?&quot;) %&gt;
@@ -862,18 +871,26 @@ Stop! How did your partner respond?
 
   - [[Holy-&gt;Flora/Dining/Holy]]
   - [[Bloody-&gt;Flora/Dining/Bloody]]
-  - [[Vial-&gt;Flora/Dining/Vial]]
+  - [[Family-&gt;Flora/Dining/Heirloom]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="45" name="Flora/Dining/Vial" tags="" position="600,600" size="100,100">&lt;% CassInventory.add(&#39;holy water&#39;) %&gt;
-&quot;It&#39;s a vial of holy water,&quot; she says. &quot;In case of emergency.&quot;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="45" name="Flora/Dining/Heirloom" tags="" position="600,600" size="100,100">&lt;!-- suppressing this for now. why are we adding it to Cass&#39;s inventory twice anyway? 
+&lt;% CassInventory.add(&#39;holy water&#39;) %&gt; --&gt;
+&lt;span.partnertext&gt;It&#39;s a family heirloom.&lt;/span&gt;
 
-&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
+She pauses for a moment. &quot;It&#39;s a common quartz. My brother gave it to me.&quot;
+
+That was unexpectedly sentimental. She&#39;s clearly hiding something, you saw her literally tuck it away, so you suppose she simply doesn&#39;t want to discss her brother. Sometimes families can be like that.
+
 &lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="46" name="Flora/Dining/Holy" tags="" position="725,600" size="100,100">&lt;% CassInventory.add(&#39;reliquette&#39;) %&gt;
-&quot;It&#39;s a vial of holy water,&quot; she says. &quot;In case of emergency.&quot;
+&quot;It&#39;s a vial of holy water,&quot;
+
+&quot;In case of emergency,&quot; she quickly adds sardonically.
+
+What the heck is holy water? Is it some kind of aqua regia or is it more for cleaning a wound?
 
 &lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Medication" tags="" position="850,600" size="100,100">&quot;Holy water?&quot; you ask. &quot;Is that like a &lt;span.readaloud&gt;medication&lt;/span&gt;?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Medication" tags="" position="850,600" size="100,100">&quot;&lt;span.readaloud&gt;Holy water? Is that like a medication&lt;/span&gt;?&quot;
 
 &quot;Not exactly,&quot; she grunts.
 
