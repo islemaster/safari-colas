@@ -5,13 +5,14 @@ This file contains Flora's story.  Passages are prefixed with "Flora/" to avoid 
 :: Flora/Dining/Beat 1
 Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
 
-[[You observe in disgust.->Flora/Dining/Beat 2]]
+<%= passageAppender("You observe in disgust.", "Flora/Dining/Beat 2") %>
 
 :: Flora/Dining/Beat 2
-Who exactly have you [[partnered up with?->Flora/Dining/Examine Cass]]
+Who exactly have you <%= passageInserter("partnered up with?", "Flora/Dining/Examine Cass") %>
 
-Your mother's voice: "When in doubt, gather information." So you ask:
+Your mother's voice slips in: "When in doubt, gather information." 
 
+So you ask:
 <%
 Convo('Flora/Dining').addTopic('Hunting', "What exactly are we hunting?");
 Convo('Flora/Dining').addTopic('Necklace', "What is that necklace you're wearing?");
@@ -19,18 +20,18 @@ Convo('Flora/Dining').addTopic('Necklace', "What is that necklace you're wearing
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Examine Cass
-You met **Cassia of Tarsigg** just a few days ago. A strange name for an even stranger person. She helped chase a vampire out of town, but not before one of your dear friends was killed.
+You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to see her: she's covered in simple, durable fabrics and unadorned leather, like she's plucked from a different time. She appeared that night and chased the vampire out of town, but not before one of your dear friends was killed.
 
 Now you've hired her to track the monster back to its lair and destory it. You owe Oliver that much.
 
-But now that you've had a moment to take a breath... Cassia seems [[odd.->Flora/Dining/Beat 2]]
+You let out a gentle sigh; Cassia seems odd and you can't put your finger on why.
 
 :: Flora/Dining/Hunting
-"What exactly are we <span.readaloud>hunting</span>?"
+"<span.readaloud>What exactly are we hunting</span>?"
 
-She mumbles around her food. "A vampire. Once it was a man. Now it's a soulless succubus, feeding on the weak and blighting the land. Not to be trifled with."
+She raises her eyes, and mumbles around her food. "A vampire. Once it was a man. Now it's a soulless demon. It will feed on the weak and blight the land. Not to be trifled with."
 
-Well, that's creepy.
+Well, that's creepy. You heard the legends, and thought they were just stories, but she talks like she's done this before.
 
 <%
 Convo('Flora/Dining').addTopic('Schattental', "How will we find the vampire when we get to Schattental?")
@@ -39,7 +40,9 @@ Convo('Flora/Dining').addTopic('Book', "Do you have a vampire book I could read?
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Necklace
-You ask, "What is that <span.readaloud>necklace</span> you're wearing?"
+The chain around her neck glints in the light and you follow it to the roughly hewn gemstone pendant. Given her dress, this seems inconsistent to you.
+
+You ask, "<span.readaloud>What is that necklace you're wearing?</span>"
 
 <!-- Flora notices Cass' pale skin. -->
 <% Convo('Flora/Dining').addTopic('Pale', "Why is your skin so pale?") %>
@@ -49,27 +52,35 @@ Stop! How did your partner respond?
 
   - [[Holy->Flora/Dining/Holy]]
   - [[Bloody->Flora/Dining/Bloody]]
-  - [[Vial->Flora/Dining/Vial]]
+  - [[Family->Flora/Dining/Heirloom]]
 
 </div>
 
-:: Flora/Dining/Vial
-<% CassInventory.add('holy water') %>
-"It's a vial of holy water," she says. "In case of emergency."
+:: Flora/Dining/Heirloom
+<!-- suppressing this for now. why are we adding it to Cass's inventory twice anyway? 
+<% CassInventory.add('holy water') %> -->
+<span.partnertext>It's a family heirloom.</span>
 
-<% Convo('Flora/Dining').addTopic('Medication', "Holy water? Is that like a medication?") %>
+She pauses for a moment. "It's a common quartz. My brother gave it to me."
+
+That was unexpectedly sentimental. She's clearly hiding something, you saw her literally tuck it away, so you suppose she simply doesn't want to discss her brother. Sometimes families can be like that.
+
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Holy
 <% CassInventory.add('reliquette') %>
-"It's a vial of holy water," she says. "In case of emergency."
+"It's a vial of holy water,"
+
+"In case of emergency," she quickly adds sardonically.
+
+What the heck is holy water? Is it some kind of aqua regia or is it more for cleaning a wound?
 
 <% Convo('Flora/Dining').addTopic('Medication', "Holy water? Is that like a medication?") %>
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Medication
-"Holy water?" you ask. "Is that like a <span.readaloud>medication</span>?"
+"<span.readaloud>Holy water? Is that like a medication</span>?"
 
 "Not exactly," she grunts.
 

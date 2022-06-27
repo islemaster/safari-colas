@@ -38,7 +38,11 @@ Stop! What did your partner ask about?
 :: Cass/Dining/Hunting
 <div.partnertext>What exactly are we hunting?</div>
 
+You take a moment to survey her expression. Her eyes are stern, but she's nervous. Why did you bring her? You mumble through your food.
+
 "A vampire. Once it was a man. Now it's a soulless demon, feeding on the weak and blighting the land. Not to be trifled with."
+
+You swallow the bite, sensing another question coming.
 
 <%
 Convo('Cass/Dining').addTopic('Schattental');
@@ -50,18 +54,24 @@ Stop! What did your partner ask about?
 <%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
-<!-- TODO: We should fix what the necklace is: is it holy water or a reliquette -->
+<!-- TODO: We should fix what the necklace is: is it holy water or a reliquette
+6/26: I think the scrap of soul is more compelling right now. I'm rerouting from the vial to an heirloom, but it does mean we don't really have any inventory here.
+ -->
 :: Cass/Dining/Necklace
 <div.partnertext>What is that necklace you're wearing?</div>
 
-  - [["It's holy water."->Cass/Dining/Vial]]
+You curse under your breath. For how long have you wearing it openly? You tuck the reliquette back under your jerkin. Flora doesn't need to know that you wear a scrap of your soul around your neck.
+<% CassInventory.add('reliquette') %>
+
+  - [["It's a family heirloom."->Cass/Dining/Heirloom]]
   - [[(Lie) "It's holy water."->Cass/Dining/Holy]]
   - [["None of your business."->Cass/Dining/Bloody]]
 
-<!-- Cass is honest, and we add "holy water" to our inventory. -->
-:: Cass/Dining/Vial
-<% CassInventory.add('holy water') %>
-"It's a <span.readaloud>vial</span> of holy water," you explain. "In case of emergency."
+:: Cass/Dining/Heirloom
+<!-- <% CassInventory.add('holy water') %> -->
+"<span.readaloud>It's a family heirloom</span>," you mutter. 
+
+Her expression is a like a confused deer. "It's a common quartz. My brother gave it to me."
 
 <% Convo('Cass/Dining').addTopic('Pale') %>
 <% Convo('Cass/Dining').addTopic('Medication') %>
@@ -70,10 +80,8 @@ Stop! What did your partner say next?
 <%= Convo('Cass/Dining').keyMenu() %>
 </div>
 
-<!-- Cass lies, and we add "reliquette" to our inventory. -->
 :: Cass/Dining/Holy
-<% CassInventory.add('reliquette') %>
-"It's a vial of <span.readaloud>holy</span> water," you lie. "In case of emergency." You tuck the reliquette back under your jerkin. Flora doesn't need to know that you wear a scrap of your soul around your neck.
+"<span.readaloud>It's a vial of holy water</span>," you lie. "In case of emergency." 
 
 <% Convo('Cass/Dining').addTopic('Pale') %>
 <% Convo('Cass/Dining').addTopic('Medication') %>
@@ -83,7 +91,7 @@ Stop! What did your partner say next?
 </div>
 
 :: Cass/Dining/Medication
-"Holy water?" she asks. "Is that like a medication?"
+<span.partnertext>Holy water? Is that like a medication?</span>
 
 "Not exactly," you respond.
 <div.stop>
