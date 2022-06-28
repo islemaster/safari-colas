@@ -24,6 +24,9 @@ module.exports = class SyntheticPlayer {
     this.page = await this.browser.newPage();
     await this.page.goto(`file:${path.join(__dirname, '..', 'main.html?automation=true')}`);
 
+    // Keep known knots organized by passage name for quicker lookup.
+    this.knotsByPassageName = {};
+
     // Capture root knot for quick restart
     this.root = await Knot.capture(this);
     this.currentKnot = this.root;
@@ -35,6 +38,42 @@ module.exports = class SyntheticPlayer {
 
   async restart() {
     await this.root.restore();
+  }
+
+  // After opening the browser, capture can be a little unreliable so we
+  // add a wait before Knot capture. This decreases as it's used.
+  _captureDelay = 300;
+  captureDelay() {
+    const nextDelay = this._captureDelay;
+    this._captureDelay = Math.max(1, this._captureDelay / 2);
+    return nextDelay;
+  }
+
+  registerKnownKnot(knot) {
+    this.knotsByPassageName[knot.passageName] = this.knotsByPassageName[knot.passageName] || [];
+    if (!this.knotsByPassageName[knot.passageName].includes(knot)) {
+      this.knotsByPassageName[knot.passageName].push(knot);
+    }
+  }
+
+  /**
+   * Look for an equivalent (collapsible) knot in the set of known knots.
+   * @param {Knot} knot 
+   * @returns {Knot|undefined} A known equivalent knot, or undefined if none is found.
+   */
+  findEquivalentKnot(knot) {
+    const passageKnots = this.knotsByPassageName[knot.passageName] || [];
+    return passageKnots.find(k => k !== knot && k.equivalent(knot));
+  }
+
+  convergeKnots(survivingKnot, knotToDestroy) {
+    // Attach parents to surviving knot.
+    Object.entries(knotToDestroy._parents).forEach(([linkText, parentKnots]) => {
+      parentKnots.forEach(parentKnot => parentKnot.children[linkText] = survivingKnot);
+      survivingKnot._parents[linkText] = (survivingKnot._parents[linkText] || []).concat(parentKnots);
+    });
+    // Remove destoryed knot from known knots
+    this.knotsByPassageName[knotToDestroy.passageName].splice(this.knotsByPassageName[knotToDestroy.passageName].findIndex(k => k === knotToDestroy), 1);
   }
 
   /**
@@ -52,8 +91,6 @@ module.exports = class SyntheticPlayer {
     await this.currentKnot.followLink(link);
     return link;
   }
-
-
 
   /**
    * Fully explores a subset of story-space, starting from the current story knot
@@ -133,12 +170,9 @@ module.exports = class SyntheticPlayer {
         // If we arrive at a knot that is equivalent to an existing one
         // paths converge here and we only need to explore it once
         // so don't bother pushing for further exploration.
-        let matchingKnot = false;
-        if (matchingKnot = explorationRoot.anyDescendant(d => d.equivalent(this.currentKnot))) {
-          Object.entries(this.currentKnot._parents).forEach(([linkText, parentKnots]) => {
-            parentKnots.forEach(parentKnot => parentKnot.children[linkText] = matchingKnot);
-            matchingKnot._parents[linkText] = (matchingKnot._parents[linkText] || []).concat(parentKnots);
-          });
+        let matchingKnot = this.findEquivalentKnot(this.currentKnot);
+        if (matchingKnot && matchingKnot.descendantOf(explorationRoot)) {
+          this.convergeKnots(matchingKnot, this.currentKnot);
           convergences++;
           continue;
         }
@@ -151,6 +185,9 @@ module.exports = class SyntheticPlayer {
       rewriteProgressReport(Date.now() - startTimeMs, totalKnots, terminalStates);
       process.stderr.write('\n');
     }
+
+    // Knots per passage
+    // console.log('Knots per passage:', _.mapValues(this.knotsByPassageName, 'length'));
 
     // Stats on story length
     const lengths = explorationRoot.lengthsFrom();
@@ -185,7 +222,7 @@ class Knot {
     }
 
     // Wait a moment to ensure the passage is fully loaded
-    await player.page.waitForTimeout(1);
+    await player.page.waitForTimeout(player.captureDelay());
 
     // Capture knot properties from the DOM
     const passage = await player.page.$('tw-passage');
@@ -199,6 +236,8 @@ class Knot {
     const links = await passage.$$('a');
     const linkTexts = await Promise.all(links.map(l => l.evaluate(l => l.innerText)));
     linkTexts.forEach(text => { knot.children[text] = null; });
+
+    player.registerKnownKnot(knot);
 
     return knot;
   }
@@ -258,7 +297,7 @@ class Knot {
       return;
     }
 
-    
+
     await this.player.page.evaluate((h) => window.story.restore(h), this.saveHash);
     await this.assertNoError();
     const textAfterRestore = await this.player.page.$eval('tw-passage', p => p.innerText);
@@ -273,15 +312,8 @@ class Knot {
     this.player.currentKnot = this;
   }
 
-  anyDescendant(predicate) {
-    const stack = [this];
-    while (stack.length) {
-      const knot = stack.shift();
-      if (predicate(knot)) return knot;
-      const newObjs = Object.values(knot.children).filter(k => k);
-      Array.prototype.push.apply(stack, newObjs);
-    }
-    return false;
+  descendantOf(parentKnot) {
+    return this.path().includes(parentKnot);
   }
 
   /** True for converge-able knots; false for exact same knot. */
