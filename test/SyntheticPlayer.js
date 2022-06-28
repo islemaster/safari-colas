@@ -156,7 +156,7 @@ module.exports = class SyntheticPlayer {
     const lengths = explorationRoot.lengthsFrom();
     const table = {};
     ['characters', 'words', 'knots'].forEach(row => {
-      const data = lengths.map(l => l[row]).sort();
+      const data = lengths.map(l => l[row]).sort((a, b) => a - b);
       table[row] = {
         min: data[0],
         max: data[data.length - 1],
@@ -258,6 +258,7 @@ class Knot {
       return;
     }
 
+    
     await this.player.page.evaluate((h) => window.story.restore(h), this.saveHash);
     await this.assertNoError();
     const textAfterRestore = await this.player.page.$eval('tw-passage', p => p.innerText);

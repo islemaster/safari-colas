@@ -254,7 +254,7 @@ You aren't sure that's true, but you could use a friend right now.
 
 "Oh?" he prompts.
 
-<% appendPassage('Flora/Smoke Break/Bad taste') %>
+<%= story.render('Flora/Smoke Break/Bad taste') %>
 
 :: Flora/Smoke Break/Bad taste
 
@@ -262,7 +262,7 @@ You aren't sure that's true, but you could use a friend right now.
 
 He cocks a knowing eyebrow. "That is her mistake. You seem like excellent company to me."
 
-<% appendPassage('Flora/Smoke Break/Beat 3') %>
+<%= story.render('Flora/Smoke Break/Beat 3') %>
 
 :: Flora/Smoke Break/How did you know
 "How did you know?" you ask.
@@ -284,14 +284,14 @@ You aren't sure that's true, but you could use a friend right now.
   - [["I'd like to be alone."->Flora/Smoke Break/Be alone]]
 
 :: Flora/Smoke Break/Have not been this way
-"No, I haven't," you admin. You look back at him.
+"No, I haven't," you admit.
 
-<% appendPassage('Flora/Smoke Break/Beat 3') %>
+<%= story.render('Flora/Smoke Break/Beat 3') %>
 
 :: Flora/Smoke Break/Have been this way
-"Yes, I have," you lie. You look back at him.
+"Yes, I have," you lie. You look him in the eye, hoping this sells it.
 
-<% appendPassage('Flora/Smoke Break/Beat 3') %>
+<%= story.render('Flora/Smoke Break/Beat 3') %>
 
 :: Flora/Smoke Break/Misery loves company
 "I suppose it does." He doesn't look miserable. Actually, it's cheering you up a bit to have someone to talk to.
@@ -312,9 +312,7 @@ He's lost in thought for a moment, and then changes the subject. "Have you been 
   - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
 
 :: Flora/Smoke Break/Be alone
-"I'd like to be alone." Your tone ensures your meaning is clear.
-
-<% appendPassage('Flora/Smoke Break/Beat 6') %>
+"I'd like to be alone." Your tone ensures <%= passageAppender(`your meaning is clear.`, 'Flora/Smoke Break/Beat 6') %>
 
 :: Flora/Smoke Break/Beat 3
 
