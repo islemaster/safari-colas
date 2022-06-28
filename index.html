@@ -1010,11 +1010,11 @@ You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
 &quot;Oh?&quot; he prompts.
 
-&lt;% appendPassage(&#39;Flora/Smoke Break/Bad taste&#39;) %&gt;</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/Bad taste" tags="" position="725,850" size="100,100">&quot;It left a bad taste in my mouth,&quot; you say. &quot;My travelling companion was less than companionable.She doesn&#39;t seem to like me.&quot;
+&lt;%= story.render(&#39;Flora/Smoke Break/Bad taste&#39;) %&gt;</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/Bad taste" tags="" position="725,850" size="100,100">&quot;It left a bad taste in my mouth,&quot; you say. &quot;My travelling companion was less than companionable.She doesn&#39;t seem to like me.&quot;
 
 He cocks a knowing eyebrow. &quot;That is her mistake. You seem like excellent company to me.&quot;
 
-&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="67" name="Flora/Smoke Break/How did you know" tags="" position="850,850" size="100,100">&quot;How did you know?&quot; you ask.
+&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="67" name="Flora/Smoke Break/How did you know" tags="" position="850,850" size="100,100">&quot;How did you know?&quot; you ask.
 
 &quot;I&#39;m also having a rough evening,&quot; he shrugs. &quot;Misery loves company.&quot;
 
@@ -1027,11 +1027,11 @@ You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
   - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
   - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]
-  - [[&quot;I&#39;d like to be alone.&quot;-&gt;Flora/Smoke Break/Be alone]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/Have not been this way" tags="" position="1100,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admin. You look back at him.
+  - [[&quot;I&#39;d like to be alone.&quot;-&gt;Flora/Smoke Break/Be alone]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/Have not been this way" tags="" position="1100,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admit.
 
-&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="70" name="Flora/Smoke Break/Have been this way" tags="" position="1225,850" size="100,100">&quot;Yes, I have,&quot; you lie. You look back at him.
+&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="70" name="Flora/Smoke Break/Have been this way" tags="" position="1225,850" size="100,100">&quot;Yes, I have,&quot; you lie. You look him in the eye, hoping this sells it.
 
-&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="71" name="Flora/Smoke Break/Misery loves company" tags="" position="100,975" size="100,100">&quot;I suppose it does.&quot; He doesn&#39;t look miserable. Actually, it&#39;s cheering you up a bit to have someone to talk to.
+&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="71" name="Flora/Smoke Break/Misery loves company" tags="" position="100,975" size="100,100">&quot;I suppose it does.&quot; He doesn&#39;t look miserable. Actually, it&#39;s cheering you up a bit to have someone to talk to.
 
 He presses on. &quot;Have you been this way before?&quot;
 
@@ -1043,9 +1043,7 @@ He presses on. &quot;Have you been this way before?&quot;
 He&#39;s lost in thought for a moment, and then changes the subject. &quot;Have you been this way before?&quot;
 
   - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/Be alone" tags="" position="350,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures your meaning is clear.
-
-&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Beat 3" tags="" position="475,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
+  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/Be alone" tags="" position="350,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures &lt;%= passageAppender(`your meaning is clear.`, &#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Beat 3" tags="" position="475,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
 
 &lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;Your companion&lt;%} %&gt; nods towards the mountains. &quot;How far are you going?&quot;
 
