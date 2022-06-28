@@ -208,18 +208,119 @@ You lean on a rail and attempt to light a cigarette, but the match keeps going o
 and _Bridgerton_, especially a focus on hands and small motions expressing internality.
 I'd like to capture some of that in the characterization of this figure, whom I'm
 starting to think of as an agent of the monster rather than the moster itself. -->
-[[Someone offers their lighter.->Flora/Smoke Break/Beat 2]]
+
+<%= passageAppender(`A sinewy hand offers a lighter.`, 'Flora/Smoke Break/Beat 2') %>
 
 :: Flora/Smoke Break/Beat 2
-You light your cigarette and look up at a strange man. He smiles.
+You light your cigarette and look up at a lean figure in a gray waistcoat and dark trousers. Kind eyes smile back. He steps up to the rail beside you and looks out at the landscape, setting an aquiline nose in silhouette against the clouds.
 
-You make casual conversation. [[He's friendly enough.->Flora/Smoke Break/Beat 3]]
+"You seem troubled."
+
+  - [["No kidding?" Smile back.->Flora/Smoke Break/No kidding]]
+  - [["I bet you say that to all the girls."->Flora/Smoke Break/I bet you say that]]
+  - [["Dinner didn't go so well."->Flora/Smoke Break/Dinner]]
+
+:: Flora/Smoke Break/No kidding
+"No kidding?" You turn and give him a wry smile. "And you are?"
+
+"Edwin." He flashes uncannily-perfect teeth. "What's your name?"
+
+<% s.knowEdwinsName = true %>
+
+"Flora." You try to keep your guard up, but you find this stranger disarming.
+
+"Pleased to make your acqaintance, Flora. Did something go wrong at dinner?"
+
+How did he...?
+
+  - [["It left a bad taste in my mouth."->Flora/Smoke Break/Bad taste]]
+  - [["How did you know?"->Flora/Smoke Break/How did you know]]
+  - [["No, it's nothing."->Flora/Smoke Break/It's nothing]]
+
+:: Flora/Smoke Break/I bet you say that
+"I bet you say that to all the girls," you deadpan.
+
+He chuckles. "I didn't mean to offend." He turns toward you and tugs self-consciously at his ascot. "It's just that I'm also having a rough evening. Misery loves company."
+
+You aren't sure that's true, but you could use a friend right now.
+
+  - [["I suppose it does."->Flora/Smoke Break/Misery loves company]]
+  - [["What happened to you?"->Flora/Smoke Break/What happened to you]]
+  - [["I'd like to be alone."->Flora/Smoke Break/Be alone]]
+
+:: Flora/Smoke Break/Dinner
+
+"Dinner didn't go so well," you begin. You could really use someone to talk to right now.
+
+"Oh?" he prompts.
+
+<% appendPassage('Flora/Smoke Break/Bad taste') %>
+
+:: Flora/Smoke Break/Bad taste
+
+"It left a bad taste in my mouth," you say. "My travelling companion was less than companionable.She doesn't seem to like me."
+
+He cocks a knowing eyebrow. "That is her mistake. You seem like excellent company to me."
+
+<% appendPassage('Flora/Smoke Break/Beat 3') %>
+
+:: Flora/Smoke Break/How did you know
+"How did you know?" you ask.
+
+"I'm also having a rough evening," he shrugs. "Misery loves company."
+
+You aren't sure that's true, but you could use a friend right now.
+
+  - [["I suppose it does."->Flora/Smoke Break/Misery loves company]]
+  - [["What happened to you?"->Flora/Smoke Break/What happened to you]]
+
+:: Flora/Smoke Break/It's nothing
+"No, it's nothing," you shift uncomfortably. "I mean, I'd rather not talk about it." You look away and bring the cigarette back to your lips.
+
+"Very well." You feel him staring at the back of your head, as if deciding what to say next. Finally: "It's a long trip. Have you been this way before?"
+
+  - [["No, I haven't."->Flora/Smoke Break/Have not been this way]]
+  - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
+  - [["I'd like to be alone."->Flora/Smoke Break/Be alone]]
+
+:: Flora/Smoke Break/Have not been this way
+"No, I haven't," you admin. You look back at him.
+
+<% appendPassage('Flora/Smoke Break/Beat 3') %>
+
+:: Flora/Smoke Break/Have been this way
+"Yes, I have," you lie. You look back at him.
+
+<% appendPassage('Flora/Smoke Break/Beat 3') %>
+
+:: Flora/Smoke Break/Misery loves company
+"I suppose it does." He doesn't look miserable. Actually, it's cheering you up a bit to have someone to talk to.
+
+He presses on. "Have you been this way before?"
+
+  - [["No, I haven't."->Flora/Smoke Break/Have not been this way]]
+  - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
+
+:: Flora/Smoke Break/What happened to you
+"What happened to you?" you ask. It's nice to know you're not the only one with problems.
+
+"Trouble at work," he frowns. "My employer is on the train with me, and he's an impatient man. He'll work me to death."
+
+He's lost in thought for a moment, and then changes the subject. "Have you been this way before?"
+
+  - [["No, I haven't."->Flora/Smoke Break/Have not been this way]]
+  - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
+
+:: Flora/Smoke Break/Be alone
+"I'd like to be alone." Your tone ensures your meaning is clear.
+
+<% appendPassage('Flora/Smoke Break/Beat 6') %>
 
 :: Flora/Smoke Break/Beat 3
 
 <% util.background('rgb(206, 139, 122)') %>
 
-He asks where you're headed.
+<% if (s.knowEdwinsName) { %>Edwin<% } else { %>Your companion<%} %> nods towards the mountains. "How far are you going?"
 
   - [[You tell him everything.->Flora/Smoke Break/Beat 4]]
   - [[You're honest about the destination, but coy about the reason.->Flora/Smoke Break/Beat 4]]
