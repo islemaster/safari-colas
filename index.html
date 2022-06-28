@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<tw-story tags></tw-story>
-		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="81" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap');
+		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="92" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap');
 
 body {
   background-color: #82626d;
@@ -977,17 +977,83 @@ You lean on a rail and attempt to light a cigarette, but the match keeps going o
 and _Bridgerton_, especially a focus on hands and small motions expressing internality.
 I&#39;d like to capture some of that in the characterization of this figure, whom I&#39;m
 starting to think of as an agent of the monster rather than the moster itself. --&gt;
-[[Someone offers their lighter.-&gt;Flora/Smoke Break/Beat 2]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/Beat 2" tags="" position="225,850" size="100,100">You light your cigarette and look up at a strange man. He smiles.
 
-You make casual conversation. [[He&#39;s friendly enough.-&gt;Flora/Smoke Break/Beat 3]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/Beat 3" tags="" position="350,850" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
+&lt;%= passageAppender(`A sinewy hand offers a lighter.`, &#39;Flora/Smoke Break/Beat 2&#39;) %&gt;</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/Beat 2" tags="" position="225,850" size="100,100">You light your cigarette and look up at a lean figure in a gray waistcoat and dark trousers. Kind eyes smile back. He steps up to the rail beside you and looks out at the landscape, setting an aquiline nose in silhouette against the clouds.
 
-He asks where you&#39;re headed.
+&quot;You seem troubled.&quot;
+
+  - [[&quot;No kidding?&quot; Smile back.-&gt;Flora/Smoke Break/No kidding]]
+  - [[&quot;I bet you say that to all the girls.&quot;-&gt;Flora/Smoke Break/I bet you say that]]
+  - [[&quot;Dinner didn&#39;t go so well.&quot;-&gt;Flora/Smoke Break/Dinner]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/No kidding" tags="" position="350,850" size="100,100">&quot;No kidding?&quot; You turn and give him a wry smile. &quot;And you are?&quot;
+
+&quot;Edwin.&quot; He flashes uncannily-perfect teeth. &quot;What&#39;s your name?&quot;
+
+&lt;% s.knowEdwinsName = true %&gt;
+
+&quot;Flora.&quot; You try to keep your guard up, but you find this stranger disarming.
+
+&quot;Pleased to make your acqaintance, Flora. Did something go wrong at dinner?&quot;
+
+How did he...?
+
+  - [[&quot;It left a bad taste in my mouth.&quot;-&gt;Flora/Smoke Break/Bad taste]]
+  - [[&quot;How did you know?&quot;-&gt;Flora/Smoke Break/How did you know]]
+  - [[&quot;No, it&#39;s nothing.&quot;-&gt;Flora/Smoke Break/It&#39;s nothing]]</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/I bet you say that" tags="" position="475,850" size="100,100">&quot;I bet you say that to all the girls,&quot; you deadpan.
+
+He chuckles. &quot;I didn&#39;t mean to offend.&quot; He turns toward you and tugs self-consciously at his ascot. &quot;It&#39;s just that I&#39;m also having a rough evening. Misery loves company.&quot;
+
+You aren&#39;t sure that&#39;s true, but you could use a friend right now.
+
+  - [[&quot;I suppose it does.&quot;-&gt;Flora/Smoke Break/Misery loves company]]
+  - [[&quot;What happened to you?&quot;-&gt;Flora/Smoke Break/What happened to you]]
+  - [[&quot;I&#39;d like to be alone.&quot;-&gt;Flora/Smoke Break/Be alone]]</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Dinner" tags="" position="600,850" size="100,100">&quot;Dinner didn&#39;t go so well,&quot; you begin. You could really use someone to talk to right now.
+
+&quot;Oh?&quot; he prompts.
+
+&lt;% appendPassage(&#39;Flora/Smoke Break/Bad taste&#39;) %&gt;</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/Bad taste" tags="" position="725,850" size="100,100">&quot;It left a bad taste in my mouth,&quot; you say. &quot;My travelling companion was less than companionable.She doesn&#39;t seem to like me.&quot;
+
+He cocks a knowing eyebrow. &quot;That is her mistake. You seem like excellent company to me.&quot;
+
+&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="67" name="Flora/Smoke Break/How did you know" tags="" position="850,850" size="100,100">&quot;How did you know?&quot; you ask.
+
+&quot;I&#39;m also having a rough evening,&quot; he shrugs. &quot;Misery loves company.&quot;
+
+You aren&#39;t sure that&#39;s true, but you could use a friend right now.
+
+  - [[&quot;I suppose it does.&quot;-&gt;Flora/Smoke Break/Misery loves company]]
+  - [[&quot;What happened to you?&quot;-&gt;Flora/Smoke Break/What happened to you]]</tw-passagedata><tw-passagedata pid="68" name="Flora/Smoke Break/It&#39;s nothing" tags="" position="975,850" size="100,100">&quot;No, it&#39;s nothing,&quot; you shift uncomfortably. &quot;I mean, I&#39;d rather not talk about it.&quot; You look away and bring the cigarette back to your lips.
+
+&quot;Very well.&quot; You feel him staring at the back of your head, as if deciding what to say next. Finally: &quot;It&#39;s a long trip. Have you been this way before?&quot;
+
+  - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
+  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]
+  - [[&quot;I&#39;d like to be alone.&quot;-&gt;Flora/Smoke Break/Be alone]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/Have not been this way" tags="" position="1100,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admin. You look back at him.
+
+&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="70" name="Flora/Smoke Break/Have been this way" tags="" position="1225,850" size="100,100">&quot;Yes, I have,&quot; you lie. You look back at him.
+
+&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="71" name="Flora/Smoke Break/Misery loves company" tags="" position="100,975" size="100,100">&quot;I suppose it does.&quot; He doesn&#39;t look miserable. Actually, it&#39;s cheering you up a bit to have someone to talk to.
+
+He presses on. &quot;Have you been this way before?&quot;
+
+  - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
+  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]</tw-passagedata><tw-passagedata pid="72" name="Flora/Smoke Break/What happened to you" tags="" position="225,975" size="100,100">&quot;What happened to you?&quot; you ask. It&#39;s nice to know you&#39;re not the only one with problems.
+
+&quot;Trouble at work,&quot; he frowns. &quot;My employer is on the train with me, and he&#39;s an impatient man. He&#39;ll work me to death.&quot;
+
+He&#39;s lost in thought for a moment, and then changes the subject. &quot;Have you been this way before?&quot;
+
+  - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
+  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/Be alone" tags="" position="350,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures your meaning is clear.
+
+&lt;% appendPassage(&#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Beat 3" tags="" position="475,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
+
+&lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;Your companion&lt;%} %&gt; nods towards the mountains. &quot;How far are you going?&quot;
 
   - [[You tell him everything.-&gt;Flora/Smoke Break/Beat 4]]
   - [[You&#39;re honest about the destination, but coy about the reason.-&gt;Flora/Smoke Break/Beat 4]]
-  - [[You lie about your destination.-&gt;Flora/Smoke Break/Beat 4]]</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/Beat 4" tags="" position="475,850" size="100,100">He {{listens carefully to your story}} and looks concerned. Then he {{shares rumors of strange goings-on in the mountains ahead - rumors of a curse}}.
+  - [[You lie about your destination.-&gt;Flora/Smoke Break/Beat 4]]</tw-passagedata><tw-passagedata pid="75" name="Flora/Smoke Break/Beat 4" tags="" position="600,975" size="100,100">He {{listens carefully to your story}} and looks concerned. Then he {{shares rumors of strange goings-on in the mountains ahead - rumors of a curse}}.
 
-[[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Beat 5" tags="" position="600,850" size="100,100">&lt;% util.background(&#39;rgb(147, 71, 52)&#39;) %&gt;
+[[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="76" name="Flora/Smoke Break/Beat 5" tags="" position="725,975" size="100,100">&lt;% util.background(&#39;rgb(147, 71, 52)&#39;) %&gt;
 
 He breaks the spell.
 
@@ -998,37 +1064,37 @@ He shrugs it off and {{compliments your hair.}} {{He asks if he can buy you a dr
 
 &lt;!-- Make this choice more consequential. --&gt;
   - [[You agree, but not tonight.-&gt;Flora/Smoke Break/Beat 6]]
-  - [[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/Beat 6" tags="" position="725,850" size="100,100">&lt;% util.background(&#39;rgb(115, 31, 9)&#39;) %&gt;
+  - [[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="77" name="Flora/Smoke Break/Beat 6" tags="" position="850,975" size="100,100">&lt;% util.background(&#39;rgb(115, 31, 9)&#39;) %&gt;
 
 He&#39;s cheery and unfazed.
 
 &quot;Another time then.&quot;
 
-You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="67" name="Flora/Smoke Break/Coda" tags="" position="850,850" size="100,100">&lt;div.interlude&gt;
+You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="78" name="Flora/Smoke Break/Coda" tags="" position="975,975" size="100,100">&lt;div.interlude&gt;
 The {{handsome man}} takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
 &lt;% util.background(&#39;#111&#39;) %&gt;
 
 [[We&#39;ve reached the mountains.-&gt;Flora/Sleeper/Beat 1]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="68" name="Flora/Sleeper/Beat 1" tags="" position="975,850" size="100,100">&lt;% util.background(&#39;#633&#39;) %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="79" name="Flora/Sleeper/Beat 1" tags="" position="1100,975" size="100,100">&lt;% util.background(&#39;#633&#39;) %&gt;
 
 It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is &lt;%= passageInserter(&#39;already asleep&#39;, &#39;Flora/Sleeper/Examine Cass&#39;) %&gt; on the lower bunk.
 
-[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Sleeper/Examine Cass" tags="" position="1100,850" size="100,100">Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.</tw-passagedata><tw-passagedata pid="70" name="Flora/Sleeper/Beat 2" tags="" position="1225,850" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and climb into your bunk. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s [[study.-&gt;Flora/Sleeper/Beat 3]]</tw-passagedata><tw-passagedata pid="71" name="Flora/Sleeper/Beat 3" tags="" position="100,975" size="100,100">&lt;!-- I want Flora to find something useful in the book. I also had the idea that the illustration she finds here might be the thing that conveys one or more decisions from the smoking scene to C&#39;s game. --&gt;
+[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="80" name="Flora/Sleeper/Examine Cass" tags="" position="1225,975" size="100,100">Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.</tw-passagedata><tw-passagedata pid="81" name="Flora/Sleeper/Beat 2" tags="" position="100,1100" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and climb into your bunk. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s [[study.-&gt;Flora/Sleeper/Beat 3]]</tw-passagedata><tw-passagedata pid="82" name="Flora/Sleeper/Beat 3" tags="" position="225,1100" size="100,100">&lt;!-- I want Flora to find something useful in the book. I also had the idea that the illustration she finds here might be the thing that conveys one or more decisions from the smoking scene to C&#39;s game. --&gt;
 You&#39;re lost in a remarkably detailed sketch of a {{crooked tree}} when a chill wind blows behind your ears.
 
 &lt;!-- This could be an opportunity for a subtle special effect. --&gt;
 The lamps flicker and dim.
 
-Holding your breath, you &lt;%= passageAppender(&#39;climb out of bed.&#39;, &#39;Flora/Sleeper/Beat 4&#39;) %&gt;</tw-passagedata><tw-passagedata pid="72" name="Flora/Sleeper/Beat 4" tags="" position="225,975" size="100,100">Yellow light pours through the window of the &lt;%= passageAppender(&#39;forward door.&#39;, &#39;Flora/Sleeper/Beat 5&#39;) %&gt;</tw-passagedata><tw-passagedata pid="73" name="Flora/Sleeper/Beat 5" tags="" position="350,975" size="100,100">You pull it open and find yourself hurtling forward into a barren landscape, blasted with dry, cold wind.
+Holding your breath, you &lt;%= passageAppender(&#39;climb out of bed.&#39;, &#39;Flora/Sleeper/Beat 4&#39;) %&gt;</tw-passagedata><tw-passagedata pid="83" name="Flora/Sleeper/Beat 4" tags="" position="350,1100" size="100,100">Yellow light pours through the window of the &lt;%= passageAppender(&#39;forward door.&#39;, &#39;Flora/Sleeper/Beat 5&#39;) %&gt;</tw-passagedata><tw-passagedata pid="84" name="Flora/Sleeper/Beat 5" tags="" position="475,1100" size="100,100">You pull it open and find yourself hurtling forward into a barren landscape, blasted with dry, cold wind.
 
 Turning around, you find the door locked behind you.
 
-There&#39;s &lt;%= passageAppender(&#39;a noise, above you.&#39;, &#39;Flora/Sleeper/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Sleeper/Beat 6" tags="" position="475,975" size="100,100">Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
+There&#39;s &lt;%= passageAppender(&#39;a noise, above you.&#39;, &#39;Flora/Sleeper/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="85" name="Flora/Sleeper/Beat 6" tags="" position="600,1100" size="100,100">Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
 
 It freezes as you lock eyes.
 
-Panicked, you try the door again and it [[gives way.-&gt;Flora/Sleeper/Beat 7]]</tw-passagedata><tw-passagedata pid="75" name="Flora/Sleeper/Beat 7" tags="" position="600,975" size="100,100">You find yourself in the dining car. It is dark and empty except for a table at the far end. You step closer and realize Cass is there. You sit down across from her, and ask her &lt;%= passageAppender(`what&#39;s going on.`, &#39;Flora/Sleeper/Beat 8&#39;) %&gt;</tw-passagedata><tw-passagedata pid="76" name="Flora/Sleeper/Beat 8" tags="" position="725,975" size="100,100">She&#39;s staring at the table. You follow her gaze and see a spider crawling across the table towards you. You go to brush it away, but your hands won&#39;t move; looking down, they are caught by a mess of web. You shudder and make a sound of disgust as you &lt;%= passageAppender(&#39;try to break free.&#39;, &#39;Flora/Sleeper/Beat 9&#39;) %&gt;</tw-passagedata><tw-passagedata pid="77" name="Flora/Sleeper/Beat 9" tags="" position="850,975" size="100,100">Your eyes go back to the spider. No, spiders; waves of them, crawling towards you across the table. Cassia&#39;s hands flash out. She is grabbing spiders by the handful and swallowing them as fast as she can, keeping them from reaching you. You are &lt;%= passageAppender(&#39;simultaneously disgusted and grateful.&#39;, &#39;Flora/Sleeper/Beat 10&#39;) %&gt;</tw-passagedata><tw-passagedata pid="78" name="Flora/Sleeper/Beat 10" tags="" position="975,975" size="100,100">You finally get your hand free. You raise it to sweep the table clear, and get a good look at the red-and-black spider on your wrist just before it sinks fangs into your skin. Fire runs through your veins as you [[black out.-&gt;Flora/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="79" name="Flora/Morning/Beat 1" tags="" position="1100,975" size="100,100">You wake feeling like you never slept. Cassia has obviously gotten into your head. At least she was protecting you.
+Panicked, you try the door again and it [[gives way.-&gt;Flora/Sleeper/Beat 7]]</tw-passagedata><tw-passagedata pid="86" name="Flora/Sleeper/Beat 7" tags="" position="725,1100" size="100,100">You find yourself in the dining car. It is dark and empty except for a table at the far end. You step closer and realize Cass is there. You sit down across from her, and ask her &lt;%= passageAppender(`what&#39;s going on.`, &#39;Flora/Sleeper/Beat 8&#39;) %&gt;</tw-passagedata><tw-passagedata pid="87" name="Flora/Sleeper/Beat 8" tags="" position="850,1100" size="100,100">She&#39;s staring at the table. You follow her gaze and see a spider crawling across the table towards you. You go to brush it away, but your hands won&#39;t move; looking down, they are caught by a mess of web. You shudder and make a sound of disgust as you &lt;%= passageAppender(&#39;try to break free.&#39;, &#39;Flora/Sleeper/Beat 9&#39;) %&gt;</tw-passagedata><tw-passagedata pid="88" name="Flora/Sleeper/Beat 9" tags="" position="975,1100" size="100,100">Your eyes go back to the spider. No, spiders; waves of them, crawling towards you across the table. Cassia&#39;s hands flash out. She is grabbing spiders by the handful and swallowing them as fast as she can, keeping them from reaching you. You are &lt;%= passageAppender(&#39;simultaneously disgusted and grateful.&#39;, &#39;Flora/Sleeper/Beat 10&#39;) %&gt;</tw-passagedata><tw-passagedata pid="89" name="Flora/Sleeper/Beat 10" tags="" position="1100,1100" size="100,100">You finally get your hand free. You raise it to sweep the table clear, and get a good look at the red-and-black spider on your wrist just before it sinks fangs into your skin. Fire runs through your veins as you [[black out.-&gt;Flora/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="90" name="Flora/Morning/Beat 1" tags="" position="1225,1100" size="100,100">You wake feeling like you never slept. Cassia has obviously gotten into your head. At least she was protecting you.
 
 The train has stopped in a small mountain burg to resupply, and you feel a need to get away from the train for a bit, so you head out onto the platform. There&#39;s a hazy grey sunrise beneath heavy clouds. You spot Cass heading for a nearby pub, and follow her, shielding your head from thick drops of rain.
 
@@ -1055,13 +1121,13 @@ Your answer is cut short as the entire car rocks to one side. Something is out t
 
 END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
-&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="80" name="Flora/Future Scenes" tags="" position="1225,975" size="100,100">The river is very low, reduced to a trickle. Scrawny trees line a wide mud flat. They lean in as if reaching for a drink.
+&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="91" name="Flora/Future Scenes" tags="" position="100,1225" size="100,100">The river is very low, reduced to a trickle. Scrawny trees line a wide mud flat. They lean in as if reaching for a drink.
 
 --
 
 A tangle of sun-bleached timber blankets the valley. &quot;Like an elephant graveyard,&quot; Flora whispers.
 
-&quot;An Ent graveyward,&quot; Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.</tw-passagedata><tw-passagedata pid="81" name="Start" tags="" position="100,1100" size="100,100">&lt;div.title-page&gt;
+&quot;An Ent graveyward,&quot; Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.</tw-passagedata><tw-passagedata pid="92" name="Start" tags="" position="225,1225" size="100,100">&lt;div.title-page&gt;
 
 # &lt;%= story.title %&gt;
 
@@ -1075,7 +1141,7 @@ A tangle of sun-bleached timber blankets the valley. &quot;Like an elephant grav
 
 [[About]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="82" name="How to Play" tags="" position="225,1100" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="93" name="How to Play" tags="" position="350,1225" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
 One of you will play as **Cassia** and the other as **Flora**.  The game is designed
 to be played together in real-time with voice chat.
 
@@ -1089,17 +1155,17 @@ When you see a box like this:
 Pick your next choice based on what your partner says to you - it might
 be a keyword or a whole phrase.
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="83" name="Play as Cassia" tags="" position="350,1100" size="100,100">&lt;%
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="94" name="Play as Cassia" tags="" position="475,1225" size="100,100">&lt;%
 s.playerCharacter = story.CASSIA
 $(() =&gt; story.show(&quot;Act II&quot;))
-%&gt;</tw-passagedata><tw-passagedata pid="84" name="Play as Flora" tags="" position="475,1100" size="100,100">&lt;%
+%&gt;</tw-passagedata><tw-passagedata pid="95" name="Play as Flora" tags="" position="600,1225" size="100,100">&lt;%
 s.playerCharacter = story.FLORA
 $(() =&gt; story.show(&quot;Act II&quot;))
-%&gt;</tw-passagedata><tw-passagedata pid="85" name="About" tags="" position="600,1100" size="100,100">A prototype of our multiplayer Twine game.
+%&gt;</tw-passagedata><tw-passagedata pid="96" name="About" tags="" position="725,1225" size="100,100">A prototype of our multiplayer Twine game.
 
 --
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="86" name="Act II" tags="" position="725,1100" size="100,100">&lt;% util.background(&#39;#9b543e&#39;) %&gt;
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="97" name="Act II" tags="" position="850,1225" size="100,100">&lt;% util.background(&#39;#9b543e&#39;) %&gt;
 
 &lt;div.interlude&gt;
 A locomotive chugs through farmland and towards autumny, mountainous terrain. We&#39;re not in town anymore.
