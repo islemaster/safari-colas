@@ -229,13 +229,13 @@ You light your cigarette and look up at a lean figure in a gray waistcoat and da
   - [["Dinner didn't go so well."->Flora/Smoke Break/Dinner]]
 
 :: Flora/Smoke Break/No kidding
-"No kidding?" You turn and give him a wry smile. "And you are?"
+"No kidding?" You turn and give him a wry smile. He flashes uncannily-perfect teeth in return. "And you are?"
 
-"Edwin." He flashes uncannily-perfect teeth. "What's your name?"
+"Edwin." He extends a hand.
 
 <% s.knowEdwinsName = true %>
 
-"Flora." You try to keep your guard up, but you find this stranger disarming.
+"Flora."
 
 "Pleased to make your acqaintance, Flora. Did something go wrong at dinner?"
 
@@ -254,7 +254,7 @@ You aren't sure that's true, but you could use a friend right now.
 
   - [["I suppose it does."->Flora/Smoke Break/Misery loves company]]
   - [["What happened to you?"->Flora/Smoke Break/What happened to you]]
-  - [["I'd like to be alone."->Flora/Smoke Break/Be alone]]
+  - <%= exitsReplacer(`"I'd like to be alone."`, `Flora/Smoke Break/Be alone`) %>
 
 :: Flora/Smoke Break/Dinner
 
@@ -287,9 +287,9 @@ You aren't sure that's true, but you could use a friend right now.
 
 "Very well." You feel him staring at the back of your head, as if deciding what to say next. Finally: "It's a long trip. Have you been this way before?"
 
-  - [["No, I haven't."->Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
-  - [["I'd like to be alone."->Flora/Smoke Break/Be alone]]
+  - <%= exitsReplacer(`"No, I haven't."`, `Flora/Smoke Break/Have not been this way`) %>
+  - <%= exitsReplacer(`(Lie) "Yes, I have."`, `Flora/Smoke Break/Have been this way`) %>
+  - <%= exitsReplacer(`"I'd like to be alone."`, `Flora/Smoke Break/Be alone`) %>
 
 :: Flora/Smoke Break/Have not been this way
 "No, I haven't," you admit.
@@ -306,8 +306,8 @@ You aren't sure that's true, but you could use a friend right now.
 
 He presses on. "Have you been this way before?"
 
-  - [["No, I haven't."->Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
+  - <%= exitsReplacer(`"No, I haven't."`, `Flora/Smoke Break/Have not been this way`) %>
+  - <%= exitsReplacer(`(Lie) "Yes, I have."`, `Flora/Smoke Break/Have been this way`) %>
 
 :: Flora/Smoke Break/What happened to you
 "What happened to you?" you ask. It's nice to know you're not the only one with problems.
@@ -316,8 +316,8 @@ He presses on. "Have you been this way before?"
 
 He's lost in thought for a moment, and then changes the subject. "Have you been this way before?"
 
-  - [["No, I haven't."->Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) "Yes, I have."->Flora/Smoke Break/Have been this way]]
+  - <%= exitsReplacer(`"No, I haven't."`, `Flora/Smoke Break/Have not been this way`) %>
+  - <%= exitsReplacer(`(Lie) "Yes, I have."`, `Flora/Smoke Break/Have been this way`) %>
 
 :: Flora/Smoke Break/Be alone
 "I'd like to be alone." Your tone ensures <%= passageAppender(`your meaning is clear.`, 'Flora/Smoke Break/Beat 6') %>

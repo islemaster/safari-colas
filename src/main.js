@@ -243,6 +243,32 @@ window.passageAppender = function (linkText, passageName) {
 }
 
 /**
+ * Creates a link. When clicked the link removes its parent _list_ and
+ * the specified passage is appended in its place on the current page.
+ * All previous page content is faded.
+ * 
+ * @param {htmlString} linkText 
+ * @param {string} passageName 
+ */
+window.exitsReplacer = function (linkText, passageName) {
+  const id = `exits-replacer-${slugify(linkText)}`;
+  $(() => $(`#${id}`).one('click', event => {
+    // Remove the entire unordered list
+    $(event.target).closest('ul').remove();
+
+    // Fade existing paragraphs a bit
+    $(`.passage p`).addClass('faded-text');
+
+    // Add the new passage to the end of the page
+    appendPassage(passageName);
+
+    // Ensure it's scrolled into view
+    scrollTo($(`.passage p`).last()[0]);
+  }));
+  return `<a href="javascript:void(0)" id="${id}">${linkText}</a>`;
+};
+
+/**
  * Immediately appends the named passage to the end of the current page.
  * @param {string} passageName 
  */
