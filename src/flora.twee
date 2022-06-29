@@ -204,10 +204,7 @@ Well, if she's going to be like that, you might as well get some air.
 
 You lean on a rail and attempt to light a cigarette, but the match keeps going out.
 
-<!-- A potential exploration here: Alleson shared some thoughts on the female gaze
-and _Bridgerton_, especially a focus on hands and small motions expressing internality.
-I'd like to capture some of that in the characterization of this figure, whom I'm
-starting to think of as an agent of the monster rather than the moster itself. -->
+<!-- A potential exploration here: Alleson shared some thoughts on the female gaze and _Bridgerton_, especially a focus on hands and small motions expressing internality. I'd like to capture some of that in the characterization of this figure, whom I'm starting to think of as an agent of the monster rather than the moster itself. -->
 
 <%= passageAppender(`A sinewy hand offers a lighter.`, 'Flora/Smoke Break/Beat 2') %>
 
@@ -258,7 +255,7 @@ You aren't sure that's true, but you could use a friend right now.
 
 :: Flora/Smoke Break/Bad taste
 
-"It left a bad taste in my mouth," you say. "My travelling companion was less than companionable.She doesn't seem to like me."
+"It left a bad taste in my mouth," you say. "My travelling companion was less than companionable. I mean, she doesn't seem to like me."
 
 He cocks a knowing eyebrow. "That is her mistake. You seem like excellent company to me."
 
@@ -320,22 +317,73 @@ He's lost in thought for a moment, and then changes the subject. "Have you been 
 
 <% if (s.knowEdwinsName) { %>Edwin<% } else { %>Your companion<%} %> nods towards the mountains. "How far are you going?"
 
-  - [[You tell him everything.->Flora/Smoke Break/Beat 4]]
-  - [[You're honest about the destination, but coy about the reason.->Flora/Smoke Break/Beat 4]]
-  - [[You lie about your destination.->Flora/Smoke Break/Beat 4]]
+  - [["To Schattental."->Flora/Smoke Break/Schattental]]
+  - [[(Lie) "Just to the next stop."->Flora/Smoke Break/Next stop]]
 
-:: Flora/Smoke Break/Beat 4
-He {{listens carefully to your story}} and looks concerned. Then he {{shares rumors of strange goings-on in the mountains ahead - rumors of a curse}}.
+:: Flora/Smoke Break/Schattental
+"To Schattental," you say.
+
+"Ah, the end of the line." He looks smug. "You know, they've been trying to extend the railroad beyond the valley for years. The enterprise has encountered a number of mysterious delys. The navvies keep wandering into the forest and vanishing."
+
+<!-- "Navvy" is European slang for the people who build railroads, popularized in the late 19th centry. https://en.wikipedia.org/wiki/Navvy https://books.google.com/ngrams/graph?content=navvy&year_start=1800&year_end=2019&corpus=26&smoothing=3&direct_url=t1%3B%2Cnavvy%3B%2Cc0#t1%3B%2Cnavvy%3B%2Cc0-->
+
+"Vanishing?" you ask. You don't believe it. There's always an explanation.
+
+"So the locals say," he shakes his head. "It's not a popular place. Why are you going there?"
+
+  - [["Revenge." Tell him everything.->Flora/Smoke Break/Revenge]]
+  - [["Research." That's mostly true.->Flora/Smoke Break/Research]]
+  - [[Be coy. "I'm not allowed to say."->Flora/Smoke Break/Coy]]
+
+:: Flora/Smoke Break/Revenge
+"Revenge." You've got no one else to talk to, so you tell him everything: Oliver, Cassia, the apparent vampire.  You half expect him to laugh in your face, but each time you check he looks deadly serious.
+
+"Perhaps the curse is crossing the mountains."
+
+  - [["What curse?"->Flora/Smoke Break/Curse]]
+
+:: Flora/Smoke Break/Research
+"Research. I'm a physician, and there's a natural phenomenon on the lake there I intend to study." The half-truth comes naturally; you can bring the language of science to bear on anything, even a monster-hunt.
+
+"I hope you're not talking about the curse!" He starts to laugh, but catches himself when he sees your expression.
+
+  - [["What curse?"->Flora/Smoke Break/Curse]]
+
+:: Flora/Smoke Break/Coy
+"I'm not allowed to say." You brush your hair out of your face and give <% if (s.knowEdwinsName) { %>Edwin<% } else { %>him<% } %> an impish grin. You hope this makes you mysterious and interesting.
+
+He plays along. "Oh, a secret mission. I'll just assume you've set out to break the curse."
+
+Now it's your turn. [["What curse?"->Flora/Smoke Break/Curse]]
+
+:: Flora/Smoke Break/Next stop
+"Just to the next stop," you lie. "Visiting my grandfather."
+
+"Ah, little Gupreti!" He smiles in recognition. "The train reprovisions there. I usually take a stroll around the square near the station. There's an excellent little bakery there."
+
+You can do this. "Oh, I know. They make such good..." Suddenly you can't think of any baked goods. "Uh, such good breads." Saved it.
+
+His smile freezes for a moment. "Anyway, we will see if they are still in business. I hope the curse has not reached your grandfather's town."
+
+  - [["What curse?"->Flora/Smoke Break/Curse]]
+
+:: Flora/Smoke Break/Curse
+<% util.background('rgb(147, 71, 52)') %>
+
+"What curse?" you ask.
+
+"You haven't heard?" He looks genuinely concerned. "There are rumors that death herself has settled in the valley."
+
+He locks eyes with you, and as he speaks images cross your vision. "Fell beasts, long and lupine, lurch across the hills. They say the moon is full every night, but anyone that looks at it is transfixed and helpless until it sets. Many a morning the fog has rolled out to reveal a corpse in the square, already half-eaten by carrion birds. Safer to stay under the trees - unless you fear creatures of the dark."
+
+<!-- Worth it to extend the hypnosis here? Could we learn one of Flora's phobias? -->
 
 [[You take a shaky drag on your cigarette.->Flora/Smoke Break/Beat 5]]
 
 :: Flora/Smoke Break/Beat 5
-
-<% util.background('rgb(147, 71, 52)') %>
-
 He breaks the spell.
 
-"But I'm sure it's just superstition. Local color, right?"
+"But I'm sure it's just superstition. Local color, to bring in gullible tourists. Not the sort of thing a scientist would worry about."
 
 <!-- This is meant to be a little creepy, but I'm not sure how it will read to different players.-->
 He shrugs it off and {{compliments your hair.}} {{He asks if he can buy you a drink sometime.}}
@@ -357,7 +405,7 @@ You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/
 :: Flora/Smoke Break/Coda
 
 <div.interlude>
-The {{handsome man}} takes a deep breath, lights another cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
+<% if (s.knowEdwinsName) { %>Edwin<% } else { %>The man<% } %> takes a deep breath, lights his own cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
 <% util.background('#111') %>
 
