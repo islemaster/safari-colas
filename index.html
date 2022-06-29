@@ -572,6 +572,32 @@ window.passageAppender = function (linkText, passageName) {
 }
 
 /**
+ * Creates a link. When clicked the link removes its parent _list_ and
+ * the specified passage is appended in its place on the current page.
+ * All previous page content is faded.
+ * 
+ * @param {htmlString} linkText 
+ * @param {string} passageName 
+ */
+window.exitsReplacer = function (linkText, passageName) {
+  const id = `exits-replacer-${slugify(linkText)}`;
+  $(() => $(`#${id}`).one('click', event => {
+    // Remove the entire unordered list
+    $(event.target).closest('ul').remove();
+
+    // Fade existing paragraphs a bit
+    $(`.passage p`).addClass('faded-text');
+
+    // Add the new passage to the end of the page
+    appendPassage(passageName);
+
+    // Ensure it's scrolled into view
+    scrollTo($(`.passage p`).last()[0]);
+  }));
+  return `<a href="javascript:void(0)" id="${id}">${linkText}</a>`;
+};
+
+/**
  * Immediately appends the named passage to the end of the current page.
  * @param {string} passageName 
  */
@@ -993,13 +1019,13 @@ You lean on a rail and attempt to light a cigarette, but the match keeps going o
 
   - [[&quot;No kidding?&quot; Smile back.-&gt;Flora/Smoke Break/No kidding]]
   - [[&quot;I bet you say that to all the girls.&quot;-&gt;Flora/Smoke Break/I bet you say that]]
-  - [[&quot;Dinner didn&#39;t go so well.&quot;-&gt;Flora/Smoke Break/Dinner]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/No kidding" tags="" position="350,850" size="100,100">&quot;No kidding?&quot; You turn and give him a wry smile. &quot;And you are?&quot;
+  - [[&quot;Dinner didn&#39;t go so well.&quot;-&gt;Flora/Smoke Break/Dinner]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/No kidding" tags="" position="350,850" size="100,100">&quot;No kidding?&quot; You turn and give him a wry smile. He flashes uncannily-perfect teeth in return. &quot;And you are?&quot;
 
-&quot;Edwin.&quot; He flashes uncannily-perfect teeth. &quot;What&#39;s your name?&quot;
+&quot;Edwin.&quot; He extends a hand.
 
 &lt;% s.knowEdwinsName = true %&gt;
 
-&quot;Flora.&quot; You try to keep your guard up, but you find this stranger disarming.
+&quot;Flora.&quot;
 
 &quot;Pleased to make your acqaintance, Flora. Did something go wrong at dinner?&quot;
 
@@ -1015,7 +1041,7 @@ You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
   - [[&quot;I suppose it does.&quot;-&gt;Flora/Smoke Break/Misery loves company]]
   - [[&quot;What happened to you?&quot;-&gt;Flora/Smoke Break/What happened to you]]
-  - [[&quot;I&#39;d like to be alone.&quot;-&gt;Flora/Smoke Break/Be alone]]</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Dinner" tags="" position="600,850" size="100,100">&quot;Dinner didn&#39;t go so well,&quot; you begin. You could really use someone to talk to right now.
+  - &lt;%= exitsReplacer(`&quot;I&#39;d like to be alone.&quot;`, `Flora/Smoke Break/Be alone`) %&gt;</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Dinner" tags="" position="600,850" size="100,100">&quot;Dinner didn&#39;t go so well,&quot; you begin. You could really use someone to talk to right now.
 
 &quot;Oh?&quot; he prompts.
 
@@ -1034,9 +1060,9 @@ You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
 &quot;Very well.&quot; You feel him staring at the back of your head, as if deciding what to say next. Finally: &quot;It&#39;s a long trip. Have you been this way before?&quot;
 
-  - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]
-  - [[&quot;I&#39;d like to be alone.&quot;-&gt;Flora/Smoke Break/Be alone]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/Have not been this way" tags="" position="1100,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admit.
+  - &lt;%= exitsReplacer(`&quot;No, I haven&#39;t.&quot;`, `Flora/Smoke Break/Have not been this way`) %&gt;
+  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;
+  - &lt;%= exitsReplacer(`&quot;I&#39;d like to be alone.&quot;`, `Flora/Smoke Break/Be alone`) %&gt;</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/Have not been this way" tags="" position="1100,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admit.
 
 &lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="70" name="Flora/Smoke Break/Have been this way" tags="" position="1225,850" size="100,100">&quot;Yes, I have,&quot; you lie. You look him in the eye, hoping this sells it.
 
@@ -1044,15 +1070,15 @@ You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
 He presses on. &quot;Have you been this way before?&quot;
 
-  - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]</tw-passagedata><tw-passagedata pid="72" name="Flora/Smoke Break/What happened to you" tags="" position="225,975" size="100,100">&quot;What happened to you?&quot; you ask. It&#39;s nice to know you&#39;re not the only one with problems.
+  - &lt;%= exitsReplacer(`&quot;No, I haven&#39;t.&quot;`, `Flora/Smoke Break/Have not been this way`) %&gt;
+  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;</tw-passagedata><tw-passagedata pid="72" name="Flora/Smoke Break/What happened to you" tags="" position="225,975" size="100,100">&quot;What happened to you?&quot; you ask. It&#39;s nice to know you&#39;re not the only one with problems.
 
 &quot;Trouble at work,&quot; he frowns. &quot;My employer is on the train with me, and he&#39;s an impatient man. He&#39;ll work me to death.&quot;
 
 He&#39;s lost in thought for a moment, and then changes the subject. &quot;Have you been this way before?&quot;
 
-  - [[&quot;No, I haven&#39;t.&quot;-&gt;Flora/Smoke Break/Have not been this way]]
-  - [[(Lie) &quot;Yes, I have.&quot;-&gt;Flora/Smoke Break/Have been this way]]</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/Be alone" tags="" position="350,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures &lt;%= passageAppender(`your meaning is clear.`, &#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Beat 3" tags="" position="475,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
+  - &lt;%= exitsReplacer(`&quot;No, I haven&#39;t.&quot;`, `Flora/Smoke Break/Have not been this way`) %&gt;
+  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/Be alone" tags="" position="350,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures &lt;%= passageAppender(`your meaning is clear.`, &#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Beat 3" tags="" position="475,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
 
 &lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;Your companion&lt;%} %&gt; nods towards the mountains. &quot;How far are you going?&quot;
 
