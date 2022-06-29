@@ -196,6 +196,17 @@ Well, if she's going to be like that, you might as well get some air.
 
 <% Convo('Flora/Dining').cleanup() %>
 
+<!--
+  Smoke Break
+
+  What is this scene about? We meet Edwin, who hangs out with Flora between the train cars and tries to earn her trust. He's digging for her plans, but also reveals a little too much awareness of her situation (he was watching Flora and Cass in the dining car). Flora can spill the beans, be friendly but cagey, or give Edwin the cold shoulder.
+
+  What does Edwin want? He's working for the monster. Let's suppose he wants to drive a wedge between Cass and Flora; together they may be a force, but separately they are flies in his web. He goes after Flora first as she seems the easier target, but if she rebuffs him he'll try to influence Cass.
+
+  Does that mean he should be working harder in this scene to confirm Flora's worst fears about Cass - or about herself?
+
+  Or maybe he's not happy working for the monster? Always a chance of that.
+-->
 :: Flora/Smoke Break/Beat 1
 
 <% util.background('rgb(242, 171, 154)') %>
@@ -327,7 +338,7 @@ He's lost in thought for a moment, and then changes the subject. "Have you been 
 
 <!-- "Navvy" is European slang for the people who build railroads, popularized in the late 19th centry. https://en.wikipedia.org/wiki/Navvy https://books.google.com/ngrams/graph?content=navvy&year_start=1800&year_end=2019&corpus=26&smoothing=3&direct_url=t1%3B%2Cnavvy%3B%2Cc0#t1%3B%2Cnavvy%3B%2Cc0-->
 
-"Vanishing?" you ask. You don't believe it. There's always an explanation.
+"Vanishing?" you ask. Rail workers don't just disappear. There's always an explanation.
 
 "So the locals say," he shakes his head. "It's not a popular place. Why are you going there?"
 
@@ -385,8 +396,9 @@ He breaks the spell.
 
 "But I'm sure it's just superstition. Local color, to bring in gullible tourists. Not the sort of thing a scientist would worry about."
 
-<!-- This is meant to be a little creepy, but I'm not sure how it will read to different players.-->
-He shrugs it off and {{compliments your hair.}} {{He asks if he can buy you a drink sometime.}}
+He turns back towards the landscape, leaning on the railing beside you. His elbow brushes yours as he deftly removes a cigarette from an inscribed silver case.
+
+"You're good company, Flora. Can I buy you a drink sometime?"
 
 <!-- Make this choice more consequential. -->
   - [[You agree, but not tonight.->Flora/Smoke Break/Beat 6]]
