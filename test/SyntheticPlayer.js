@@ -45,7 +45,7 @@ module.exports = class SyntheticPlayer {
   _captureDelay = 300;
   captureDelay() {
     const nextDelay = this._captureDelay;
-    this._captureDelay = Math.max(1, this._captureDelay / 2);
+    this._captureDelay = Math.max(1, this._captureDelay / 4);
     return nextDelay;
   }
 
@@ -83,6 +83,23 @@ module.exports = class SyntheticPlayer {
   async walk(steps) {
     while (steps.length > 0) {
       await this.currentKnot.followLink(steps.shift());
+    }
+  }
+
+  /**
+   * Walk a naive path forward until a certain passage is reached.
+   * Accepts a list of "biases," link text that will always be taken
+   * if it appears on the walk, to ensure the desired state is reached.
+   * Vulnerable to cycles.
+   * @param {string} stopAtPassageName 
+   * @param {[...string]} biases Preferred choices along the walk, given
+   *        as link text.
+   */
+  async walkTo(stopAtPassageName, biases) {
+    while (this.currentKnot.passageName !== stopAtPassageName) {
+      let moveOptions = Object.keys(this.currentKnot.children)
+      let biasedStep = moveOptions.find(option => biases.includes(option));
+      await this.currentKnot.followLink(biasedStep || moveOptions[0]);
     }
   }
 
