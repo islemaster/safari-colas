@@ -10,14 +10,7 @@ Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting i
 :: Flora/Dining/Beat 2
 Who exactly have you <%= passageInserter("partnered up with?", "Flora/Dining/Examine Cass") %>
 
-Your mother's voice slips in: "When in doubt, gather information." 
-
-So you ask:
-<%
-Convo('Flora/Dining').addTopic('Hunting', "What exactly are we hunting?");
-Convo('Flora/Dining').addTopic('Necklace', "What is that necklace you're wearing?");
-%>
-<%= Convo('Flora/Dining').topicMenu() %>
+Your mother's voice slips in: "When in doubt, <%= passageInserter("gather information", "Flora/Dining/Gather Information") %>." 
 
 :: Flora/Dining/Examine Cass
 You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to <%= inlineExpander('see', `<span class="link-like">see</span> - and <em>smell</em> -`) %> her: she's covered in simple, durable fabrics and unadorned leather, like she's plucked from a different time.
@@ -25,6 +18,14 @@ You met **Cassia of Tarsigg** just a few days ago after that horror of a night, 
 She appeared that night and chased the vampire out of town, but not before one of your dear friends was killed. Now you've hired her to track the monster back to its lair and destory it. You owe Oliver that much.
 
 You let out a gentle sigh; Cassia seems odd and you can't put your finger on why.
+
+:: Flora/Dining/Gather Information
+So you ask:
+<%
+Convo('Flora/Dining').addTopic('Hunting', "What exactly are we hunting?");
+Convo('Flora/Dining').addTopic('Necklace', "What is that necklace you're wearing?");
+%>
+<%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Hunting
 "<span.readaloud>What exactly are we hunting</span>?"
@@ -42,16 +43,13 @@ Convo('Flora/Dining').addTopic('Book', "Do you have a vampire book I could read?
 :: Flora/Dining/Necklace
 The chain around her neck glints in the light and you follow it to the roughly hewn gemstone pendant. Given her dress, this seems inconsistent to you.
 
-You ask, "<span.readaloud>What is that necklace you're wearing?</span>"
-
-<!-- Flora notices Cass' pale skin. -->
-<% Convo('Flora/Dining').addTopic('Pale', "Why is your skin so pale?") %>
+You press, "<span.readaloud>What is that necklace you're wearing</span>?"
 
 <div.stop>
 Stop! How did your partner respond?
 
   - [[Holy->Flora/Dining/Holy]]
-  - [[Bloody->Flora/Dining/Bloody]]
+  - [[Bloody->Flora/Dining/Bloody]] <!-- Yotam: might be too early of an exit -->
   - [[Family->Flora/Dining/Heirloom]]
 
 </div>
@@ -66,11 +64,14 @@ That was unexpectedly sentimental. She's clearly hiding something, you saw her l
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Holy
-"It's a vial of holy water,"
+<span.partnertext>It's a vial of holy water.</span>
 
 "In case of emergency," she quickly adds sardonically.
 
 What the heck is holy water? Is it some kind of aqua regia or is it more for cleaning a wound?
+
+<!-- Flora notices Cass' pale skin. -->
+<% Convo('Flora/Dining').addTopic('Pale', "Why is your skin so pale?") %>
 
 <% Convo('Flora/Dining').addTopic('Medication', "Holy water? Is that like a medication?") %>
 
@@ -84,7 +85,10 @@ What the heck is holy water? Is it some kind of aqua regia or is it more for cle
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Pale
-Looking at the small vial you notice something else. "<span.readaloud>Why is your skin so pale?</span>"
+<!-- Yotam: How does Flora notice this if Cass puts it away when Heirloom is triggered? Maybe this option only gets added if Cass doens't put it away? -->
+Looking at the small vial you notice something else. 
+
+"<span.readaloud>Why is your skin so pale?</span>"
 
 <div.stop>
 Stop! How did your partner respond?
@@ -95,7 +99,15 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Schattental
-You ask, "<span.readaloud>How will we find the vampire when we get to Schattental?</span>" {{Should we help the player pronounce this? "SHOT-in-tall"}}
+Schattental is an unfamiliar land to you. The enormity of the task before you suddenly reveals its weight.
+
+"<span.readaloud>How will we find the vampire when we get to Schattental</span>?" 
+
+<!-- 
+6/27 BB: {{Should we help the player pronounce this? "SHOT-in-tall"}}
+8/3 YH: Hm I'm inclined not to but I'm curious how we might provide in-text assistance. Should we spell it phonetically in the read aloud question since it was written by its name in the previous passage?
+-->
+
 
 <% Convo('Flora/Dining').addTopic('Monsters', "Who really hunts monsters for a living?") %>
 
@@ -118,9 +130,9 @@ Stop! How did your partner respond?
 :: Flora/Dining/Money
 <div.partnertext>Follow the money,</div>
 
-she explains. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
+She explains. "Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
 
-Organized crime? You thought you were hunting a monster.
+Organized crime? You thought you were hunting a monster, and Cassia seems more like a detective than monster hunter to you in this moment.
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
@@ -154,43 +166,50 @@ Stop! How did your partner respond?
 <%= Convo('Flora/Dining').topicMenu() %>
 
 :: Flora/Dining/Monsters
-"So," you say, "who really hunts <span.readaloud>monsters</span> for a living? How do you get that job?"
+You've found yourself a groove now. Each question in your mind sprawling out to new possibilities to explore. You continue.
+
+"<span.readaloud>who really hunts monsters for a living? How do you get that job?</span>"
+
+Just as the words leave your lips you feel a distinct sense that was exactly the wrong question to ask at this moment.
 
 <div.stop>
 Stop! How did your partner respond?
 
   - [[Bloody->Flora/Dining/Bloody]]
-  - [[Bite->Flora/Dining/Bite]]
+  - [[Enough->Flora/Dining/Bite]]
 
 </div>
 
 :: Flora/Dining/Bloody
-"None of your bloody business," she spits.
+<span.partnertext>None of your bloody business.</span>
 
-<%= story.render('Flora/Dining/Spider') %>
+<%= passageAppender("A spider crawls across the table.", "Flora/Dining/Spider") %>
 
 :: Flora/Dining/Bite
-Cassia just glares at you and takes another bite of pheasant.
+<span.partnertext>Enough.</span>
 
-<%= story.render('Flora/Dining/Spider') %>
+Cassia glares at you and takes another bite of pheasant.
+
+<%= passageAppender("A spider crawls across the table.", "Flora/Dining/Spider") %>
 
 :: Flora/Dining/Spider
+Without turning her gaze from you, Cass sets her hand in the spider's path. It begins a droning ascent into her palm. 
 
-A spider crawls across the table. Without turning her gaze, Cass grabs the creature and shoves it in her mouth. She chews and swallows conspicuously.
-
-[[You push your plate away.->Flora/Dining/Beat 3]]
+<%= passageAppender('You need this person.', 'Flora/Dining/Beat 3') %>
 
 :: Flora/Dining/Beat 3
-You may not have an appetite anymore, but you need this person.  You have a job to do together. {{You try a different approach and start telling a story about home.}}
+You may not understand Cassia, but you have a job to do together. Collecting yourself, you start over, "You know, it was only a few moons ago that a patient of mine came to me with the strangest sympt--"
 
 Cass interrupts.
 
 "Look here lass. While in your employ I will suffer your chatter, but your breath is wasted. When our work is done, we will part ways for good. Yes?"
 
-[[Maybe you are more alone than you realized.->Flora/Dining/Beat 4]]
+She squeezes her hand into a fist. Your eyes meet hers again as you stand to leave.
+
+<%= passageAppender('Maybe you are more alone than you realized.', 'Flora/Dining/Beat 4') %>
 
 :: Flora/Dining/Beat 4
-Well, if she's going to be like that, you might as well get some air.
+If she's going to be like that, you might as well get some air.
 
 [[You walk out of the car without looking back.->Flora/Smoke Break/Beat 1]]
 
