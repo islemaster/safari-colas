@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<tw-story tags></tw-story>
-		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="98" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap');
+		<!-- UUID://92B457A9-9F1C-4E3F-A834-A83F1CF13972// --><tw-storydata name="Safari Colas" startnode="96" creator="Tweego" creator-version="2.1.1" ifid="92B457A9-9F1C-4E3F-A834-A83F1CF13972" zoom="1" format="Snowman" format-version="2.0.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap');
 
 body {
   background-color: #82626d;
@@ -642,7 +642,7 @@ function snapToTop() {
 
 Your hunger masks the loneliness of sitting across the table from &lt;%= passageInserter(&#39;a mortal.&#39;,&#39;Cass/Dining/Examine Flora&#39;) %&gt; You don&#39;t know what to say next.
 
-So you &lt;%= passageAppender(&#39;take another bite of pheasant.&#39;, &#39;Cass/Dining/Beat 2&#39;) %&gt;</tw-passagedata><tw-passagedata pid="2" name="Cass/Dining/Examine Flora" tags="" position="225,100" size="100,100">You observe tablemate: **Flora**, a young medic you met on your last job. She&#39;s hired you for this hunt, and foolishly you agreed she could tag along.</tw-passagedata><tw-passagedata pid="3" name="Cass/Dining/Beat 2" tags="" position="350,100" size="100,100">Flora is staring. Again.
+So you &lt;%= passageAppender(&#39;take another bite of pheasant.&#39;, &#39;Cass/Dining/Beat 2&#39;) %&gt;</tw-passagedata><tw-passagedata pid="2" name="Cass/Dining/Examine Flora" tags="" position="225,100" size="100,100">You observe your tablemate: **Flora**, a young medic you met on your last job. She&#39;s hired you for this hunt, and foolishly you agreed she could tag along.</tw-passagedata><tw-passagedata pid="3" name="Cass/Dining/Beat 2" tags="" position="350,100" size="100,100">Flora is staring. Again.
 
 Maybe she &lt;%= passageAppender(&quot;isn&#39;t cut out for this&quot;, &quot;Cass/Dining/Beat 4&quot;) %&gt; after all.</tw-passagedata><tw-passagedata pid="4" name="Cass/Dining/Beat 4" tags="" position="475,100" size="100,100">Everyone wants to help. Or give the appearance of it, anyway. But when things are laid bare, and stakes rise, everyone backs away.
 
@@ -682,8 +682,7 @@ You curse under your breath. For how long have you wearing it openly? You tuck t
 &lt;% CassInventory.add(&#39;reliquette&#39;) %&gt;
 
   - [[&quot;It&#39;s a family heirloom.&quot;-&gt;Cass/Dining/Heirloom]]
-  - [[(Lie) &quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Holy]]
-  - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]] &lt;!-- Yotam: might be too early of an exit. Should we give the Cass player a warning? like (end) --&gt;</tw-passagedata><tw-passagedata pid="8" name="Cass/Dining/Heirloom" tags="" position="975,100" size="100,100">&lt;!-- &lt;% CassInventory.add(&#39;holy water&#39;) %&gt; --&gt;
+  - [[(Lie) &quot;It&#39;s holy water.&quot;-&gt;Cass/Dining/Holy]]</tw-passagedata><tw-passagedata pid="8" name="Cass/Dining/Heirloom" tags="" position="975,100" size="100,100">&lt;!-- &lt;% CassInventory.add(&#39;holy water&#39;) %&gt; --&gt;
 &quot;&lt;span.readaloud&gt;It&#39;s a family heirloom&lt;/span&gt;,&quot; you mutter. 
 
 Her expression is a like a confused deer. &quot;It&#39;s a common quartz. My brother gave it to me.&quot;
@@ -694,87 +693,80 @@ Stop! What did your partner say next?
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Cass/Dining/Holy" tags="" position="1100,100" size="100,100">&quot;&lt;span.readaloud&gt;It&#39;s a vial of holy water&lt;/span&gt;,&quot; you lie. &quot;In case of emergency.&quot; 
 
 &lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Pale&#39;) %&gt;
-&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Medication&#39;) %&gt;
 &lt;div.stop&gt;
 Stop! What did your partner say next?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Cass/Dining/Medication" tags="" position="1225,100" size="100,100">&lt;span.partnertext&gt;Holy water? Is that like a medication?&lt;/span&gt;
-
-&quot;Not exactly,&quot; you respond simply. You notice Flora shift.
-&lt;div.stop&gt;
-Stop! What did your partner say next?
-&lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Cass/Dining/Pale" tags="" position="100,225" size="100,100">&lt;span.partnertext&gt;Why is your skin so pale?&lt;/span&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Cass/Dining/Pale" tags="" position="1225,100" size="100,100">&lt;span.partnertext&gt;Why is your skin so pale?&lt;/span&gt;
 
 She looks at your &lt;%= CassInventory.has(&#39;holy water&#39;) ? &#39;holy water&#39; : &#39;reliquette&#39; %&gt; again. 
 &lt;!-- should these options indicate they are both (end)ers?--&gt;
   - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]
   - [[Ignore her.-&gt;Cass/Dining/Bite]]
 
-&lt;!-- These next two options are move-away and move-against behaviors: They don&#39;t invite more questions. --&gt;</tw-passagedata><tw-passagedata pid="12" name="Cass/Dining/Bloody" tags="" position="225,225" size="100,100">&quot;&lt;span.readaloud&gt;None of your bloody business&lt;/span&gt;,&quot; you spit.
+&lt;!-- These next two options are move-away and move-against behaviors: They don&#39;t invite more questions. --&gt;</tw-passagedata><tw-passagedata pid="11" name="Cass/Dining/Bloody" tags="" position="100,225" size="100,100">&quot;&lt;span.readaloud&gt;None of your bloody business&lt;/span&gt;,&quot; you spit.
 
-How can you help her understand how &lt;%= passageAppender(&#39;dangerous&#39;, &#39;Cass/Dining/Beat 6&#39;) %&gt; this is going to be?</tw-passagedata><tw-passagedata pid="13" name="Cass/Dining/Bite" tags="" position="350,225" size="100,100">&lt;!-- Yotam: Ignoring is an interesting choice. But given our approach to read aloud full sentences reading a single word to ignore feels wrong. I&#39;m curious to try &quot;She doesn&#39;t respond&quot; on Flora&#39;s side but my sense says that&#39;ll lead to a poor UX --&gt;
+How can you help her understand how &lt;%= passageAppender(&#39;dangerous&#39;, &#39;Cass/Dining/Beat 6&#39;) %&gt; this is going to be?</tw-passagedata><tw-passagedata pid="12" name="Cass/Dining/Bite" tags="" position="225,225" size="100,100">&lt;!-- Yotam: Ignoring is an interesting choice. But given our approach to read aloud full sentences reading a single word to ignore feels wrong. I&#39;m curious to try &quot;She doesn&#39;t respond&quot; on Flora&#39;s side but my sense says that&#39;ll lead to a poor UX --&gt;
 &lt;span.readaloud&gt;&quot;Enough.&quot;&lt;/span&gt;
 
 You take another of pheasant and give Flora a look that says you&#39;re not in the mood for further questions.
 
-How can you help her understand how &lt;%= passageAppender(&#39;dangerous&#39;, &#39;Cass/Dining/Beat 6&#39;) %&gt; this is going to be?</tw-passagedata><tw-passagedata pid="14" name="Cass/Dining/Schattental" tags="" position="475,225" size="100,100">&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Monsters&#39;) %&gt;
+How can you help her understand how &lt;%= passageAppender(&#39;dangerous&#39;, &#39;Cass/Dining/Beat 6&#39;) %&gt; this is going to be?</tw-passagedata><tw-passagedata pid="13" name="Cass/Dining/Schattental" tags="" position="350,225" size="100,100">&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Monsters&#39;) %&gt;
 &lt;span.partnertext&gt;How will we find the vampire when we get to Schattental?&lt;/span&gt;
 
 That&#39;s a good question.
 
   - [[&quot;Look for the castle.&quot;-&gt;Cass/Dining/Castle]]
   - [[&quot;Follow the money.&quot;-&gt;Cass/Dining/Money]]
-  - [[&quot;He&#39;ll find us.&quot;-&gt;Cass/Dining/Find Us]]</tw-passagedata><tw-passagedata pid="15" name="Cass/Dining/Castle" tags="" position="600,225" size="100,100">&quot;&lt;span.readaloud&gt;Look for the castle&lt;/span&gt;. Vampires always have a castle.&quot; This isn&#39;t particularly true, but Flora won&#39;t know that. You haven&#39;t visited a proper castle in nearly a century.
+  - [[&quot;He&#39;ll find us.&quot;-&gt;Cass/Dining/Find Us]]</tw-passagedata><tw-passagedata pid="14" name="Cass/Dining/Castle" tags="" position="475,225" size="100,100">&quot;&lt;span.readaloud&gt;Look for the castle&lt;/span&gt;. Vampires always have a castle.&quot; This isn&#39;t particularly true, but Flora won&#39;t know that. You haven&#39;t visited a proper castle in nearly a century.
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Cass/Dining/Money" tags="" position="725,225" size="100,100">&quot;&lt;span.readaloud&gt;Follow the money&lt;/span&gt;,&quot; you explain. &quot;Vampires can live a long time, and they are deeply entangled with their homeland. They&#39;re often found pulling the strings of local organized crime.&quot;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Cass/Dining/Money" tags="" position="600,225" size="100,100">&quot;&lt;span.readaloud&gt;Follow the money&lt;/span&gt;,&quot; you explain. &quot;Vampires can live a long time, and they are deeply entangled with their homeland. They&#39;re often found pulling the strings of local organized crime.&quot;
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Cass/Dining/Find Us" tags="" position="850,225" size="100,100">&quot;&lt;span.readaloud&gt;He&#39;ll find us&lt;/span&gt;. Not a lot of strangers in the valley of shadows.&quot; You give her a pointed look. &quot;We&#39;ll just have to be ready for a fight.&quot;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Cass/Dining/Find Us" tags="" position="725,225" size="100,100">&quot;&lt;span.readaloud&gt;He&#39;ll find us&lt;/span&gt;. Not a lot of strangers in the valley of shadows.&quot; You give her a pointed look. &quot;We&#39;ll just have to be ready for a fight.&quot;
 
 Flora doesn&#39;t look thrilled about this plan. Satisfaction swells in you. You&#39;re teaching her to respect the danger you will soon face, especially since she chose to come along.
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Cass/Dining/Book" tags="" position="975,225" size="100,100">&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Monsters&#39;) %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Cass/Dining/Book" tags="" position="850,225" size="100,100">&lt;% Convo(&#39;Cass/Dining&#39;).addTopic(&#39;Monsters&#39;) %&gt;
 &lt;span.partnertext&gt;Do you have a vampire book I could read?&lt;/span&gt;
 
 What a question. You do have some lore, but it&#39;s unreliable.
 
   - [[&quot;None of your bloody business.&quot;-&gt;Cass/Dining/Bloody]]
   - [[&quot;I suppose you should do your homework.&quot;-&gt;Cass/Dining/Homework]]
-  - [[Ignore her.-&gt;Cass/Dining/Bite]]</tw-passagedata><tw-passagedata pid="19" name="Cass/Dining/Homework" tags="" position="1100,225" size="100,100">&quot;&lt;span.readaloud&gt;I suppose you should do your homework&lt;/span&gt;. It&#39;s in my rucksack. You&#39;re welcome to it.&quot;
+  - [[Ignore her.-&gt;Cass/Dining/Bite]]</tw-passagedata><tw-passagedata pid="18" name="Cass/Dining/Homework" tags="" position="975,225" size="100,100">&quot;&lt;span.readaloud&gt;I suppose you should do your homework&lt;/span&gt;. It&#39;s in my rucksack. You&#39;re welcome to it.&quot;
 &lt;!-- Brad: This seems plausible to me here, even though Cass is cagey, because it might redirect Flora. --&gt;
 
 &lt;div.stop&gt;
 Stop! What did your partner say next?
 &lt;%= Convo(&#39;Cass/Dining&#39;).topicMenu() %&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Cass/Dining/Monsters" tags="" position="1225,225" size="100,100">&lt;span.partnertext&gt;Who really hunts monsters for a living? How do you get that job?&lt;/span&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Cass/Dining/Monsters" tags="" position="1100,225" size="100,100">&lt;span.partnertext&gt;Who really hunts monsters for a living? How do you get that job?&lt;/span&gt;
 
 You&#39;re not exactly ready to open up to this novice nurse from Nowheresburgh. Enough of this.
 
   - [[&quot;None of your business.&quot;-&gt;Cass/Dining/Bloody]]
-  - [[Ignore her.-&gt;Cass/Dining/Bite]]</tw-passagedata><tw-passagedata pid="21" name="Cass/Dining/Beat 6" tags="" position="100,350" size="100,100">You tire of her examination. A spider climbs atop the table, and you set your hand in the spider&#39;s path. Your gaze remains fixed on Flora&#39;s shrinking form. She begins blathering the start of some thought only for you to interrupt.
+  - [[Ignore her.-&gt;Cass/Dining/Bite]]</tw-passagedata><tw-passagedata pid="20" name="Cass/Dining/Beat 6" tags="" position="1225,225" size="100,100">You tire of her examination. A spider climbs atop the table, and you set your hand in the spider&#39;s path. Your gaze remains fixed on Flora&#39;s shrinking form. She begins blathering the start of some thought only for you to interrupt.
 
 &quot;Look here lass. While in your employ I will suffer your chatter, but your breath is wasted. When our work is done, we will part ways for good. Yes?&quot;
 
-It will be &lt;%= passageAppender(&#39;simpler that way.&#39;, &#39;Cass/Dining/Beat 7&#39;) %&gt;</tw-passagedata><tw-passagedata pid="22" name="Cass/Dining/Beat 7" tags="" position="225,350" size="100,100">The spider reaches your palm. You make a fist. Apparently you offend her, because she stands up.
+It will be &lt;%= passageAppender(&#39;simpler that way.&#39;, &#39;Cass/Dining/Beat 7&#39;) %&gt;</tw-passagedata><tw-passagedata pid="21" name="Cass/Dining/Beat 7" tags="" position="100,350" size="100,100">The spider reaches your palm. You make a fist. Apparently you offend her, because she stands up.
 
 &quot;I need some air,&quot; she mutters.
 
 As she leaves the car, she passes [[a family at another table.-&gt;Cass/Dining/Beat 8]]
 
-&lt;% Convo(&#39;Cass/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="23" name="Cass/Dining/Beat 8" tags="" position="350,350" size="100,100">Their interactions are gentle, like a placid lake.
+&lt;% Convo(&#39;Cass/Dining&#39;).cleanup() %&gt;</tw-passagedata><tw-passagedata pid="22" name="Cass/Dining/Beat 8" tags="" position="225,350" size="100,100">Their interactions are gentle, like a placid lake.
 
 You can&#39;t make out what they&#39;re saying, but
   - [[you feel calmer, watching them.-&gt;Cass/Dining/Beat 9]]
-  - [[you wonder if you&#39;ll ever know that feeling again.-&gt;Cass/Dining/Beat 9]]</tw-passagedata><tw-passagedata pid="24" name="Cass/Dining/Beat 9" tags="" position="475,350" size="100,100">A nearby patron notices you staring and asks probing questions.
+  - [[you wonder if you&#39;ll ever know that feeling again.-&gt;Cass/Dining/Beat 9]]</tw-passagedata><tw-passagedata pid="23" name="Cass/Dining/Beat 9" tags="" position="350,350" size="100,100">A nearby patron notices you staring and asks probing questions.
 
 You try to answer honestly, but this scares the patron away.
 
@@ -782,7 +774,7 @@ You try to answer honestly, but this scares the patron away.
 TODO: Expand this scene. Use alternative choices to reveal information to the player even if they are unchosen options.
 --&gt;
 
-This isn&#39;t going well. You [[leave-&gt;Cass/Baggage/Beat 1]] before anyone else starts asking questions.</tw-passagedata><tw-passagedata pid="25" name="Cass/Baggage/Beat 1" tags="" position="600,350" size="100,100">&lt;% util.background(&#39;rgb(98, 32, 66)&#39;) %&gt;
+This isn&#39;t going well. You [[leave-&gt;Cass/Baggage/Beat 1]] before anyone else starts asking questions.</tw-passagedata><tw-passagedata pid="24" name="Cass/Baggage/Beat 1" tags="" position="475,350" size="100,100">&lt;% util.background(&#39;rgb(98, 32, 66)&#39;) %&gt;
 
 You make your way to the baggage car, which holds the two large trunks you brought along. The baggageman remembers you and lets you through without question.
 
@@ -796,7 +788,7 @@ https://cs.trains.com/ctr/f/3/t/165625.aspx
 &quot;As to the operation of the train and engine themselves, the train crew consisted of a conductor and two brakemen, with the conductor in charge of the operation of the train and engine, and the engine crew consisted of an engineer and fireman. One brakeman, who rode near the rear of the train, lined switches when necessary, and was also called &quot;flagman,&quot; since he, when necessary, would go back and be prepared to stop any following train. The other brakeman, who rode at the front of the train, lined switches when necessary, and often took care of the checked baggage (some trains had a separate baggageman). The conductor (at times assisted by one or more brakemen) collected the passengers’ tickets (lifted transportation). The engineer ran the engine, starting and stopping at the conductor’s direction, and the fireman made certain that the engine could run by keeping fuel in the firebox and water in the boiler of a steam engine or watching over the operation of a diesel engine.&quot;
 
 &quot;What is now called the &quot;onboard service crew&quot; consisted of porters, diner crew, and lounge car attendants. The porters assisted passengers in boarding and detraining, saw to the comfort of the passengers, and were responsible for the cleanliness of their cars, often being responsible for two cars. The dining car crews were composed of a steward (subject to the conductor’s authority), who was in charge, a chef, cooks (some had little more responsibility than that of washing dishes), and waiters. The lounge car attendant saw to it that food, beverages, and various items were available for sale to the passengers, and saw to the cleanliness of the car.&quot;
---&gt;</tw-passagedata><tw-passagedata pid="26" name="Cass/Baggage/Beat 2" tags="" position="725,350" size="100,100">The train will be the last safe place for a while. A good opportunity to check your tools and ensure [[everything is prepared for the hunt.-&gt;Cass/Baggage/Beat 3]]</tw-passagedata><tw-passagedata pid="27" name="Cass/Baggage/Beat 3" tags="" position="850,350" size="100,100">Hand crossbow with silver bolts: Restrung.
+--&gt;</tw-passagedata><tw-passagedata pid="25" name="Cass/Baggage/Beat 2" tags="" position="600,350" size="100,100">The train will be the last safe place for a while. A good opportunity to check your tools and ensure [[everything is prepared for the hunt.-&gt;Cass/Baggage/Beat 3]]</tw-passagedata><tw-passagedata pid="26" name="Cass/Baggage/Beat 3" tags="" position="725,350" size="100,100">Hand crossbow with silver bolts: Restrung.
 
 Wooden stake: Polished to a sheen.
 
@@ -810,35 +802,35 @@ The nosy crowd in the dining car has you on edge. Maybe you should carry somethi
 
 [[The stake is good for a close-quarters situation.-&gt;Cass/Baggage/Take the Stake]]
 
-[[The salt is a reliable ward.-&gt;Cass/Baggage/Take the Salt]]</tw-passagedata><tw-passagedata pid="28" name="Cass/Baggage/Take the Crossbow" tags="" position="975,350" size="100,100">You tuck the crossbow under your cloak and make your way back to the sleeper car.
+[[The salt is a reliable ward.-&gt;Cass/Baggage/Take the Salt]]</tw-passagedata><tw-passagedata pid="27" name="Cass/Baggage/Take the Crossbow" tags="" position="850,350" size="100,100">You tuck the crossbow under your cloak and make your way back to the sleeper car.
 
 &lt;% CassInventory.add(&#39;crossbow&#39;) %&gt;
-&lt;%= story.render(&quot;Cass/Sleeper/Beat 1&quot;) %&gt;</tw-passagedata><tw-passagedata pid="29" name="Cass/Baggage/Take the Stake" tags="" position="1100,350" size="100,100">You tuck the stake into your sash and make your way back to the sleeper car.
+&lt;%= story.render(&quot;Cass/Sleeper/Beat 1&quot;) %&gt;</tw-passagedata><tw-passagedata pid="28" name="Cass/Baggage/Take the Stake" tags="" position="975,350" size="100,100">You tuck the stake into your sash and make your way back to the sleeper car.
 
 &lt;% CassInventory.add(&#39;stake&#39;) %&gt;
-&lt;%= story.render(&quot;Cass/Sleeper/Beat 1&quot;) %&gt;</tw-passagedata><tw-passagedata pid="30" name="Cass/Baggage/Take the Salt" tags="" position="1225,350" size="100,100">You grab the saltbox and make your way back to your sleeper car.
+&lt;%= story.render(&quot;Cass/Sleeper/Beat 1&quot;) %&gt;</tw-passagedata><tw-passagedata pid="29" name="Cass/Baggage/Take the Salt" tags="" position="1100,350" size="100,100">You grab the saltbox and make your way back to your sleeper car.
 
 &lt;% CassInventory.add(&#39;salt&#39;) %&gt;
-&lt;%= story.render(&quot;Cass/Sleeper/Beat 1&quot;) %&gt;</tw-passagedata><tw-passagedata pid="31" name="Cass/Sleeper/Beat 1" tags="" position="100,475" size="100,100">Flora isn&#39;t back yet.
+&lt;%= story.render(&quot;Cass/Sleeper/Beat 1&quot;) %&gt;</tw-passagedata><tw-passagedata pid="30" name="Cass/Sleeper/Beat 1" tags="" position="1225,350" size="100,100">Flora isn&#39;t back yet.
 
 You climb into the lower bunk. The grasping thoughts you pushed aside throughout the day rush for their last shot of attention.
 
 &lt;!--
 TODO: Choices here of thoughts to attend to.
 --&gt;
-{{[[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]}}</tw-passagedata><tw-passagedata pid="32" name="Cass/Sleeper/Beat 2" tags="" position="225,475" size="100,100">&lt;% util.background(&#39;#111&#39;) %&gt;
+{{[[You attend to one of the thoughts.-&gt;Cass/Sleeper/Beat 2]]}}</tw-passagedata><tw-passagedata pid="31" name="Cass/Sleeper/Beat 2" tags="" position="100,475" size="100,100">&lt;% util.background(&#39;#111&#39;) %&gt;
 
 &lt;div.interlude&gt;
 As you drift to sleep, the moonglow on the windows steals away, replaced by the pitch-black of a deep tunnel.
 
 [[We&#39;ve reached the mountains.-&gt;Cass/Dream/Beat 1]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="Cass/Dream/Beat 1" tags="" position="350,475" size="100,100">&lt;% util.background(&#39;rgb(235, 240, 217)&#39;) %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="Cass/Dream/Beat 1" tags="" position="225,475" size="100,100">&lt;% util.background(&#39;rgb(235, 240, 217)&#39;) %&gt;
 
 Cass stands on a high cliff, in the glare of dawn. Salt wind through tall seagrass carries the tang of a distant fire, while surf shimmers and simmers below. It&#39;s &lt;%= inlineExpander(&#39;cold.&#39;, `&lt;span&gt;familiar, comfortable; cold.&lt;/span&gt;`) %&gt;
 
-She came &lt;%= passageAppender(&#39;prepared&#39;, &#39;Cass/Dream/Prepared&#39;) %&gt; to attend to her brother&#39;s grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.</tw-passagedata><tw-passagedata pid="34" name="Cass/Dream/Prepared" tags="" position="475,475" size="100,100">Preparation is critically important to Cass now. Being unprepared meant losing &lt;%= passageAppender(&#39;her brother.&#39;, &#39;Cass/Dream/Brother&#39;) %&gt; [[Burying him here.-&gt;Cass/Dream/Headstone]]</tw-passagedata><tw-passagedata pid="35" name="Cass/Dream/Brother" tags="" position="600,475" size="100,100">Cass spends a few moments reflecting on how she remembers her brother, but it&#39;s hazy like trying to catch a petal on the wind.</tw-passagedata><tw-passagedata pid="36" name="Cass/Dream/Headstone" tags="" position="725,475" size="100,100">Her attention turns to the headstone. Moss has staked its claim, growing thick over everything. Cass gets out a brush and &lt;%= passageAppender(&#39;starts to clean.&#39;, &#39;Cass/Dream/Clean&#39;) %&gt;</tw-passagedata><tw-passagedata pid="37" name="Cass/Dream/Clean" tags="" position="850,475" size="100,100">She clears the face of the headstone first, revealing her brother&#39;s &lt;%= passageAppender(&#39;name.&#39;, &#39;Cass/Dream/Name&#39;) %&gt;</tw-passagedata><tw-passagedata pid="38" name="Cass/Dream/Name" tags="" position="975,475" size="100,100">&lt;center&gt;&lt;tt&gt;FLORA&lt;/tt&gt;&lt;/center&gt;
+She came &lt;%= passageAppender(&#39;prepared&#39;, &#39;Cass/Dream/Prepared&#39;) %&gt; to attend to her brother&#39;s grave. Cass checks everything she brought with her, tokens of rememberance to replace the old ones that have falled into disrepair. She even brought lunch.</tw-passagedata><tw-passagedata pid="33" name="Cass/Dream/Prepared" tags="" position="350,475" size="100,100">Preparation is critically important to Cass now. Being unprepared meant losing &lt;%= passageAppender(&#39;her brother.&#39;, &#39;Cass/Dream/Brother&#39;) %&gt; [[Burying him here.-&gt;Cass/Dream/Headstone]]</tw-passagedata><tw-passagedata pid="34" name="Cass/Dream/Brother" tags="" position="475,475" size="100,100">Cass spends a few moments reflecting on how she remembers her brother, but it&#39;s hazy like trying to catch a petal on the wind.</tw-passagedata><tw-passagedata pid="35" name="Cass/Dream/Headstone" tags="" position="600,475" size="100,100">Her attention turns to the headstone. Moss has staked its claim, growing thick over everything. Cass gets out a brush and &lt;%= passageAppender(&#39;starts to clean.&#39;, &#39;Cass/Dream/Clean&#39;) %&gt;</tw-passagedata><tw-passagedata pid="36" name="Cass/Dream/Clean" tags="" position="725,475" size="100,100">She clears the face of the headstone first, revealing her brother&#39;s &lt;%= passageAppender(&#39;name.&#39;, &#39;Cass/Dream/Name&#39;) %&gt;</tw-passagedata><tw-passagedata pid="37" name="Cass/Dream/Name" tags="" position="850,475" size="100,100">&lt;center&gt;&lt;tt&gt;FLORA&lt;/tt&gt;&lt;/center&gt;
 
-[[You wake.-&gt;Cass/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="39" name="Cass/Morning/Beat 1" tags="" position="1100,475" size="100,100">&lt;% util.background(&#39;rgb(129, 139, 164)&#39;) %&gt;
+[[You wake.-&gt;Cass/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="38" name="Cass/Morning/Beat 1" tags="" position="975,475" size="100,100">&lt;% util.background(&#39;rgb(129, 139, 164)&#39;) %&gt;
 
 You wake, still groggy from a night poorly slept.  You only remember fragments of your dream, but it lingers like a coating of oil, filmy and unpleasant.
 
@@ -868,20 +860,20 @@ Her answer is cut short as the entire car rocks to one side. Something is out th
 
 END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
-&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="Flora/Dining/Beat 1" tags="" position="1225,475" size="100,100">Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
+&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="Flora/Dining/Beat 1" tags="" position="1100,475" size="100,100">Cassia stabs the medium-rare pheasant on her plate with a large knife, lifting it whole from the plate. She takes a large bite and chews loudly.
 
-&lt;%= passageAppender(&quot;You observe in disgust.&quot;, &quot;Flora/Dining/Beat 2&quot;) %&gt;</tw-passagedata><tw-passagedata pid="41" name="Flora/Dining/Beat 2" tags="" position="100,600" size="100,100">Who exactly have you &lt;%= passageInserter(&quot;partnered up with?&quot;, &quot;Flora/Dining/Examine Cass&quot;) %&gt;
+&lt;%= passageAppender(&quot;You observe in disgust.&quot;, &quot;Flora/Dining/Beat 2&quot;) %&gt;</tw-passagedata><tw-passagedata pid="40" name="Flora/Dining/Beat 2" tags="" position="1225,475" size="100,100">Who exactly have you &lt;%= passageInserter(&quot;partnered up with?&quot;, &quot;Flora/Dining/Examine Cass&quot;) %&gt;
 
-Your mother&#39;s voice slips in: &quot;When in doubt, &lt;%= passageInserter(&quot;gather information&quot;, &quot;Flora/Dining/Gather Information&quot;) %&gt;.&quot;</tw-passagedata><tw-passagedata pid="42" name="Flora/Dining/Examine Cass" tags="" position="225,600" size="100,100">You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to &lt;%= inlineExpander(&#39;see&#39;, `&lt;span class=&quot;link-like&quot;&gt;see&lt;/span&gt; - and &lt;em&gt;smell&lt;/em&gt; -`) %&gt; her: she&#39;s covered in simple, durable fabrics and unadorned leather, like she&#39;s plucked from a different time.
+Your mother&#39;s voice slips in: &quot;When in doubt, &lt;%= passageInserter(&quot;gather information&quot;, &quot;Flora/Dining/Gather Information&quot;) %&gt;.&quot;</tw-passagedata><tw-passagedata pid="41" name="Flora/Dining/Examine Cass" tags="" position="100,600" size="100,100">You met **Cassia of Tarsigg** just a few days ago after that horror of a night, which ended with this strange name for an even stranger person. With the gaslamp light of the train you finally take a moment to &lt;%= inlineExpander(&#39;see&#39;, `&lt;span class=&quot;link-like&quot;&gt;see&lt;/span&gt; - and &lt;em&gt;smell&lt;/em&gt; -`) %&gt; her: she&#39;s covered in simple, durable fabrics and unadorned leather, like she&#39;s plucked from a different time.
 
 She appeared that night and chased the vampire out of town, but not before one of your dear friends was killed. Now you&#39;ve hired her to track the monster back to its lair and destory it. You owe Oliver that much.
 
-You let out a gentle sigh; Cassia seems odd and you can&#39;t put your finger on why.</tw-passagedata><tw-passagedata pid="43" name="Flora/Dining/Gather Information" tags="" position="350,600" size="100,100">So you ask:
+You let out a gentle sigh; Cassia seems odd and you can&#39;t put your finger on why.</tw-passagedata><tw-passagedata pid="42" name="Flora/Dining/Gather Information" tags="" position="225,600" size="100,100">So you ask:
 &lt;%
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Hunting&#39;, &quot;What exactly are we hunting?&quot;);
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Necklace&#39;, &quot;What is that necklace you&#39;re wearing?&quot;);
 %&gt;
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="44" name="Flora/Dining/Hunting" tags="" position="475,600" size="100,100">&quot;&lt;span.readaloud&gt;What exactly are we hunting&lt;/span&gt;?&quot;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="43" name="Flora/Dining/Hunting" tags="" position="350,600" size="100,100">&quot;&lt;span.readaloud&gt;What exactly are we hunting&lt;/span&gt;?&quot;
 
 She raises her eyes, and mumbles around her food. &quot;A vampire. Once it was a man. Now it&#39;s a soulless demon. It will feed on the weak and blight the land. Not to be trifled with.&quot;
 
@@ -891,7 +883,7 @@ Well, that&#39;s creepy. You heard the legends, and thought they were just stori
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Schattental&#39;, &quot;How will we find the vampire when we get to Schattental?&quot;)
 Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Book&#39;, &quot;Do you have a vampire book I could read?&quot;)
 %&gt;
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="45" name="Flora/Dining/Necklace" tags="" position="600,600" size="100,100">The chain around her neck glints in the light and you follow it to the roughly hewn gemstone pendant. Given her dress, this seems inconsistent to you.
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="44" name="Flora/Dining/Necklace" tags="" position="475,600" size="100,100">The chain around her neck glints in the light and you follow it to the roughly hewn gemstone pendant. Given her dress, this seems inconsistent to you.
 
 You press, &quot;&lt;span.readaloud&gt;What is that necklace you&#39;re wearing&lt;/span&gt;?&quot;
 
@@ -899,16 +891,15 @@ You press, &quot;&lt;span.readaloud&gt;What is that necklace you&#39;re wearing&
 Stop! How did your partner respond?
 
   - [[Holy-&gt;Flora/Dining/Holy]]
-  - [[Bloody-&gt;Flora/Dining/Bloody]] &lt;!-- Yotam: might be too early of an exit --&gt;
   - [[Family-&gt;Flora/Dining/Heirloom]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="46" name="Flora/Dining/Heirloom" tags="" position="725,600" size="100,100">&lt;span.partnertext&gt;It&#39;s a family heirloom.&lt;/span&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="45" name="Flora/Dining/Heirloom" tags="" position="600,600" size="100,100">&lt;span.partnertext&gt;It&#39;s a family heirloom.&lt;/span&gt;
 
 She pauses for a moment. &quot;It&#39;s a common quartz. My brother gave it to me.&quot;
 
 That was unexpectedly sentimental. She&#39;s clearly hiding something, you saw her literally tuck it away, so you suppose she simply doesn&#39;t want to discss her brother. Sometimes families can be like that.
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Holy" tags="" position="850,600" size="100,100">&lt;span.partnertext&gt;It&#39;s a vial of holy water.&lt;/span&gt;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="46" name="Flora/Dining/Holy" tags="" position="725,600" size="100,100">&lt;span.partnertext&gt;It&#39;s a vial of holy water.&lt;/span&gt;
 
 &quot;In case of emergency,&quot; she quickly adds sardonically.
 
@@ -917,13 +908,7 @@ What the heck is holy water? Is it some kind of aqua regia or is it more for cle
 &lt;!-- Flora notices Cass&#39; pale skin. --&gt;
 &lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Pale&#39;, &quot;Why is your skin so pale?&quot;) %&gt;
 
-&lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Medication&#39;, &quot;Holy water? Is that like a medication?&quot;) %&gt;
-
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="48" name="Flora/Dining/Medication" tags="" position="975,600" size="100,100">&quot;&lt;span.readaloud&gt;Holy water? Is that like a medication&lt;/span&gt;?&quot;
-
-&quot;Not exactly,&quot; she grunts. You wait for her to explain, but she doesn&#39;t say any more.
-
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="49" name="Flora/Dining/Pale" tags="" position="1100,600" size="100,100">&lt;!-- Yotam: How does Flora notice this if Cass puts it away when Heirloom is triggered? Maybe this option only gets added if Cass doens&#39;t put it away? --&gt;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="47" name="Flora/Dining/Pale" tags="" position="850,600" size="100,100">&lt;!-- Yotam: How does Flora notice this if Cass puts it away when Heirloom is triggered? Maybe this option only gets added if Cass doens&#39;t put it away? --&gt;
 Looking at the small vial you notice something else. 
 
 &quot;&lt;span.readaloud&gt;Why is your skin so pale?&lt;/span&gt;&quot;
@@ -934,7 +919,7 @@ Stop! How did your partner respond?
   - [[Bloody-&gt;Flora/Dining/Bloody]]
   - [[Bite-&gt;Flora/Dining/Bite]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="50" name="Flora/Dining/Schattental" tags="" position="1225,600" size="100,100">Schattental is an unfamiliar land to you. The enormity of the task before you suddenly reveals its weight.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="48" name="Flora/Dining/Schattental" tags="" position="975,600" size="100,100">Schattental is an unfamiliar land to you. The enormity of the task before you suddenly reveals its weight.
 
 &quot;&lt;span.readaloud&gt;How will we find the vampire when we get to Schattental&lt;/span&gt;?&quot; 
 
@@ -953,23 +938,23 @@ Stop! How did your partner respond?
   - [[Money-&gt;Flora/Dining/Money]]
   - [[Find Us-&gt;Flora/Dining/Find Us]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="51" name="Flora/Dining/Castle" tags="" position="100,725" size="100,100">&lt;div.partnertext&gt;Look for the castle.&lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="49" name="Flora/Dining/Castle" tags="" position="1100,600" size="100,100">&lt;div.partnertext&gt;Look for the castle.&lt;/div&gt;
 
 &quot;Vampires always have a castle.&quot; You are skeptical of this, but you bite your tongue. Cassia is being cagey for some reason.
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="52" name="Flora/Dining/Money" tags="" position="225,725" size="100,100">&lt;div.partnertext&gt;Follow the money,&lt;/div&gt;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="50" name="Flora/Dining/Money" tags="" position="1225,600" size="100,100">&lt;div.partnertext&gt;Follow the money,&lt;/div&gt;
 
 She explains. &quot;Vampires can live a long time, and they are deeply entangled with their homeland. They&#39;re often found pulling the strings of local organized crime.&quot;
 
 Organized crime? You thought you were hunting a monster, and Cassia seems more like a detective than monster hunter to you in this moment.
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="53" name="Flora/Dining/Find Us" tags="" position="350,725" size="100,100">&lt;div.partnertext&gt;He&#39;ll find us.&lt;/div&gt;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="51" name="Flora/Dining/Find Us" tags="" position="100,725" size="100,100">&lt;div.partnertext&gt;He&#39;ll find us.&lt;/div&gt;
 
 &quot;Not a lot of strangers in the valley of shadows.&quot; She gives you a pointed look. &quot;We&#39;ll just have to be ready for a fight.&quot;
 
 _What?_ There&#39;s no plan? This seems bad.
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="54" name="Flora/Dining/Book" tags="" position="475,725" size="100,100">You ask, &lt;span.readaloud&gt;&quot;Do you have a vampire book I could read?&quot;&lt;/span&gt;
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="52" name="Flora/Dining/Book" tags="" position="225,725" size="100,100">You ask, &lt;span.readaloud&gt;&quot;Do you have a vampire book I could read?&quot;&lt;/span&gt;
 
 &lt;% Convo(&#39;Flora/Dining&#39;).addTopic(&#39;Monsters&#39;, &quot;Who really hunts monsters for a living?&quot;) %&gt;
 
@@ -980,10 +965,10 @@ Stop! How did your partner respond?
   - [[Bloody-&gt;Flora/Dining/Bloody]]
   - [[Bite-&gt;Flora/Dining/Bite]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="55" name="Flora/Dining/Homework" tags="" position="600,725" size="100,100">&quot;I suppose you should do your homework. It&#39;s in my rucksack. Maybe you should go get it.&quot; You make a mental note.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="53" name="Flora/Dining/Homework" tags="" position="350,725" size="100,100">&quot;I suppose you should do your homework. It&#39;s in my rucksack. Maybe you should go get it.&quot; You make a mental note.
 &lt;% s.theBestiaryIsInTheRucksack = true %&gt;
 
-&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="56" name="Flora/Dining/Monsters" tags="" position="725,725" size="100,100">You&#39;ve found yourself a groove now. Each question in your mind sprawling out to new possibilities to explore. You continue.
+&lt;%= Convo(&#39;Flora/Dining&#39;).topicMenu() %&gt;</tw-passagedata><tw-passagedata pid="54" name="Flora/Dining/Monsters" tags="" position="475,725" size="100,100">You&#39;ve found yourself a groove now. Each question in your mind sprawling out to new possibilities to explore. You continue.
 
 &quot;&lt;span.readaloud&gt;who really hunts monsters for a living? How do you get that job?&lt;/span&gt;&quot;
 
@@ -995,15 +980,15 @@ Stop! How did your partner respond?
   - [[Bloody-&gt;Flora/Dining/Bloody]]
   - [[Enough-&gt;Flora/Dining/Bite]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="57" name="Flora/Dining/Bloody" tags="" position="850,725" size="100,100">&lt;span.partnertext&gt;None of your bloody business.&lt;/span&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="55" name="Flora/Dining/Bloody" tags="" position="600,725" size="100,100">&lt;span.partnertext&gt;None of your bloody business.&lt;/span&gt;
 
-&lt;%= passageAppender(&quot;A spider crawls across the table.&quot;, &quot;Flora/Dining/Spider&quot;) %&gt;</tw-passagedata><tw-passagedata pid="58" name="Flora/Dining/Bite" tags="" position="975,725" size="100,100">&lt;span.partnertext&gt;Enough.&lt;/span&gt;
+&lt;%= passageAppender(&quot;A spider crawls across the table.&quot;, &quot;Flora/Dining/Spider&quot;) %&gt;</tw-passagedata><tw-passagedata pid="56" name="Flora/Dining/Bite" tags="" position="725,725" size="100,100">&lt;span.partnertext&gt;Enough.&lt;/span&gt;
 
 Cassia glares at you and takes another bite of pheasant.
 
-&lt;%= passageAppender(&quot;A spider crawls across the table.&quot;, &quot;Flora/Dining/Spider&quot;) %&gt;</tw-passagedata><tw-passagedata pid="59" name="Flora/Dining/Spider" tags="" position="1100,725" size="100,100">Without turning her gaze from you, Cass sets her hand in the spider&#39;s path. It begins a droning ascent into her palm. 
+&lt;%= passageAppender(&quot;A spider crawls across the table.&quot;, &quot;Flora/Dining/Spider&quot;) %&gt;</tw-passagedata><tw-passagedata pid="57" name="Flora/Dining/Spider" tags="" position="850,725" size="100,100">Without turning her gaze from you, Cass sets her hand in the spider&#39;s path. It begins a droning ascent into her palm. 
 
-&lt;%= passageAppender(&#39;You need this person.&#39;, &#39;Flora/Dining/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="60" name="Flora/Dining/Beat 3" tags="" position="1225,725" size="100,100">You may not understand Cassia, but you have a job to do together. Collecting yourself, you start over, &quot;You know, it was only a few moons ago that a patient of mine came to me with the strangest sympt--&quot;
+&lt;%= passageAppender(&#39;You need this person.&#39;, &#39;Flora/Dining/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="58" name="Flora/Dining/Beat 3" tags="" position="975,725" size="100,100">You may not understand Cassia, but you have a job to do together. Collecting yourself, you start over, &quot;You know, it was only a few moons ago that a patient of mine came to me with the strangest sympt--&quot;
 
 Cass interrupts.
 
@@ -1011,7 +996,7 @@ Cass interrupts.
 
 She squeezes her hand into a fist. Your eyes meet hers again as you stand to leave.
 
-&lt;%= passageAppender(&#39;Maybe you are more alone than you realized.&#39;, &#39;Flora/Dining/Beat 4&#39;) %&gt;</tw-passagedata><tw-passagedata pid="61" name="Flora/Dining/Beat 4" tags="" position="100,850" size="100,100">If she&#39;s going to be like that, you might as well get some air.
+&lt;%= passageAppender(&#39;Maybe you are more alone than you realized.&#39;, &#39;Flora/Dining/Beat 4&#39;) %&gt;</tw-passagedata><tw-passagedata pid="59" name="Flora/Dining/Beat 4" tags="" position="1100,725" size="100,100">If she&#39;s going to be like that, you might as well get some air.
 
 [[You walk out of the car without looking back.-&gt;Flora/Smoke Break/Beat 1]]
 
@@ -1027,7 +1012,7 @@ She squeezes her hand into a fist. Your eyes meet hers again as you stand to lea
   Does that mean he should be working harder in this scene to confirm Flora&#39;s worst fears about Cass - or about herself?
 
   Or maybe he&#39;s not happy working for the monster? Always a chance of that.
---&gt;</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/Beat 1" tags="" position="225,850" size="100,100">&lt;% util.background(&#39;rgb(242, 171, 154)&#39;) %&gt;
+--&gt;</tw-passagedata><tw-passagedata pid="60" name="Flora/Smoke Break/Beat 1" tags="" position="1225,725" size="100,100">&lt;% util.background(&#39;rgb(242, 171, 154)&#39;) %&gt;
 
 &lt;div.scene-heading&gt;Between cars, at sunset.&lt;/div&gt;
 
@@ -1035,13 +1020,13 @@ You lean on a rail and attempt to light a cigarette, but the match keeps going o
 
 &lt;!-- A potential exploration here: Alleson shared some thoughts on the female gaze and _Bridgerton_, especially a focus on hands and small motions expressing internality. I&#39;d like to capture some of that in the characterization of this figure, whom I&#39;m starting to think of as an agent of the monster rather than the moster itself. --&gt;
 
-&lt;%= passageAppender(`A sinewy hand offers a lighter.`, &#39;Flora/Smoke Break/Beat 2&#39;) %&gt;</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/Beat 2" tags="" position="350,850" size="100,100">You light your cigarette and look up at a lean figure in a gray waistcoat and dark trousers. Kind eyes smile back. He steps up to the rail beside you and looks out at the landscape, setting an aquiline nose in silhouette against the clouds.
+&lt;%= passageAppender(`A sinewy hand offers a lighter.`, &#39;Flora/Smoke Break/Beat 2&#39;) %&gt;</tw-passagedata><tw-passagedata pid="61" name="Flora/Smoke Break/Beat 2" tags="" position="100,850" size="100,100">You light your cigarette and look up at a lean figure in a gray waistcoat and dark trousers. Kind eyes smile back. He steps up to the rail beside you and looks out at the landscape, setting an aquiline nose in silhouette against the clouds.
 
 &quot;You seem troubled.&quot;
 
   - [[&quot;No kidding?&quot; Smile back.-&gt;Flora/Smoke Break/No kidding]]
   - [[&quot;I bet you say that to all the girls.&quot;-&gt;Flora/Smoke Break/I bet you say that]]
-  - [[&quot;Dinner didn&#39;t go so well.&quot;-&gt;Flora/Smoke Break/Dinner]]</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/No kidding" tags="" position="475,850" size="100,100">&quot;No kidding?&quot; You turn and give him a wry smile. He flashes uncannily-perfect teeth in return. &quot;And you are?&quot;
+  - [[&quot;Dinner didn&#39;t go so well.&quot;-&gt;Flora/Smoke Break/Dinner]]</tw-passagedata><tw-passagedata pid="62" name="Flora/Smoke Break/No kidding" tags="" position="225,850" size="100,100">&quot;No kidding?&quot; You turn and give him a wry smile. He flashes uncannily-perfect teeth in return. &quot;And you are?&quot;
 
 &quot;Edwin.&quot; He extends a hand.
 
@@ -1055,7 +1040,7 @@ How did he...?
 
   - [[&quot;It left a bad taste in my mouth.&quot;-&gt;Flora/Smoke Break/Bad taste]]
   - [[&quot;How did you know?&quot;-&gt;Flora/Smoke Break/How did you know]]
-  - [[&quot;No, it&#39;s nothing.&quot;-&gt;Flora/Smoke Break/It&#39;s nothing]]</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/I bet you say that" tags="" position="600,850" size="100,100">&quot;I bet you say that to all the girls,&quot; you deadpan.
+  - [[&quot;No, it&#39;s nothing.&quot;-&gt;Flora/Smoke Break/It&#39;s nothing]]</tw-passagedata><tw-passagedata pid="63" name="Flora/Smoke Break/I bet you say that" tags="" position="350,850" size="100,100">&quot;I bet you say that to all the girls,&quot; you deadpan.
 
 He chuckles. &quot;I didn&#39;t mean to offend.&quot; He turns toward you and tugs self-consciously at his ascot. &quot;It&#39;s just that I&#39;m also having a rough evening. Misery loves company.&quot;
 
@@ -1063,49 +1048,49 @@ You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
   - [[&quot;I suppose it does.&quot;-&gt;Flora/Smoke Break/Misery loves company]]
   - [[&quot;What happened to you?&quot;-&gt;Flora/Smoke Break/What happened to you]]
-  - &lt;%= exitsReplacer(`&quot;I&#39;d like to be alone.&quot;`, `Flora/Smoke Break/Be alone`) %&gt;</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/Dinner" tags="" position="725,850" size="100,100">&quot;Dinner didn&#39;t go so well,&quot; you begin. You could really use someone to talk to right now.
+  - &lt;%= exitsReplacer(`&quot;I&#39;d like to be alone.&quot;`, `Flora/Smoke Break/Be alone`) %&gt;</tw-passagedata><tw-passagedata pid="64" name="Flora/Smoke Break/Dinner" tags="" position="475,850" size="100,100">&quot;Dinner didn&#39;t go so well,&quot; you begin. You could really use someone to talk to right now.
 
 &quot;Oh?&quot; he prompts.
 
-&lt;%= story.render(&#39;Flora/Smoke Break/Bad taste&#39;) %&gt;</tw-passagedata><tw-passagedata pid="67" name="Flora/Smoke Break/Bad taste" tags="" position="850,850" size="100,100">&quot;It left a bad taste in my mouth,&quot; you say. &quot;My travelling companion was less than companionable. I mean, she doesn&#39;t seem to like me.&quot;
+&lt;%= story.render(&#39;Flora/Smoke Break/Bad taste&#39;) %&gt;</tw-passagedata><tw-passagedata pid="65" name="Flora/Smoke Break/Bad taste" tags="" position="600,850" size="100,100">&quot;It left a bad taste in my mouth,&quot; you say. &quot;My travelling companion was less than companionable. I mean, she doesn&#39;t seem to like me.&quot;
 
 He cocks a knowing eyebrow. &quot;That is her mistake. You seem like excellent company to me.&quot;
 
-&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="68" name="Flora/Smoke Break/How did you know" tags="" position="975,850" size="100,100">&quot;How did you know?&quot; you ask.
+&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="66" name="Flora/Smoke Break/How did you know" tags="" position="725,850" size="100,100">&quot;How did you know?&quot; you ask.
 
 &quot;I&#39;m also having a rough evening,&quot; he shrugs. &quot;Misery loves company.&quot;
 
 You aren&#39;t sure that&#39;s true, but you could use a friend right now.
 
   - [[&quot;I suppose it does.&quot;-&gt;Flora/Smoke Break/Misery loves company]]
-  - [[&quot;What happened to you?&quot;-&gt;Flora/Smoke Break/What happened to you]]</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/It&#39;s nothing" tags="" position="1100,850" size="100,100">&quot;No, it&#39;s nothing,&quot; you shift uncomfortably. &quot;I mean, I&#39;d rather not talk about it.&quot; You look away and bring the cigarette back to your lips.
+  - [[&quot;What happened to you?&quot;-&gt;Flora/Smoke Break/What happened to you]]</tw-passagedata><tw-passagedata pid="67" name="Flora/Smoke Break/It&#39;s nothing" tags="" position="850,850" size="100,100">&quot;No, it&#39;s nothing,&quot; you shift uncomfortably. &quot;I mean, I&#39;d rather not talk about it.&quot; You look away and bring the cigarette back to your lips.
 
 &quot;Very well.&quot; You feel him staring at the back of your head, as if deciding what to say next. Finally: &quot;It&#39;s a long trip. Have you been this way before?&quot;
 
   - &lt;%= exitsReplacer(`&quot;No, I haven&#39;t.&quot;`, `Flora/Smoke Break/Have not been this way`) %&gt;
   - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;
-  - &lt;%= exitsReplacer(`&quot;I&#39;d like to be alone.&quot;`, `Flora/Smoke Break/Be alone`) %&gt;</tw-passagedata><tw-passagedata pid="70" name="Flora/Smoke Break/Have not been this way" tags="" position="1225,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admit.
+  - &lt;%= exitsReplacer(`&quot;I&#39;d like to be alone.&quot;`, `Flora/Smoke Break/Be alone`) %&gt;</tw-passagedata><tw-passagedata pid="68" name="Flora/Smoke Break/Have not been this way" tags="" position="975,850" size="100,100">&quot;No, I haven&#39;t,&quot; you admit.
 
-&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="71" name="Flora/Smoke Break/Have been this way" tags="" position="100,975" size="100,100">&quot;Yes, I have,&quot; you lie. You look him in the eye, hoping this sells it.
+&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="69" name="Flora/Smoke Break/Have been this way" tags="" position="1100,850" size="100,100">&quot;Yes, I have,&quot; you lie. You look him in the eye, hoping this sells it.
 
-&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="72" name="Flora/Smoke Break/Misery loves company" tags="" position="225,975" size="100,100">&quot;I suppose it does.&quot; He doesn&#39;t look miserable. Actually, it&#39;s cheering you up a bit to have someone to talk to.
+&lt;%= story.render(&#39;Flora/Smoke Break/Beat 3&#39;) %&gt;</tw-passagedata><tw-passagedata pid="70" name="Flora/Smoke Break/Misery loves company" tags="" position="1225,850" size="100,100">&quot;I suppose it does.&quot; He doesn&#39;t look miserable. Actually, it&#39;s cheering you up a bit to have someone to talk to.
 
 He presses on. &quot;Have you been this way before?&quot;
 
   - &lt;%= exitsReplacer(`&quot;No, I haven&#39;t.&quot;`, `Flora/Smoke Break/Have not been this way`) %&gt;
-  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/What happened to you" tags="" position="350,975" size="100,100">&quot;What happened to you?&quot; you ask. It&#39;s nice to know you&#39;re not the only one with problems.
+  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;</tw-passagedata><tw-passagedata pid="71" name="Flora/Smoke Break/What happened to you" tags="" position="100,975" size="100,100">&quot;What happened to you?&quot; you ask. It&#39;s nice to know you&#39;re not the only one with problems.
 
 &quot;Trouble at work,&quot; he frowns. &quot;My employer is on the train with me, and he&#39;s an impatient man. He&#39;ll work me to death.&quot;
 
 He&#39;s lost in thought for a moment, and then changes the subject. &quot;Have you been this way before?&quot;
 
   - &lt;%= exitsReplacer(`&quot;No, I haven&#39;t.&quot;`, `Flora/Smoke Break/Have not been this way`) %&gt;
-  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Be alone" tags="" position="475,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures &lt;%= passageAppender(`your meaning is clear.`, &#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="75" name="Flora/Smoke Break/Beat 3" tags="" position="600,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
+  - &lt;%= exitsReplacer(`(Lie) &quot;Yes, I have.&quot;`, `Flora/Smoke Break/Have been this way`) %&gt;</tw-passagedata><tw-passagedata pid="72" name="Flora/Smoke Break/Be alone" tags="" position="225,975" size="100,100">&quot;I&#39;d like to be alone.&quot; Your tone ensures &lt;%= passageAppender(`your meaning is clear.`, &#39;Flora/Smoke Break/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="73" name="Flora/Smoke Break/Beat 3" tags="" position="350,975" size="100,100">&lt;% util.background(&#39;rgb(206, 139, 122)&#39;) %&gt;
 
 &lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;Your companion&lt;%} %&gt; nods towards the mountains. &quot;How far are you going?&quot;
 
   - [[&quot;To Schattental.&quot;-&gt;Flora/Smoke Break/Schattental]]
-  - [[(Lie) &quot;Just to the next stop.&quot;-&gt;Flora/Smoke Break/Next stop]]</tw-passagedata><tw-passagedata pid="76" name="Flora/Smoke Break/Schattental" tags="" position="725,975" size="100,100">&quot;To Schattental,&quot; you say.
+  - [[(Lie) &quot;Just to the next stop.&quot;-&gt;Flora/Smoke Break/Next stop]]</tw-passagedata><tw-passagedata pid="74" name="Flora/Smoke Break/Schattental" tags="" position="475,975" size="100,100">&quot;To Schattental,&quot; you say.
 
 &quot;Ah, the end of the line.&quot; He looks smug. &quot;You know, they&#39;ve been trying to extend the railroad beyond the valley for years. The enterprise has encountered a number of mysterious delys. The navvies keep wandering into the forest and vanishing.&quot;
 
@@ -1117,19 +1102,19 @@ He&#39;s lost in thought for a moment, and then changes the subject. &quot;Have 
 
   - [[&quot;Revenge.&quot; Tell him everything.-&gt;Flora/Smoke Break/Revenge]]
   - [[&quot;Research.&quot; That&#39;s mostly true.-&gt;Flora/Smoke Break/Research]]
-  - [[Be coy. &quot;I&#39;m not allowed to say.&quot;-&gt;Flora/Smoke Break/Coy]]</tw-passagedata><tw-passagedata pid="77" name="Flora/Smoke Break/Revenge" tags="" position="850,975" size="100,100">&quot;Revenge.&quot; You&#39;ve got no one else to talk to, so you tell him everything: Oliver, Cassia, the apparent vampire.  You half expect him to laugh in your face, but each time you check he looks deadly serious.
+  - [[Be coy. &quot;I&#39;m not allowed to say.&quot;-&gt;Flora/Smoke Break/Coy]]</tw-passagedata><tw-passagedata pid="75" name="Flora/Smoke Break/Revenge" tags="" position="600,975" size="100,100">&quot;Revenge.&quot; You&#39;ve got no one else to talk to, so you tell him everything: Oliver, Cassia, the apparent vampire.  You half expect him to laugh in your face, but each time you check he looks deadly serious.
 
 &quot;Perhaps the curse is crossing the mountains.&quot;
 
-  - [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="78" name="Flora/Smoke Break/Research" tags="" position="975,975" size="100,100">&quot;Research. I&#39;m a physician, and there&#39;s a natural phenomenon on the lake there I intend to study.&quot; The half-truth comes naturally; you can bring the language of science to bear on anything, even a monster-hunt.
+  - [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="76" name="Flora/Smoke Break/Research" tags="" position="725,975" size="100,100">&quot;Research. I&#39;m a physician, and there&#39;s a natural phenomenon on the lake there I intend to study.&quot; The half-truth comes naturally; you can bring the language of science to bear on anything, even a monster-hunt.
 
 &quot;I hope you&#39;re not talking about the curse!&quot; He starts to laugh, but catches himself when he sees your expression.
 
-  - [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="79" name="Flora/Smoke Break/Coy" tags="" position="1100,975" size="100,100">&quot;I&#39;m not allowed to say.&quot; You brush your hair out of your face and give &lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;him&lt;% } %&gt; an impish grin. You hope this makes you mysterious and interesting.
+  - [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="77" name="Flora/Smoke Break/Coy" tags="" position="850,975" size="100,100">&quot;I&#39;m not allowed to say.&quot; You brush your hair out of your face and give &lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;him&lt;% } %&gt; an impish grin. You hope this makes you mysterious and interesting.
 
 He plays along. &quot;Oh, a secret mission. I&#39;ll just assume you&#39;ve set out to break the curse.&quot;
 
-Now it&#39;s your turn. [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="80" name="Flora/Smoke Break/Next stop" tags="" position="1225,975" size="100,100">&quot;Just to the next stop,&quot; you lie. &quot;Visiting my grandfather.&quot;
+Now it&#39;s your turn. [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="78" name="Flora/Smoke Break/Next stop" tags="" position="975,975" size="100,100">&quot;Just to the next stop,&quot; you lie. &quot;Visiting my grandfather.&quot;
 
 &quot;Ah, little Gupreti!&quot; He smiles in recognition. &quot;The train reprovisions there. I usually take a stroll around the square near the station. There&#39;s an excellent little bakery there.&quot;
 
@@ -1137,7 +1122,7 @@ You can do this. &quot;Oh, I know. They make such good...&quot; Suddenly you can
 
 His smile freezes for a moment. &quot;Anyway, we will see if they are still in business. I hope the curse has not reached your grandfather&#39;s town.&quot;
 
-  - [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="81" name="Flora/Smoke Break/Curse" tags="" position="100,1100" size="100,100">&lt;% util.background(&#39;rgb(147, 71, 52)&#39;) %&gt;
+  - [[&quot;What curse?&quot;-&gt;Flora/Smoke Break/Curse]]</tw-passagedata><tw-passagedata pid="79" name="Flora/Smoke Break/Curse" tags="" position="1100,975" size="100,100">&lt;% util.background(&#39;rgb(147, 71, 52)&#39;) %&gt;
 
 &quot;What curse?&quot; you ask.
 
@@ -1147,7 +1132,7 @@ He locks eyes with you, and as he speaks images cross your vision. &quot;Fell be
 
 &lt;!-- Worth it to extend the hypnosis here? Could we learn one of Flora&#39;s phobias? --&gt;
 
-[[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="82" name="Flora/Smoke Break/Beat 5" tags="" position="225,1100" size="100,100">He breaks the spell.
+[[You take a shaky drag on your cigarette.-&gt;Flora/Smoke Break/Beat 5]]</tw-passagedata><tw-passagedata pid="80" name="Flora/Smoke Break/Beat 5" tags="" position="1225,975" size="100,100">He breaks the spell.
 
 &quot;But I&#39;m sure it&#39;s just superstition. Local color, to bring in gullible tourists. Not the sort of thing a scientist would worry about.&quot;
 
@@ -1157,37 +1142,37 @@ He turns back towards the landscape, leaning on the railing beside you. His elbo
 
 &lt;!-- Make this choice more consequential. --&gt;
   - [[You agree, but not tonight.-&gt;Flora/Smoke Break/Beat 6]]
-  - [[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="83" name="Flora/Smoke Break/Beat 6" tags="" position="350,1100" size="100,100">&lt;% util.background(&#39;rgb(115, 31, 9)&#39;) %&gt;
+  - [[You demur.-&gt;Flora/Smoke Break/Beat 6]]</tw-passagedata><tw-passagedata pid="81" name="Flora/Smoke Break/Beat 6" tags="" position="100,1100" size="100,100">&lt;% util.background(&#39;rgb(115, 31, 9)&#39;) %&gt;
 
 He&#39;s cheery and unfazed.
 
 &quot;Another time then.&quot;
 
-You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="84" name="Flora/Smoke Break/Coda" tags="" position="475,1100" size="100,100">&lt;div.interlude&gt;
+You drop your cigarette, give him a tight smile, and [[head back inside.-&gt;Flora/Smoke Break/Coda]]</tw-passagedata><tw-passagedata pid="82" name="Flora/Smoke Break/Coda" tags="" position="225,1100" size="100,100">&lt;div.interlude&gt;
 &lt;% if (s.knowEdwinsName) { %&gt;Edwin&lt;% } else { %&gt;The man&lt;% } %&gt; takes a deep breath, lights his own cigarette, takes a long draw. We see the embers reflected in his eyes. Suddenly the train plunges into a dark tunnel.
 
 &lt;% util.background(&#39;#111&#39;) %&gt;
 
 [[We&#39;ve reached the mountains.-&gt;Flora/Sleeper/Beat 1]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="85" name="Flora/Sleeper/Beat 1" tags="" position="600,1100" size="100,100">&lt;% util.background(&#39;#633&#39;) %&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="83" name="Flora/Sleeper/Beat 1" tags="" position="350,1100" size="100,100">&lt;% util.background(&#39;#633&#39;) %&gt;
 
 It&#39;s late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is &lt;%= passageInserter(&#39;already asleep&#39;, &#39;Flora/Sleeper/Examine Cass&#39;) %&gt; on the lower bunk.
 
-[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="86" name="Flora/Sleeper/Examine Cass" tags="" position="725,1100" size="100,100">Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.</tw-passagedata><tw-passagedata pid="87" name="Flora/Sleeper/Beat 2" tags="" position="850,1100" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and climb into your bunk. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s [[study.-&gt;Flora/Sleeper/Beat 3]]</tw-passagedata><tw-passagedata pid="88" name="Flora/Sleeper/Beat 3" tags="" position="975,1100" size="100,100">&lt;!-- I want Flora to find something useful in the book. I also had the idea that the illustration she finds here might be the thing that conveys one or more decisions from the smoking scene to C&#39;s game. --&gt;
+[[You&#39;re not quite ready for sleep.-&gt;Flora/Sleeper/Beat 2]]</tw-passagedata><tw-passagedata pid="84" name="Flora/Sleeper/Examine Cass" tags="" position="475,1100" size="100,100">Or is she? Her eyes are wide open, but she&#39;s sawing like a lumberjack. You wave your hand in front of her face but get no response.  Weird.</tw-passagedata><tw-passagedata pid="85" name="Flora/Sleeper/Beat 2" tags="" position="600,1100" size="100,100">&lt;% if (s.theBestiaryIsInTheRucksack) { %&gt;You dig in Cassia&#39;s rucksack for the book she mentioned. Ah - this must be it: A thick journal, leather worn smooth.&lt;% } else { %&gt;You spot one of Cassia&#39;s books lying open at the foot of her bed.&lt;% } %&gt;  You grab it and climb into your bunk. If you&#39;re going to kill a monster, you need to be ready - and if there&#39;s one thing you can do, it&#39;s [[study.-&gt;Flora/Sleeper/Beat 3]]</tw-passagedata><tw-passagedata pid="86" name="Flora/Sleeper/Beat 3" tags="" position="725,1100" size="100,100">&lt;!-- I want Flora to find something useful in the book. I also had the idea that the illustration she finds here might be the thing that conveys one or more decisions from the smoking scene to C&#39;s game. --&gt;
 You&#39;re lost in a remarkably detailed sketch of a {{crooked tree}} when a chill wind blows behind your ears.
 
 &lt;!-- This could be an opportunity for a subtle special effect. --&gt;
 The lamps flicker and dim.
 
-Holding your breath, you &lt;%= passageAppender(&#39;climb out of bed.&#39;, &#39;Flora/Sleeper/Beat 4&#39;) %&gt;</tw-passagedata><tw-passagedata pid="89" name="Flora/Sleeper/Beat 4" tags="" position="1100,1100" size="100,100">Yellow light pours through the window of the &lt;%= passageAppender(&#39;forward door.&#39;, &#39;Flora/Sleeper/Beat 5&#39;) %&gt;</tw-passagedata><tw-passagedata pid="90" name="Flora/Sleeper/Beat 5" tags="" position="1225,1100" size="100,100">You pull it open and find yourself hurtling forward into a barren landscape, blasted with dry, cold wind.
+Holding your breath, you &lt;%= passageAppender(&#39;climb out of bed.&#39;, &#39;Flora/Sleeper/Beat 4&#39;) %&gt;</tw-passagedata><tw-passagedata pid="87" name="Flora/Sleeper/Beat 4" tags="" position="850,1100" size="100,100">Yellow light pours through the window of the &lt;%= passageAppender(&#39;forward door.&#39;, &#39;Flora/Sleeper/Beat 5&#39;) %&gt;</tw-passagedata><tw-passagedata pid="88" name="Flora/Sleeper/Beat 5" tags="" position="975,1100" size="100,100">You pull it open and find yourself hurtling forward into a barren landscape, blasted with dry, cold wind.
 
 Turning around, you find the door locked behind you.
 
-There&#39;s &lt;%= passageAppender(&#39;a noise, above you.&#39;, &#39;Flora/Sleeper/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="91" name="Flora/Sleeper/Beat 6" tags="" position="100,1225" size="100,100">Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
+There&#39;s &lt;%= passageAppender(&#39;a noise, above you.&#39;, &#39;Flora/Sleeper/Beat 6&#39;) %&gt;</tw-passagedata><tw-passagedata pid="89" name="Flora/Sleeper/Beat 6" tags="" position="1100,1100" size="100,100">Atop the train staring down at you is a creature with the face of a fruit bat, the body of a chimpanzee, and the hands of a mole.
 
 It freezes as you lock eyes.
 
-Panicked, you try the door again and it [[gives way.-&gt;Flora/Sleeper/Beat 7]]</tw-passagedata><tw-passagedata pid="92" name="Flora/Sleeper/Beat 7" tags="" position="225,1225" size="100,100">You find yourself in the dining car. It is dark and empty except for a table at the far end. You step closer and realize Cass is there. You sit down across from her, and ask her &lt;%= passageAppender(`what&#39;s going on.`, &#39;Flora/Sleeper/Beat 8&#39;) %&gt;</tw-passagedata><tw-passagedata pid="93" name="Flora/Sleeper/Beat 8" tags="" position="350,1225" size="100,100">She&#39;s staring at the table. You follow her gaze and see a spider crawling across the table towards you. You go to brush it away, but your hands won&#39;t move; looking down, they are caught by a mess of web. You shudder and make a sound of disgust as you &lt;%= passageAppender(&#39;try to break free.&#39;, &#39;Flora/Sleeper/Beat 9&#39;) %&gt;</tw-passagedata><tw-passagedata pid="94" name="Flora/Sleeper/Beat 9" tags="" position="475,1225" size="100,100">Your eyes go back to the spider. No, spiders; waves of them, crawling towards you across the table. Cassia&#39;s hands flash out. She is grabbing spiders by the handful and swallowing them as fast as she can, keeping them from reaching you. You are &lt;%= passageAppender(&#39;simultaneously disgusted and grateful.&#39;, &#39;Flora/Sleeper/Beat 10&#39;) %&gt;</tw-passagedata><tw-passagedata pid="95" name="Flora/Sleeper/Beat 10" tags="" position="600,1225" size="100,100">You finally get your hand free. You raise it to sweep the table clear, and get a good look at the red-and-black spider on your wrist just before it sinks fangs into your skin. Fire runs through your veins as you [[black out.-&gt;Flora/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="96" name="Flora/Morning/Beat 1" tags="" position="725,1225" size="100,100">You wake feeling like you never slept. Cassia has obviously gotten into your head. At least she was protecting you.
+Panicked, you try the door again and it [[gives way.-&gt;Flora/Sleeper/Beat 7]]</tw-passagedata><tw-passagedata pid="90" name="Flora/Sleeper/Beat 7" tags="" position="1225,1100" size="100,100">You find yourself in the dining car. It is dark and empty except for a table at the far end. You step closer and realize Cass is there. You sit down across from her, and ask her &lt;%= passageAppender(`what&#39;s going on.`, &#39;Flora/Sleeper/Beat 8&#39;) %&gt;</tw-passagedata><tw-passagedata pid="91" name="Flora/Sleeper/Beat 8" tags="" position="100,1225" size="100,100">She&#39;s staring at the table. You follow her gaze and see a spider crawling across the table towards you. You go to brush it away, but your hands won&#39;t move; looking down, they are caught by a mess of web. You shudder and make a sound of disgust as you &lt;%= passageAppender(&#39;try to break free.&#39;, &#39;Flora/Sleeper/Beat 9&#39;) %&gt;</tw-passagedata><tw-passagedata pid="92" name="Flora/Sleeper/Beat 9" tags="" position="225,1225" size="100,100">Your eyes go back to the spider. No, spiders; waves of them, crawling towards you across the table. Cassia&#39;s hands flash out. She is grabbing spiders by the handful and swallowing them as fast as she can, keeping them from reaching you. You are &lt;%= passageAppender(&#39;simultaneously disgusted and grateful.&#39;, &#39;Flora/Sleeper/Beat 10&#39;) %&gt;</tw-passagedata><tw-passagedata pid="93" name="Flora/Sleeper/Beat 10" tags="" position="350,1225" size="100,100">You finally get your hand free. You raise it to sweep the table clear, and get a good look at the red-and-black spider on your wrist just before it sinks fangs into your skin. Fire runs through your veins as you [[black out.-&gt;Flora/Morning/Beat 1]]</tw-passagedata><tw-passagedata pid="94" name="Flora/Morning/Beat 1" tags="" position="475,1225" size="100,100">You wake feeling like you never slept. Cassia has obviously gotten into your head. At least she was protecting you.
 
 The train has stopped in a small mountain burg to resupply, and you feel a need to get away from the train for a bit, so you head out onto the platform. There&#39;s a hazy grey sunrise beneath heavy clouds. You spot Cass heading for a nearby pub, and follow her, shielding your head from thick drops of rain.
 
@@ -1214,13 +1199,13 @@ Your answer is cut short as the entire car rocks to one side. Something is out t
 
 END OF PROTOTYPE. [[Restart?-&gt;Start]]
 
-&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="97" name="Flora/Future Scenes" tags="" position="850,1225" size="100,100">The river is very low, reduced to a trickle. Scrawny trees line a wide mud flat. They lean in as if reaching for a drink.
+&lt;div.ending&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="95" name="Flora/Future Scenes" tags="" position="600,1225" size="100,100">The river is very low, reduced to a trickle. Scrawny trees line a wide mud flat. They lean in as if reaching for a drink.
 
 --
 
 A tangle of sun-bleached timber blankets the valley. &quot;Like an elephant graveyard,&quot; Flora whispers.
 
-&quot;An Ent graveyward,&quot; Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.</tw-passagedata><tw-passagedata pid="98" name="Start" tags="" position="975,1225" size="100,100">&lt;div.title-page&gt;
+&quot;An Ent graveyward,&quot; Cassia corrects. Flora looks closer and sees frozen faces on the fallen trunks.</tw-passagedata><tw-passagedata pid="96" name="Start" tags="" position="725,1225" size="100,100">&lt;div.title-page&gt;
 
 # &lt;%= story.title %&gt;
 
@@ -1234,7 +1219,7 @@ A tangle of sun-bleached timber blankets the valley. &quot;Like an elephant grav
 
 [[About]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="99" name="How to Play" tags="" position="1100,1225" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="97" name="How to Play" tags="" position="850,1225" size="100,100">&lt;%= story.title %&gt; is a two-player CYOA-style adventure. Find someone to play with.
 One of you will play as **Cassia** and the other as **Flora**.  The game is designed
 to be played together in real-time with voice chat.
 
@@ -1248,17 +1233,17 @@ When you see a box like this:
 Pick your next choice based on what your partner says to you - it might
 be a keyword or a whole phrase.
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="100" name="Play as Cassia" tags="" position="1225,1225" size="100,100">&lt;%
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="98" name="Play as Cassia" tags="" position="975,1225" size="100,100">&lt;%
 s.playerCharacter = story.CASSIA
 $(() =&gt; story.show(&quot;Act II&quot;))
-%&gt;</tw-passagedata><tw-passagedata pid="101" name="Play as Flora" tags="" position="100,1350" size="100,100">&lt;%
+%&gt;</tw-passagedata><tw-passagedata pid="99" name="Play as Flora" tags="" position="1100,1225" size="100,100">&lt;%
 s.playerCharacter = story.FLORA
 $(() =&gt; story.show(&quot;Act II&quot;))
-%&gt;</tw-passagedata><tw-passagedata pid="102" name="About" tags="" position="225,1350" size="100,100">A prototype of our multiplayer Twine game.
+%&gt;</tw-passagedata><tw-passagedata pid="100" name="About" tags="" position="1225,1225" size="100,100">A prototype of our multiplayer Twine game.
 
 --
 
-[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="103" name="Act II" tags="" position="350,1350" size="100,100">&lt;% util.background(&#39;#9b543e&#39;) %&gt;
+[[Return.-&gt;Start]]</tw-passagedata><tw-passagedata pid="101" name="Act II" tags="" position="100,1350" size="100,100">&lt;% util.background(&#39;#9b543e&#39;) %&gt;
 
 &lt;div.interlude&gt;
 A locomotive chugs through farmland and towards autumny, mountainous terrain. We&#39;re not in town anymore.
