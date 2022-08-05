@@ -10,7 +10,7 @@ Your hunger masks the loneliness of sitting across the table from <%= passageIns
 So you <%= passageAppender('take another bite of pheasant.', 'Cass/Dining/Beat 2') %>
 
 :: Cass/Dining/Examine Flora
-You observe tablemate: **Flora**, a young medic you met on your last job. She's hired you for this hunt, and foolishly you agreed she could tag along.
+You observe your tablemate: **Flora**, a young medic you met on your last job. She's hired you for this hunt, and foolishly you agreed she could tag along.
 
 :: Cass/Dining/Beat 2
 Flora is staring. Again.
@@ -65,7 +65,6 @@ You curse under your breath. For how long have you wearing it openly? You tuck t
 
   - [["It's a family heirloom."->Cass/Dining/Heirloom]]
   - [[(Lie) "It's holy water."->Cass/Dining/Holy]]
-  - [["None of your business."->Cass/Dining/Bloody]] <!-- Yotam: might be too early of an exit. Should we give the Cass player a warning? like (end) -->
 
 :: Cass/Dining/Heirloom
 <!-- <% CassInventory.add('holy water') %> -->
@@ -82,16 +81,6 @@ Stop! What did your partner say next?
 "<span.readaloud>It's a vial of holy water</span>," you lie. "In case of emergency." 
 
 <% Convo('Cass/Dining').addTopic('Pale') %>
-<% Convo('Cass/Dining').addTopic('Medication') %>
-<div.stop>
-Stop! What did your partner say next?
-<%= Convo('Cass/Dining').topicMenu() %>
-</div>
-
-:: Cass/Dining/Medication
-<span.partnertext>Holy water? Is that like a medication?</span>
-
-"Not exactly," you respond simply. You notice Flora shift.
 <div.stop>
 Stop! What did your partner say next?
 <%= Convo('Cass/Dining').topicMenu() %>

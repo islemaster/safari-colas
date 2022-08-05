@@ -49,7 +49,6 @@ You press, "<span.readaloud>What is that necklace you're wearing</span>?"
 Stop! How did your partner respond?
 
   - [[Holy->Flora/Dining/Holy]]
-  - [[Bloody->Flora/Dining/Bloody]] <!-- Yotam: might be too early of an exit -->
   - [[Family->Flora/Dining/Heirloom]]
 
 </div>
@@ -72,15 +71,6 @@ What the heck is holy water? Is it some kind of aqua regia or is it more for cle
 
 <!-- Flora notices Cass' pale skin. -->
 <% Convo('Flora/Dining').addTopic('Pale', "Why is your skin so pale?") %>
-
-<% Convo('Flora/Dining').addTopic('Medication', "Holy water? Is that like a medication?") %>
-
-<%= Convo('Flora/Dining').topicMenu() %>
-
-:: Flora/Dining/Medication
-"<span.readaloud>Holy water? Is that like a medication</span>?"
-
-"Not exactly," she grunts. You wait for her to explain, but she doesn't say any more.
 
 <%= Convo('Flora/Dining').topicMenu() %>
 
