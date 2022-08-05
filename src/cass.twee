@@ -10,7 +10,7 @@ Your hunger masks the loneliness of sitting across the table from <%= passageIns
 So you <%= passageAppender('take another bite of pheasant.', 'Cass/Dining/Beat 2') %>
 
 :: Cass/Dining/Examine Flora
-Your tablemate is **Flora**, a young medic you met on your last job. She's hired you for this hunt, and foolishly you agreed she could tag along.
+You observe tablemate: **Flora**, a young medic you met on your last job. She's hired you for this hunt, and foolishly you agreed she could tag along.
 
 :: Cass/Dining/Beat 2
 Flora is staring. Again.
@@ -65,7 +65,7 @@ You curse under your breath. For how long have you wearing it openly? You tuck t
 
   - [["It's a family heirloom."->Cass/Dining/Heirloom]]
   - [[(Lie) "It's holy water."->Cass/Dining/Holy]]
-  - [["None of your business."->Cass/Dining/Bloody]]
+  - [["None of your business."->Cass/Dining/Bloody]] <!-- Yotam: might be too early of an exit. Should we give the Cass player a warning? like (end) -->
 
 :: Cass/Dining/Heirloom
 <!-- <% CassInventory.add('holy water') %> -->
@@ -73,11 +73,9 @@ You curse under your breath. For how long have you wearing it openly? You tuck t
 
 Her expression is a like a confused deer. "It's a common quartz. My brother gave it to me."
 
-<% Convo('Cass/Dining').addTopic('Pale') %>
-<% Convo('Cass/Dining').addTopic('Medication') %>
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Holy
@@ -87,38 +85,43 @@ Stop! What did your partner say next?
 <% Convo('Cass/Dining').addTopic('Medication') %>
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Medication
 <span.partnertext>Holy water? Is that like a medication?</span>
 
-"Not exactly," you respond.
+"Not exactly," you respond simply. You notice Flora shift.
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Pale
-She looks at the <%= CassInventory.has('holy water') ? 'holy water' : 'reliquette' %> again. "Why is your skin so pale?"
+<span.partnertext>Why is your skin so pale?</span>
 
+She looks at your <%= CassInventory.has('holy water') ? 'holy water' : 'reliquette' %> again. 
+<!-- should these options indicate they are both (end)ers?-->
   - [["None of your business."->Cass/Dining/Bloody]]
   - [[Ignore her.->Cass/Dining/Bite]]
 
 <!-- These next two options are move-away and move-against behaviors: They don't invite more questions. -->
 :: Cass/Dining/Bloody
-"None of your <span.readaloud>bloody</span> business," you spit.
+"<span.readaloud>None of your bloody business</span>," you spit.
 
-How can you help her understand how [[dangerous->Cass/Dining/Beat 6]] this is going to be?
+How can you help her understand how <%= passageAppender('dangerous', 'Cass/Dining/Beat 6') %> this is going to be?
 
 :: Cass/Dining/Bite
-You take another <span.readaloud>bite</span> of pheasant and give Flora a look that says you're not in the mood for further questions.
+<!-- Yotam: Ignoring is an interesting choice. But given our approach to read aloud full sentences reading a single word to ignore feels wrong. I'm curious to try "She doesn't respond" on Flora's side but my sense says that'll lead to a poor UX -->
+<span.readaloud>"Enough."</span>
 
-How can you help her understand how [[dangerous->Cass/Dining/Beat 6]] this is going to be?
+You take another of pheasant and give Flora a look that says you're not in the mood for further questions.
+
+How can you help her understand how <%= passageAppender('dangerous', 'Cass/Dining/Beat 6') %> this is going to be?
 
 :: Cass/Dining/Schattental
 <% Convo('Cass/Dining').addTopic('Monsters') %>
-"How will we find the vampire when we get to Schattental?"
+<span.partnertext>How will we find the vampire when we get to Schattental?</span>
 
 That's a good question.
 
@@ -127,67 +130,69 @@ That's a good question.
   - [["He'll find us."->Cass/Dining/Find Us]]
 
 :: Cass/Dining/Castle
-"Look for the <span.readaloud>castle</span>. Vampires always have a castle." This isn't particularly true, but Flora won't know that. You haven't visited a proper castle in nearly a century.
+"<span.readaloud>Look for the castle</span>. Vampires always have a castle." This isn't particularly true, but Flora won't know that. You haven't visited a proper castle in nearly a century.
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Money
-"Follow the <span.readaloud>money</span>," you explain. "Old fashioned detective work. Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
+"<span.readaloud>Follow the money</span>," you explain. "Vampires can live a long time, and they are deeply entangled with their homeland. They're often found pulling the strings of local organized crime."
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Find Us
-"He'll <span.readaloud>find us</span>. Not a lot of strangers in the valley of shadows." You give her a pointed look. "We'll just have to be ready for a fight."
+"<span.readaloud>He'll find us</span>. Not a lot of strangers in the valley of shadows." You give her a pointed look. "We'll just have to be ready for a fight."
 
-Flora doesn't look thrilled about this plan.
+Flora doesn't look thrilled about this plan. Satisfaction swells in you. You're teaching her to respect the danger you will soon face, especially since she chose to come along.
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Book
 <% Convo('Cass/Dining').addTopic('Monsters') %>
-"Do you have a vampire book I could read?" What a question. You do have some lore, but it's unreliable.
+<span.partnertext>Do you have a vampire book I could read?</span>
 
-  - [["None of your business."->Cass/Dining/Bloody]]
+What a question. You do have some lore, but it's unreliable.
+
+  - [["None of your bloody business."->Cass/Dining/Bloody]]
   - [["I suppose you should do your homework."->Cass/Dining/Homework]]
   - [[Ignore her.->Cass/Dining/Bite]]
 
 :: Cass/Dining/Homework
-"I suppose you should do your <span.readaloud>homework</span>. It's in my rucksack. Maybe you should go get it."
+"<span.readaloud>I suppose you should do your homework</span>. It's in my rucksack. You're welcome to it."
 <!-- Brad: This seems plausible to me here, even though Cass is cagey, because it might redirect Flora. -->
 
 <div.stop>
 Stop! What did your partner say next?
-<%= Convo('Cass/Dining').keyMenu() %>
+<%= Convo('Cass/Dining').topicMenu() %>
 </div>
 
 :: Cass/Dining/Monsters
-"So," Flora continues, "who really hunts monsters for a living? How do you get that job?"
+<span.partnertext>Who really hunts monsters for a living? How do you get that job?</span>
 
-You're not exactly ready to open up to this novice nurse from Nowheresburgh.
+You're not exactly ready to open up to this novice nurse from Nowheresburgh. Enough of this.
 
   - [["None of your business."->Cass/Dining/Bloody]]
   - [[Ignore her.->Cass/Dining/Bite]]
 
 :: Cass/Dining/Beat 6
-You tire of this examination.
+You tire of her examination. A spider climbs atop the table, and you set your hand in the spider's path. Your gaze remains fixed on Flora's shrinking form. She begins blathering the start of some thought only for you to interrupt.
 
 "Look here lass. While in your employ I will suffer your chatter, but your breath is wasted. When our work is done, we will part ways for good. Yes?"
 
-It will be [[simpler that way.->Cass/Dining/Beat 7]]
+It will be <%= passageAppender('simpler that way.', 'Cass/Dining/Beat 7') %>
 
 :: Cass/Dining/Beat 7
-You apparently offend her, because she stands up.
+The spider reaches your palm. You make a fist. Apparently you offend her, because she stands up.
 
-"I need some air."
+"I need some air," she mutters.
 
 As she leaves the car, she passes [[a family at another table.->Cass/Dining/Beat 8]]
 
