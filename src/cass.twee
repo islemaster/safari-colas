@@ -181,30 +181,129 @@ It will be <%= passageAppender('simpler that way.', 'Cass/Dining/Beat 7') %>
 :: Cass/Dining/Beat 7
 The spider reaches your palm. You make a fist. Apparently you offend her, because she stands up.
 
-"I need some air," she mutters.
+"I need some air," she mutters, and <%= inlineExpander('walks away.', `<span>walks away. <em>What a child.</em></span>`) %>
 
-As she leaves the car, she passes [[a family at another table.->Cass/Dining/Beat 8]]
+As she leaves the car, she passes [[a family at another table.->Cass/Dining/Family 1]]
 
 <% Convo('Cass/Dining').cleanup() %>
 
-:: Cass/Dining/Beat 8
-Their interactions are gentle, like a placid lake.
+:: Cass/Dining/Family 1
 
-You can't make out what they're saying, but
-  - [[you feel calmer, watching them.->Cass/Dining/Beat 9]]
-  - [[you wonder if you'll ever know that feeling again.->Cass/Dining/Beat 9]]
+<% s.lastObserved = null; %>
 
-:: Cass/Dining/Beat 9
-A nearby patron notices you staring and asks probing questions.
+A <%= passageAppender(`tow-headed boy`, 'Cass/Family/Boy') %> is mashing peas on his plate, as <%= passageAppender(`his mother`, 'Cass/Family/Mother') %> chastises him across the table. <%= passageAppender(`The father`, 'Cass/Family/Father') %> squints at a <%= passageAppender('sodden rag', 'Cass/Family/Rag') %> through <%= inlineExpander(`pince-nez.`, `<span>those glasses that pinch one's nose.</span>`) %>
 
-You try to answer honestly, but this scares the patron away.
+The boy's <%= passageAppender(`sister`, 'Cass/Family/Girl') %> has turned around in her seat, and is staring at you over the back of the bench.
+
+:: Cass/Family/Boy
+
+<% switch (s.lastObserved) {
+   case 'Mother': %>Her son<% break;
+   case 'Father': %>His son<% break;
+   case 'Girl': %>Her older brother<% break;
+   default: %>The boy<% }
+%> is clearly a little snot, in the best way. If he's anything like you, he'll be flinging peas with his fork any second now.
+
+<% s.lastObserved = 'Boy'; %>
+
+:: Cass/Family/Mother
+
+<% switch (s.lastObserved) {
+   case 'Boy': %>His mother<% break;
+   case 'Father': %>His wife<% break;
+   case 'Girl': %>Her mother<% break;
+   default: %>The mother<% }
+%> wears a high collar with her hair pulled up and back. She looks severe, but she's endlessly <%= inlineExpander(`patient with her son's antics.`, `<span>patient with her son's antics. <em>Not my strong suit.</em></span>`) %>
+
+<% s.lastObserved = 'Mother'; %>
+
+:: Cass/Family/Father
+
+<% switch (s.lastObserved) {
+   case 'Boy': %>His father<% break;
+   case 'Mother': %>Her husband<% break;
+   case 'Girl': %>Her father<% break;
+   default: %>The father<% }
+%> is making a point about some article he's reading. It doesn't seem to bother him that the family isn't listening.
+
+<% s.lastObserved = 'Father'; %>
+
+:: Cass/Family/Rag
+
+The tabloid <%
+  switch (s.lastObserved) {
+   case 'Father': %>he<% break;
+   case 'Mother': %>her husband<% break;
+   case 'Boy': %>his father<% break;
+   case 'Girl': %>her father<% break;
+   default: %>the father<% }
+%> browses is "sodden" in two senses - it's dripping with the remains of dinner, and also (you're certain) full of sordid nonsense.
+
+Well, except for the illustration of a werewolf on the front page; it's accurate enough to your recollection. You make a mental note to track down the artist when this job is done.
+
+<% s.lastObserved = null; %>
+
+:: Cass/Family/Girl
+
+<% switch (s.lastObserved) {
+   case 'Boy': %>His little sister<% break;
+   case 'Mother': %>Her daughter<% break;
+   case 'Father': %>His daughter<% break;
+   default: %>The girl<% }
+%> is just a mass of blonde curls above two saucer eyes from this angle. She peers at you with curiosity.
+
+- [[Smile at her->Cass/Family/Smile]]
+
+<% s.lastObserved = 'Girl'; %>
+
+:: Cass/Family/Smile
+
+You grin in the girl's direction. Her eyes somehow grow even wider as she squeaks and buries her face in her mother's arm.
+
+Not the reaction you were hoping for. Still, the scene before you is gentle and cozy.
+
+- [[You wonder if you'll ever know that feeling again.->Cass/Family/Noticed]]
+- [[Maybe you were too hard on Flora.->Cass/Family/Too hard on Flora]]
+
+<% delete s.lastObserved; /* state cleanup */ %>
+
+:: Cass/Family/Too hard on Flora
+
+You forget sometimes what it was like to be on your own for the first time.
+
+- [[Go find Flora and apologize.->Cass/Smoke Break/Beat 1]]
+- [[Give her some space. You'll make amends tomorrow.->Cass/Family/Noticed]]
+
+:: Cass/Family/Noticed
+
+The little girl peeks out from behind her mother again.
+
+A young man at another table follows the girl's gaze to your face, looks startled, and leaves the car. It shakes your reverie, and now you notice other uncomfortable glances from around the room.
+
+You [[leave->Cass/Baggage/Beat 1]] before anyone starts asking questions.
 
 <!--
-TODO: Expand this scene. Use alternative choices to reveal information to the player even if they are unchosen options.
+Cass follows Flora, intending to patch up the relationship. She sees Flora
+talking to Edwin outside.
+
+What happens next depends on Flora.
+  If she gives Edwin the cold-shoulder and early-exits the scene, she bumps
+  into Cass on her way back to the sleeper, but is in a bad mood and brushes
+  past her.
+  If she lets Edwin cheer her up, Cass envies Flora's sudden connection, gets
+  cold feet, and goes to prepare for bed.
 -->
+:: Cass/Smoke Break/Beat 1
 
-This isn't going well. You [[leave->Cass/Baggage/Beat 1]] before anyone else starts asking questions.
+<% util.background('rgb(242, 171, 154)') %>
 
+<div.scene-heading>Between cars, at sunset.</div>
+
+{{TODO}} [[Cass/Baggage/Beat 1]]
+
+<!--
+August 5 we discussed that the baggage car might not be the best scene here, we may want Cassia's "prepare the room" to take place back in the sleeper - after all, she'd keep her tools with her.
+-->
 :: Cass/Baggage/Beat 1
 
 <% util.background('rgb(98, 32, 66)') %>
