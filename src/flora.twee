@@ -95,7 +95,8 @@ Stop! How did your partner respond?
 </div>
 
 :: Flora/Dining/Schattental
-You ask, "<span.readaloud>How will we find the vampire when we get to Schattental?</span>" {{Should we help the player pronounce this? "SHOT-in-tall"}}
+You ask, "<span.readaloud>How will we find the vampire when we get to Schattental?</span>"
+<!-- Should we help the player pronounce this? "SHOT-in-tall" -->
 
 <% Convo('Flora/Dining').addTopic('Monsters', "Who really hunts monsters for a living?") %>
 
