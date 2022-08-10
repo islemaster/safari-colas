@@ -279,7 +279,7 @@ You aren't sure that's true, but you could use a friend right now.
 
 He cocks a knowing eyebrow. "That is her mistake. You seem like excellent company to me."
 
-<%= story.render('Flora/Smoke Break/Beat 3') %>
+<%= story.render('Flora/Smoke Break/Code Exchange') %>
 
 :: Flora/Smoke Break/How did you know
 "How did you know?" you ask.
@@ -303,12 +303,12 @@ You aren't sure that's true, but you could use a friend right now.
 :: Flora/Smoke Break/Have not been this way
 "No, I haven't," you admit.
 
-<%= story.render('Flora/Smoke Break/Beat 3') %>
+<%= story.render('Flora/Smoke Break/Code Exchange') %>
 
 :: Flora/Smoke Break/Have been this way
 "Yes, I have," you lie. You look him in the eye, hoping this sells it.
 
-<%= story.render('Flora/Smoke Break/Beat 3') %>
+<%= story.render('Flora/Smoke Break/Code Exchange') %>
 
 :: Flora/Smoke Break/Misery loves company
 "I suppose it does." He doesn't look miserable. Actually, it's cheering you up a bit to have someone to talk to.
@@ -330,6 +330,52 @@ He's lost in thought for a moment, and then changes the subject. "Have you been 
 
 :: Flora/Smoke Break/Be alone
 "I'd like to be alone." Your tone ensures <%= passageAppender(`your meaning is clear.`, 'Flora/Smoke Break/Beat 6') %>
+
+<% s.floraRejectedEdwin = true; %>
+
+:: Flora/Smoke Break/Code Exchange
+<!--
+  If Flora is cheered up by Edwin the code exhange happens just before Beat 3.
+  If Flora rejects Edwin, the code exchange happens just before the Coda.
+-->
+
+<div.stop>
+When you are both <%= passageInserter('ready', 'Flora/Smoke Break/Code Exchange/2') %>:
+</div>
+
+:: Flora/Smoke Break/Code Exchange/2
+Read this phrase aloud:
+
+<% if (s.floraRejectedEdwin) { %>
+<span.readaloud>Rain begins to spatter on the windows as the hills grow taller around us.</span>
+<% } else { %> 
+<span.readaloud>The light of sunset pours into the dining car and refracts through our abandoned water glasses.</span>
+<% } %>
+
+Then click the phrase your partner reads:
+
+  - <%= exitsReplacer('The whistle blows', 'Flora/Smoke Break/Code Exchange/3') %>
+  - <%= exitsReplacer('The churn of the engine slows', 'Flora/Smoke Break/Code Exchange/4') %>
+
+:: Flora/Smoke Break/Code Exchange/3
+<% s.cassFollowedFlora = true; %>
+"The whistle blows..."
+
+<% if (s.floraRejectedEdwin) { %>
+[[Continue.->Flora/Smoke Break/Runs into Cass]]
+<% } else { %>
+[[Continue.->Flora/Smoke Break/Beat 3]]
+<% } %>
+
+:: Flora/Smoke Break/Code Exchange/4
+<% s.cassFollowedFlora = false; %>
+"The churn of the engine slows..."
+
+<% if (s.floraRejectedEdwin) { %>
+[[Continue.->Flora/Smoke Break/Coda]]
+<% } else { %>
+[[Continue.->Flora/Smoke Break/Beat 3]]
+<% } %>
 
 :: Flora/Smoke Break/Beat 3
 
@@ -421,7 +467,18 @@ He's cheery and unfazed.
 
 "Another time then."
 
+<% /* If Flora rejected Edwin, code exchange as she heads back inside. */ %>
+<% if (s.floraRejectedEdwin) { %>
+You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/Smoke Break/Code Exchange]]
+<% } else { %> 
 You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/Smoke Break/Coda]]
+<% } %>
+
+:: Flora/Smoke Break/Runs into Cass
+
+As open the door back to the dining car you nearly run headfirst into Cassia. Ugh, you don't need this right now. You [[brush past her->Flora/Smoke Break/Coda]] and make your way back towards the sleeper car.
+
+<% s.cassFollowedFlora = true; %>
 
 :: Flora/Smoke Break/Coda
 
@@ -436,7 +493,7 @@ You drop your cigarette, give him a tight smile, and [[head back inside.->Flora/
 :: Flora/Sleeper/Beat 1
 <% util.background('#633') %>
 
-It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car, where Cassia is <%= passageInserter('already asleep', 'Flora/Sleeper/Examine Cass') %> on the lower bunk.
+It's late.  A porter is just lighting lamps in the hall. You return to the sleeper car<% if (s.cassFollowedFlora) { %>, where Cassia is <%= passageInserter('already asleep', 'Flora/Sleeper/Examine Cass') %> on the lower bunk<% } %>.
 
 [[You're not quite ready for sleep.->Flora/Sleeper/Beat 2]]
 

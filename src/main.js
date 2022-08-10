@@ -159,6 +159,9 @@ function paragraphFix(html) {
   if ('<p' !== html.slice(0, 2)) {
     html = `<p>${html}</p>`;
   }
+  // Sometimes rendered content puts paragraph tags inside list items
+  // which is undesirable.
+  html = html.replace(/<li><p>(.*)<\/p>\s*<\/li>/g, '<li>$1</li>');
   return html;
 }
 
@@ -193,9 +196,16 @@ window.passageInserter = function (linkText, passageName) {
   const id = `passage-inserter-${slugify(linkText)}`;
   $(() => $(`#${id}`).one('click', event => {
     // Insert new content after the link's paragraph
-    let content = paragraphFix(story.render(passageName));
+    let rawContent = story.render(passageName);
+    let content = paragraphFix(rawContent);
     let $p = $(event.target).closest('p');
-    $p.after(content);
+    if ($p.length) {
+      $p.after(content);
+    } else {
+      // Special case for inside a stop-box
+      let $div = $(event.target).closest('div');
+      $div.append(content);
+    }
 
     // Fade previous paragraphs a bit
     while ($p.length) {
@@ -253,17 +263,20 @@ window.passageAppender = function (linkText, passageName) {
 window.exitsReplacer = function (linkText, passageName) {
   const id = `exits-replacer-${slugify(linkText)}`;
   $(() => $(`#${id}`).one('click', event => {
-    // Remove the entire unordered list
-    $(event.target).closest('ul').remove();
+    const $ul = $(event.target).closest('ul');
 
     // Fade existing paragraphs a bit
     $(`.passage p`).addClass('faded-text');
 
-    // Add the new passage to the end of the page
-    appendPassage(passageName);
-
     // Ensure it's scrolled into view
-    scrollTo($(`.passage p`).last()[0]);
+    scrollTo($ul[0]);
+
+    let rawContent = story.render(passageName);
+    let content = paragraphFix(rawContent);
+    $ul.after(content);
+
+    // Remove the entire unordered list
+    $ul.remove();
   }));
   return `<a href="javascript:void(0)" id="${id}">${linkText}</a>`;
 };

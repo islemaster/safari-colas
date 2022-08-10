@@ -271,7 +271,7 @@ Not the reaction you were hoping for. Still, the scene before you is gentle and 
 
 You forget sometimes what it was like to be on your own for the first time.
 
-- [[Go find Flora and apologize.->Cass/Smoke Break/Beat 1]]
+- [[Go find Flora and apologize.->Cass/Family/Apologize]]
 - [[Give her some space. You'll make amends tomorrow.->Cass/Family/Noticed]]
 
 :: Cass/Family/Noticed
@@ -280,7 +280,49 @@ The little girl peeks out from behind her mother again.
 
 A young man at another table follows the girl's gaze to your face, looks startled, and leaves the car. It shakes your reverie, and now you notice other uncomfortable glances from around the room.
 
-You [[leave->Cass/Baggage/Beat 1]] before anyone starts asking questions.
+You [[leave->Cass/Dining/Code Exchange]] before anyone starts asking questions.
+
+:: Cass/Family/Apologize
+<% s.cassFollowedFlora = true; %>
+<%= story.render('Cass/Dining/Code Exchange') %>
+
+:: Cass/Dining/Code Exchange
+
+<div.stop>
+When you are both <%= passageInserter('ready', 'Cass/Dining/Code Exchange/2') %>:
+</div>
+
+:: Cass/Dining/Code Exchange/2
+
+Click the phrase your partner reads:
+
+  - <%= exitsReplacer('Rain begins to spatter on the windows', 'Cass/Dining/Code Exchange/3') %>
+  - <%= exitsReplacer('Sunset pours into the dining car', 'Cass/Dining/Code Exchange/4') %>
+
+:: Cass/Dining/Code Exchange/3
+<% s.floraRejectedEdwin = true %>
+"Rain begins to spatter on the windows..."
+
+<%= story.render('Cass/Dining/Code Exchange/5') %>
+
+:: Cass/Dining/Code Exchange/4
+<% s.floraRejectedEdwin = false %>
+"Sunset pours into the dining car..."
+
+<%= story.render('Cass/Dining/Code Exchange/5') %>
+
+:: Cass/Dining/Code Exchange/5
+Then read this phrase aloud:
+
+<% if (s.cassFollowedFlora) { %>
+<span.readaloud>The whistle blows - a piercing wail that makes us jump.</span>
+
+[[Continue.->Cass/Smoke Break/Beat 1]]
+<% } else { %>
+<span.readaloud>The churn of the engine slows as the train winds around a bend.</span>
+
+[[Continue.->Cass/Baggage/Beat 1]]
+<% } %>
 
 <!--
 Cass follows Flora, intending to patch up the relationship. She sees Flora
@@ -299,7 +341,32 @@ What happens next depends on Flora.
 
 <div.scene-heading>Between cars, at sunset.</div>
 
-{{TODO}} [[Cass/Baggage/Beat 1]]
+<% if (s.floraRejectedEdwin) { %>
+As you approach the door to pass between cars, you can see Flora through the glass. She's leaving a tall gentleman and heading towards you.  As she walks he turns to follow her, and...
+
+It can't be. Is that Alphryn?
+
+He spots you and starts towards the other car.
+
+Flora pushes through the door and notices you there. She frowns, then pushes past you without a word.
+
+When you look up, Alphryn (if that was him) is gone.
+
+- [[Chase after him.->Cass/Smoke Break/Beat 2]]
+- [[Look after Flora.->Cass/Baggage/Beat 1]]
+<% } else { %>
+As you approach the door to pass between cars, you can see Flora through the glass.  She's looking out at the landscape while talking to a tall gentleman who's clearly taken an interest in her. She smiles up at him.
+
+It seems she's found a new friend. That's fine. It's better if she has someone else to talk to.
+
+It'd be awkward to interrupt and apologize now. You'd better leave her to it, and [[prepare for the night.->Cass/Baggage/Beat 1]]
+<% } %>
+
+:: Cass/Smoke Break/Beat 2
+
+{{TODO Chase Alphryn down the train, lose him, something eerie happens.}}
+
+[[Cass/Baggage/Beat 1]]
 
 <!--
 August 5 we discussed that the baggage car might not be the best scene here, we may want Cassia's "prepare the room" to take place back in the sleeper - after all, she'd keep her tools with her.
